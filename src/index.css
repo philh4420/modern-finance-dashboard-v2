@@ -1,0 +1,453 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Sora:wght@500;600;700;800&display=swap');
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+:root {
+  font-family: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  line-height: 1.45;
+  font-weight: 500;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  --bg-top: oklch(96% 0.024 96);
+  --bg-bottom: oklch(92% 0.03 220);
+  --surface: color-mix(in oklab, white 78%, transparent);
+  --surface-card: color-mix(in oklab, white 88%, transparent);
+  --stroke: color-mix(in oklab, oklch(40% 0.02 230) 20%, transparent);
+  --text-main: oklch(25% 0.03 245);
+  --text-muted: oklch(48% 0.03 245);
+
+  --tone-finance: oklch(66% 0.17 178);
+  --tone-savings: oklch(72% 0.15 88);
+  --tone-housing: oklch(63% 0.14 195);
+  --tone-groceries: oklch(69% 0.18 65);
+  --tone-transport: oklch(62% 0.15 246);
+  --tone-dining: oklch(66% 0.18 30);
+
+  --tone-positive: oklch(62% 0.18 160);
+  --tone-negative: oklch(60% 0.18 28);
+  --tone-neutral: oklch(56% 0.04 238);
+  --tone-warning: oklch(72% 0.16 80);
+
+  --shadow-soft: 0 18px 38px -24px oklch(35% 0.03 220 / 0.34);
+
+  /* Contextual bridge tokens for upcoming Tailwind/shadcn migration. */
+  --fx-panel-bg: var(--surface);
+  --fx-panel-card-bg: color-mix(in oklab, var(--surface-card) 92%, white 8%);
+  --fx-panel-border: color-mix(in oklab, var(--stroke) 82%, white 18%);
+  --fx-panel-border-strong: color-mix(in oklab, var(--stroke) 90%, white 10%);
+  --fx-panel-shadow: var(--shadow-soft);
+  --fx-panel-highlight: inset 0 1px 0 color-mix(in oklab, white 40%, transparent);
+  --fx-input-bg: color-mix(in oklab, var(--surface-card) 92%, white 8%);
+  --fx-input-border: color-mix(in oklab, var(--stroke) 86%, white 14%);
+  --fx-focus-ring: color-mix(in oklab, var(--tone-finance) 32%, transparent);
+  --fx-focus-ring-strong: color-mix(in oklab, var(--tone-finance) 56%, transparent);
+  --fx-primary-gradient: linear-gradient(125deg, var(--tone-finance), var(--tone-savings));
+  --fx-danger-soft: color-mix(in oklab, var(--tone-negative) 12%, white 88%);
+  --fx-warning-soft: color-mix(in oklab, var(--tone-warning) 12%, white 88%);
+  --fx-positive-soft: color-mix(in oklab, var(--tone-positive) 12%, white 88%);
+
+  --radius: 0.95rem;
+
+  --background: color-mix(in oklab, var(--bg-top) 86%, white 14%);
+
+  --foreground: var(--text-main);
+
+  --card: var(--fx-panel-card-bg);
+
+  --card-foreground: var(--text-main);
+
+  --popover: color-mix(in oklab, var(--surface-card) 95%, white 5%);
+
+  --popover-foreground: var(--text-main);
+
+  --primary: var(--tone-finance);
+
+  --primary-foreground: oklch(20% 0.03 220);
+
+  --secondary: color-mix(in oklab, var(--surface-card) 90%, white 10%);
+
+  --secondary-foreground: var(--text-main);
+
+  --muted: color-mix(in oklab, var(--surface-card) 84%, white 16%);
+
+  --muted-foreground: var(--text-muted);
+
+  --accent: color-mix(in oklab, var(--tone-savings) 10%, var(--surface-card));
+
+  --accent-foreground: var(--text-main);
+
+  --destructive: color-mix(in oklab, var(--tone-negative) 80%, black 20%);
+
+  --border: var(--fx-panel-border);
+
+  --input: var(--fx-input-border);
+
+  --ring: color-mix(in oklab, var(--tone-finance) 68%, white 32%);
+
+  --chart-1: var(--tone-finance);
+
+  --chart-2: var(--tone-savings);
+
+  --chart-3: var(--tone-housing);
+
+  --chart-4: var(--tone-groceries);
+
+  --chart-5: var(--tone-dining);
+
+  --sidebar: color-mix(in oklab, var(--surface-card) 96%, white 4%);
+
+  --sidebar-foreground: var(--text-main);
+
+  --sidebar-primary: var(--tone-finance);
+
+  --sidebar-primary-foreground: oklch(20% 0.03 220);
+
+  --sidebar-accent: color-mix(in oklab, var(--tone-savings) 8%, var(--surface-card));
+
+  --sidebar-accent-foreground: var(--text-main);
+
+  --sidebar-border: var(--fx-panel-border);
+
+  --sidebar-ring: var(--ring);
+}
+
+* {
+  font-family: inherit;
+}
+
+* ,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  color: var(--text-main);
+  background-color: var(--background);
+  background:
+    radial-gradient(circle at 12% 15%, color-mix(in oklab, var(--tone-savings) 30%, transparent), transparent 36%),
+    radial-gradient(circle at 86% 85%, color-mix(in oklab, var(--tone-finance) 24%, transparent), transparent 42%),
+    linear-gradient(180deg, var(--bg-top), var(--bg-bottom));
+}
+
+h1,
+h2 {
+  font-family: 'Sora', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.015em;
+}
+
+@theme inline {
+  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --font-display: 'Sora', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --radius-2xl: calc(var(--radius) + 8px);
+  --radius-3xl: calc(var(--radius) + 12px);
+  --radius-4xl: calc(var(--radius) + 16px);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-ink: var(--text-main);
+  --color-ink-muted: var(--text-muted);
+  --color-surface-glass: var(--surface);
+  --color-surface-panel: var(--fx-panel-card-bg);
+  --color-surface-soft: color-mix(in oklab, var(--surface-card) 96%, white 4%);
+  --color-finance: var(--tone-finance);
+  --color-savings: var(--tone-savings);
+  --color-housing: var(--tone-housing);
+  --color-groceries: var(--tone-groceries);
+  --color-transport: var(--tone-transport);
+  --color-dining: var(--tone-dining);
+  --color-positive: var(--tone-positive);
+  --color-warning: var(--tone-warning);
+  --color-negative: var(--tone-negative);
+  --color-neutral-tone: var(--tone-neutral);
+  --shadow-finance-soft: var(--shadow-soft);
+}
+
+.dark {
+  --background: oklch(22% 0.02 245);
+  --foreground: oklch(96% 0.01 245);
+  --card: color-mix(in oklab, oklch(22% 0.02 245) 84%, oklch(40% 0.06 195) 16%);
+  --card-foreground: var(--foreground);
+  --popover: color-mix(in oklab, var(--card) 92%, black 8%);
+  --popover-foreground: var(--foreground);
+  --primary: color-mix(in oklab, var(--tone-finance) 82%, white 18%);
+  --primary-foreground: oklch(16% 0.02 245);
+  --secondary: oklch(28% 0.015 245);
+  --secondary-foreground: var(--foreground);
+  --muted: oklch(28% 0.015 245);
+  --muted-foreground: oklch(76% 0.01 245);
+  --accent: color-mix(in oklab, var(--tone-savings) 18%, oklch(28% 0.015 245));
+  --accent-foreground: var(--foreground);
+  --destructive: color-mix(in oklab, var(--tone-negative) 88%, black 12%);
+  --border: oklch(100% 0 0 / 12%);
+  --input: oklch(100% 0 0 / 18%);
+  --ring: color-mix(in oklab, var(--tone-finance) 74%, white 26%);
+  --chart-1: color-mix(in oklab, var(--tone-finance) 82%, white 18%);
+  --chart-2: color-mix(in oklab, var(--tone-savings) 82%, white 18%);
+  --chart-3: color-mix(in oklab, var(--tone-housing) 82%, white 18%);
+  --chart-4: color-mix(in oklab, var(--tone-groceries) 82%, white 18%);
+  --chart-5: color-mix(in oklab, var(--tone-dining) 82%, white 18%);
+  --sidebar: color-mix(in oklab, var(--card) 90%, black 10%);
+  --sidebar-foreground: var(--foreground);
+  --sidebar-primary: var(--primary);
+  --sidebar-primary-foreground: var(--primary-foreground);
+  --sidebar-accent: var(--secondary);
+  --sidebar-accent-foreground: var(--foreground);
+  --sidebar-border: var(--border);
+  --sidebar-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  ::selection {
+    background: color-mix(in oklab, var(--tone-finance) 24%, transparent);
+    color: var(--text-main);
+  }
+
+  input[type='checkbox'] {
+    accent-color: var(--tone-finance);
+  }
+}
+
+/* Phase 1 bridge: finance-themed Tailwind utilities that mirror legacy panels/forms/tables. */
+@utility fx-shell {
+  width: min(1880px, calc(100% - clamp(1.25rem, 2.8vw, 3.5rem)));
+  margin-inline: auto;
+  padding: clamp(1.1rem, 2vw + 0.5rem, 2.7rem) 0 2.8rem;
+}
+
+@utility fx-panel {
+  border-radius: 1.2rem;
+  border: 1px solid var(--fx-panel-border);
+  background: var(--fx-panel-card-bg);
+  box-shadow: var(--fx-panel-shadow);
+  padding: clamp(0.88rem, 1.2vw, 1.2rem);
+}
+
+@utility fx-panel-glass {
+  border-radius: 1.2rem;
+  border: 1px solid var(--fx-panel-border);
+  background: var(--fx-panel-bg);
+  backdrop-filter: blur(12px);
+  box-shadow: var(--fx-panel-shadow);
+  padding: clamp(1rem, 1.6vw, 1.5rem);
+}
+
+@utility fx-panel-tint-finance {
+  background:
+    radial-gradient(150% 170% at 0% 0%, color-mix(in oklab, var(--tone-finance) 12%, transparent), transparent 68%),
+    radial-gradient(130% 140% at 100% -20%, color-mix(in oklab, var(--tone-savings) 10%, transparent), transparent 68%),
+    var(--fx-panel-card-bg);
+}
+
+@utility fx-panel-tint-warning {
+  background:
+    radial-gradient(145% 165% at 100% -20%, color-mix(in oklab, var(--tone-warning) 12%, transparent), transparent 66%),
+    var(--fx-panel-card-bg);
+}
+
+@utility fx-card {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklab, var(--stroke) 78%, transparent);
+  background: color-mix(in oklab, var(--surface-card) 92%, white 8%);
+  box-shadow: var(--fx-panel-highlight);
+  padding: 0.85rem;
+}
+
+@utility fx-card-soft {
+  border-radius: 0.96rem;
+  border: 1px solid color-mix(in oklab, var(--stroke) 78%, transparent);
+  background:
+    radial-gradient(130% 130% at 100% -20%, color-mix(in oklab, var(--tone-finance) 8%, transparent), transparent 64%),
+    color-mix(in oklab, var(--surface-card) 93%, white 7%);
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 38%, transparent),
+    0 16px 34px -34px color-mix(in oklab, black 44%, transparent);
+  padding: 0.85rem;
+}
+
+@utility fx-kicker {
+  margin: 0;
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+  font-weight: 650;
+}
+
+@utility fx-subnote {
+  margin: 0;
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  line-height: 1.4;
+}
+
+@utility fx-heading {
+  font-family: 'Sora', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.015em;
+  color: var(--text-main);
+}
+
+@utility fx-value {
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  font-weight: 700;
+}
+
+@utility fx-field-label {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  font-weight: 620;
+}
+
+@utility fx-field-control {
+  width: 100%;
+  border-radius: 0.78rem;
+  border: 1px solid var(--fx-input-border);
+  background: var(--fx-input-bg);
+  color: var(--text-main);
+  padding: 0.58rem 0.7rem;
+  font: inherit;
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease,
+    background-color 160ms ease;
+  &::placeholder {
+    color: color-mix(in oklab, var(--text-muted) 82%, transparent);
+  }
+  &:hover {
+    border-color: color-mix(in oklab, var(--tone-finance) 28%, var(--fx-input-border));
+  }
+  &:focus,
+  &:focus-visible {
+    outline: none;
+    border-color: color-mix(in oklab, var(--tone-finance) 52%, var(--fx-input-border));
+    box-shadow: 0 0 0 3px var(--fx-focus-ring);
+  }
+}
+
+@utility fx-field-control-select {
+  appearance: none;
+  background-image:
+    linear-gradient(180deg,
+      color-mix(in oklab, var(--surface-card) 85%, white 15%),
+      color-mix(in oklab, var(--surface-card) 97%, var(--tone-finance) 3%)),
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20' fill='none'%3E%3Cpath d='M5.25 7.25L10 12l4.75-4.75' stroke='%23304B53' stroke-width='1.85' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+  background-repeat: no-repeat, no-repeat;
+  background-position: center, right 0.72rem center;
+  background-size: cover, 0.9rem;
+  padding-right: 2.2rem;
+}
+
+@utility fx-table-wrap {
+  margin-top: 0.85rem;
+  overflow-x: auto;
+}
+
+@utility fx-table-card {
+  border-radius: 1rem;
+  border: 1px solid color-mix(in oklab, var(--stroke) 82%, transparent);
+  background: color-mix(in oklab, var(--surface-card) 92%, white 8%);
+  padding: 0.35rem 0.65rem;
+  box-shadow:
+    inset 0 1px 0 color-mix(in oklab, white 45%, transparent),
+    inset -18px 0 24px -28px color-mix(in oklab, var(--tone-finance) 40%, transparent),
+    0 22px 44px -44px color-mix(in oklab, black 40%, transparent);
+}
+
+@utility fx-status-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  border-radius: 999px;
+  border: 1px solid color-mix(in oklab, var(--stroke) 84%, transparent);
+  background: color-mix(in oklab, var(--surface-card) 92%, white 8%);
+  padding: 0.22rem 0.55rem;
+  font-size: 0.73rem;
+  font-weight: 650;
+  letter-spacing: 0.02em;
+  line-height: 1.1;
+}
+
+@utility fx-status-pill-positive {
+  border-color: color-mix(in oklab, var(--tone-positive) 34%, var(--stroke));
+  background: color-mix(in oklab, var(--tone-positive) 10%, var(--surface-card));
+  color: color-mix(in oklab, var(--tone-positive) 70%, black 30%);
+}
+
+@utility fx-status-pill-warning {
+  border-color: color-mix(in oklab, var(--tone-warning) 34%, var(--stroke));
+  background: color-mix(in oklab, var(--tone-warning) 10%, var(--surface-card));
+  color: color-mix(in oklab, var(--tone-warning) 72%, black 28%);
+}
+
+@utility fx-status-pill-danger {
+  border-color: color-mix(in oklab, var(--tone-negative) 34%, var(--stroke));
+  background: color-mix(in oklab, var(--tone-negative) 10%, var(--surface-card));
+  color: color-mix(in oklab, var(--tone-negative) 72%, black 28%);
+}
+
+@utility fx-tone-positive {
+  color: var(--tone-positive);
+}
+
+@utility fx-tone-warning {
+  color: var(--tone-warning);
+}
+
+@utility fx-tone-negative {
+  color: var(--tone-negative);
+}
+
+@utility fx-tone-neutral {
+  color: var(--tone-neutral);
+}
