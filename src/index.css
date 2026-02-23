@@ -6,7 +6,10 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
-  font-family: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --fx-font-sans-stack: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
+  --fx-font-display-stack: 'Sora', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+
+  font-family: var(--fx-font-sans-stack);
   line-height: 1.45;
   font-weight: 500;
   font-synthesis: none;
@@ -136,6 +139,7 @@ body,
 body {
   margin: 0;
   min-width: 320px;
+  overflow-x: hidden;
   color: var(--text-main);
   background-color: var(--background);
   background:
@@ -146,13 +150,13 @@ body {
 
 h1,
 h2 {
-  font-family: 'Sora', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--fx-font-display-stack);
   letter-spacing: -0.015em;
 }
 
 @theme inline {
-  --font-sans: 'Manrope', ui-sans-serif, system-ui, -apple-system, sans-serif;
-  --font-display: 'Sora', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--fx-font-sans-stack);
+  --font-display: var(--fx-font-display-stack);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -332,7 +336,7 @@ h2 {
 }
 
 @utility fx-heading {
-  font-family: 'Sora', 'Manrope', ui-sans-serif, system-ui, sans-serif;
+  font-family: var(--fx-font-display-stack);
   letter-spacing: -0.015em;
   color: var(--text-main);
 }

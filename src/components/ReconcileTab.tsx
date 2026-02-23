@@ -1547,7 +1547,7 @@ export function ReconcileTab({
             <DialogHeader className="modal__header reconcile-duplicate-confirm-modal__header">
               <div>
                 <p className="panel-kicker">Reconcile</p>
-                <DialogTitle id="reconcile-duplicate-confirm-title">{duplicateConfirmationCopy.title}</DialogTitle>
+                <DialogTitle>{duplicateConfirmationCopy.title}</DialogTitle>
                 <DialogDescription className="subnote text-inherit">{duplicateConfirmationCopy.description}</DialogDescription>
               </div>
               <CrudButton
@@ -1616,7 +1616,7 @@ export function ReconcileTab({
             <DialogHeader className="modal__header reconcile-close-confirm-modal__header">
               <div>
                 <p className="panel-kicker">Reconcile</p>
-                <DialogTitle id="reconcile-close-confirm-title">
+                <DialogTitle>
                   {monthCloseConfirmMode === 'retry' ? 'Confirm Retry Recalculation' : 'Confirm Month Close'}
                 </DialogTitle>
                 <DialogDescription className="subnote text-inherit">

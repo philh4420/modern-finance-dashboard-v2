@@ -2239,7 +2239,7 @@ export function BillsTab({
                             </td>
                             <td>
                               <div className="cell-stack">
-                                <span
+                                <PillBadge
                                   className={
                                     row.priceCreepAlert === 'critical'
                                       ? 'pill pill--critical'
@@ -2249,7 +2249,7 @@ export function BillsTab({
                                   }
                                 >
                                   {row.priceCreepAlert}
-                                </span>
+                                </PillBadge>
                                 <small>{row.priceCreepReason}</small>
                               </div>
                             </td>
@@ -2318,7 +2318,7 @@ export function BillsTab({
                         <small>liquid after due</small>
                       </div>
                       <div className="bills-timeline-signal">
-                        <span
+                        <PillBadge
                           className={
                             event.impactSeverity === 'critical'
                               ? 'pill pill--critical'
@@ -2332,7 +2332,7 @@ export function BillsTab({
                             : event.impactSeverity === 'warning'
                               ? 'Watch cash'
                               : 'Healthy'}
-                        </span>
+                        </PillBadge>
                         <small>Impact {formatMoney(-event.amount)}</small>
                       </div>
                     </li>
@@ -2661,7 +2661,7 @@ export function BillsTab({
                                     </PillBadge>
                                   ) : null}
                                   <small>{linkedAccount ? `Linked ${linkedAccount.name}` : 'No linked account'}</small>
-                                  <span
+                                  <PillBadge
                                     className={
                                       autopayRisk === undefined
                                         ? 'pill pill--neutral'
@@ -2683,7 +2683,7 @@ export function BillsTab({
                                         : autopayRisk.level === 'unlinked'
                                           ? 'Link account'
                                           : 'Healthy'}
-                                  </span>
+                                  </PillBadge>
                                   <small>
                                     {autopayRisk?.projectedBeforeDue !== undefined
                                       ? `Projected before due ${formatMoney(autopayRisk.projectedBeforeDue)}`
@@ -3004,7 +3004,7 @@ export function BillsTab({
             <DialogHeader className="modal__header bills-overlap-confirm-modal__header">
               <div>
                 <p className="panel-kicker">Bills</p>
-                <DialogTitle id="bill-overlap-confirm-title">{overlapConfirmationCopy.title}</DialogTitle>
+                <DialogTitle>{overlapConfirmationCopy.title}</DialogTitle>
                 <DialogDescription className="subnote text-inherit">{overlapConfirmationCopy.description}</DialogDescription>
               </div>
               <CrudButton

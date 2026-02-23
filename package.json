@@ -9,6 +9,7 @@
     "convex:deploy": "convex deploy",
     "icons:generate": "node scripts/generate-icons.mjs",
     "build": "tsc -b && vite build",
+    "check:ui": "vitest run tests/uiConventions.test.ts",
     "lint": "eslint .",
     "test": "vitest run",
     "preview": "vite preview"

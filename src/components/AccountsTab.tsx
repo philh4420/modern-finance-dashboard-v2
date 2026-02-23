@@ -1228,8 +1228,10 @@ export function AccountsTab({
     typeFilter,
   ])
 
+  const [riskAlertNowMs] = useState(() => Date.now())
+
   const accountRiskAlerts = useMemo<AccountRiskAlert[]>(() => {
-    const now = Date.now()
+    const now = riskAlertNowMs
     const alerts: AccountRiskAlert[] = []
 
     accountRows.forEach((row) => {
@@ -1306,7 +1308,7 @@ export function AccountsTab({
         return left.title.localeCompare(right.title, undefined, { sensitivity: 'base' })
       })
       .slice(0, 14)
-  }, [accountRows, formatMoney])
+  }, [accountRows, formatMoney, riskAlertNowMs])
 
   const accountRiskSummary = useMemo(
     () => ({
@@ -1390,17 +1392,31 @@ export function AccountsTab({
     const liquidAccountIds = new Set(
       accountRows.filter((row) => row.entry.liquid && row.entry.type !== 'debt').map((row) => String(row.entry._id)),
     )
-    let runningLiquid = accountForecastModel.liquidStart
+    return forecastVisibleEvents
+      .reduce(
+        (state, event) => {
+          const nextRunningLiquid =
+            event.accountId && liquidAccountIds.has(event.accountId)
+              ? roundCurrency(state.runningLiquid + event.amount)
+              : state.runningLiquid
 
-    return forecastVisibleEvents.map((event) => {
-      if (event.accountId && liquidAccountIds.has(event.accountId)) {
-        runningLiquid = roundCurrency(runningLiquid + event.amount)
-      }
-      return {
-        ...event,
-        runningLiquid: roundCurrency(runningLiquid),
-      }
-    })
+          return {
+            runningLiquid: nextRunningLiquid,
+            rows: [
+              ...state.rows,
+              {
+                ...event,
+                runningLiquid: roundCurrency(nextRunningLiquid),
+              },
+            ],
+          }
+        },
+        {
+          runningLiquid: accountForecastModel.liquidStart,
+          rows: [] as Array<(typeof forecastVisibleEvents)[number] & { runningLiquid: number }>,
+        },
+      )
+      .rows
   }, [accountForecastModel.liquidStart, accountRows, forecastVisibleEvents])
 
   const activityFeed = useMemo<AccountActivityEvent[]>(() => {
@@ -2402,7 +2418,7 @@ export function AccountsTab({
                 {accountRiskAlerts.map((alert) => (
                   <li key={alert.id}>
                     <div className="accounts-alert-head">
-                      <span
+                      <PillBadge
                         className={
                           alert.severity === 'critical'
                             ? 'pill pill--critical'
@@ -2412,7 +2428,7 @@ export function AccountsTab({
                         }
                       >
                         {alert.severity}
-                      </span>
+                      </PillBadge>
                       <p>{alert.title}</p>
                     </div>
                     <small>{alert.detail}</small>
@@ -2725,7 +2741,7 @@ export function AccountsTab({
                 <li key={event.id} className="accounts-activity-item">
                   <div className="accounts-activity-item-head">
                     <p>{event.title}</p>
-                    <span
+                    <PillBadge
                       className={
                         event.status === 'posted'
                           ? 'pill pill--neutral'
@@ -2735,7 +2751,7 @@ export function AccountsTab({
                       }
                     >
                       {event.status}
-                    </span>
+                    </PillBadge>
                   </div>
                   <small>{event.detail}</small>
                   <div className="accounts-activity-item-meta">

@@ -207,7 +207,7 @@ export function PrintReportModal({
         <DialogHeader className="modal__header modal__header--report">
           <div>
             <p className="panel-kicker">Report</p>
-            <DialogTitle id="print-report-title">Print Report</DialogTitle>
+            <DialogTitle>Print Report</DialogTitle>
             <DialogDescription className="subnote text-inherit">
               Choose month range and sections to include in the print view.
             </DialogDescription>

@@ -2312,13 +2312,13 @@ export function PurchasesTab({
                   <small>
                     Net {formatMoney(window.projectedNet)} · {window.coverageMonths.toFixed(1)}m coverage
                   </small>
-                  <span
+                  <PillBadge
                     className={
                       window.risk === 'critical' ? 'pill pill--critical' : window.risk === 'warning' ? 'pill pill--warning' : 'pill pill--good'
                     }
                   >
                     {window.risk}
-                  </span>
+                  </PillBadge>
                 </SurfaceCard>
               ))}
               <SurfaceCard className="purchase-cashflow-item">

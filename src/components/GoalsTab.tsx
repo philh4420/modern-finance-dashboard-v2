@@ -1898,10 +1898,10 @@ export function GoalsTab({
                           ) : (
                             <div className="cell-stack">
                               {fundingSources.map((entry, index) => (
-                                <span key={`${goal._id}-${entry.sourceType}-${entry.sourceId}-${index}`} className="pill pill--neutral">
+                                <PillBadge key={`${goal._id}-${entry.sourceType}-${entry.sourceId}-${index}`} className="pill pill--neutral">
                                   {goalFundingSourceKindLabel(entry.sourceType)}: {getFundingSourceDisplay(entry.sourceType, entry.sourceId)}
                                   {entry.allocationPercent !== undefined ? ` · ${entry.allocationPercent}%` : ''}
-                                </span>
+                                </PillBadge>
                               ))}
                             </div>
                           )}
