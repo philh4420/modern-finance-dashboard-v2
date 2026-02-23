@@ -1,4 +1,5 @@
 import { Fragment, useMemo, useState, type Dispatch, type FormEvent, type SetStateAction } from 'react'
+import { CrudButton, CrudInput, CrudLabel, CrudSelect, CrudTextarea, DataTable, PillBadge, SurfaceCard } from '@/components/ui'
 import type {
   AccountEntry,
   Cadence,
@@ -960,7 +961,7 @@ export function IncomeTab({
 
   return (
     <section className="editor-grid income-tab-shell" aria-label="Income management">
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Income</p>
@@ -977,8 +978,8 @@ export function IncomeTab({
         <form className="entry-form entry-form--grid" onSubmit={onAddIncome} aria-describedby="income-form-hint">
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="income-source">Source</label>
-              <input
+              <CrudLabel htmlFor="income-source">Source</CrudLabel>
+              <CrudInput
                 id="income-source"
                 value={incomeForm.source}
                 onChange={(event) => setIncomeForm((prev) => ({ ...prev, source: event.target.value }))}
@@ -988,8 +989,8 @@ export function IncomeTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="income-amount">Planned net amount</label>
-              <input
+              <CrudLabel htmlFor="income-amount">Planned net amount</CrudLabel>
+              <CrudInput
                 id="income-amount"
                 type="number"
                 inputMode="decimal"
@@ -1002,8 +1003,8 @@ export function IncomeTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="income-actual">Actual paid amount</label>
-              <input
+              <CrudLabel htmlFor="income-actual">Actual paid amount</CrudLabel>
+              <CrudInput
                 id="income-actual"
                 type="number"
                 inputMode="decimal"
@@ -1016,8 +1017,8 @@ export function IncomeTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="income-gross">Gross amount</label>
-              <input
+              <CrudLabel htmlFor="income-gross">Gross amount</CrudLabel>
+              <CrudInput
                 id="income-gross"
                 type="number"
                 inputMode="decimal"
@@ -1030,8 +1031,8 @@ export function IncomeTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="income-tax">Tax deduction</label>
-              <input
+              <CrudLabel htmlFor="income-tax">Tax deduction</CrudLabel>
+              <CrudInput
                 id="income-tax"
                 type="number"
                 inputMode="decimal"
@@ -1044,8 +1045,8 @@ export function IncomeTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="income-ni">NI deduction</label>
-              <input
+              <CrudLabel htmlFor="income-ni">NI deduction</CrudLabel>
+              <CrudInput
                 id="income-ni"
                 type="number"
                 inputMode="decimal"
@@ -1063,8 +1064,8 @@ export function IncomeTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="income-pension">Pension deduction</label>
-              <input
+              <CrudLabel htmlFor="income-pension">Pension deduction</CrudLabel>
+              <CrudInput
                 id="income-pension"
                 type="number"
                 inputMode="decimal"
@@ -1077,8 +1078,8 @@ export function IncomeTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="income-cadence">Frequency</label>
-              <select
+              <CrudLabel htmlFor="income-cadence">Frequency</CrudLabel>
+              <CrudSelect
                 id="income-cadence"
                 value={incomeForm.cadence}
                 onChange={(event) =>
@@ -1094,12 +1095,12 @@ export function IncomeTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="income-forecast-smoothing">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="income-forecast-smoothing">
+                <CrudInput
                   id="income-forecast-smoothing"
                   type="checkbox"
                   checked={incomeForm.forecastSmoothingEnabled}
@@ -1112,10 +1113,10 @@ export function IncomeTab({
                   }
                 />
                 Use seasonal smoothing for forecast math
-              </label>
+              </CrudLabel>
               <div className="inline-cadence-controls">
-                <label htmlFor="income-forecast-smoothing-months">Lookback (months)</label>
-                <select
+                <CrudLabel htmlFor="income-forecast-smoothing-months">Lookback (months)</CrudLabel>
+                <CrudSelect
                   id="income-forecast-smoothing-months"
                   value={incomeForm.forecastSmoothingMonths}
                   disabled={!incomeForm.forecastSmoothingEnabled}
@@ -1132,13 +1133,13 @@ export function IncomeTab({
                   <option value="12">12</option>
                   <option value="18">18</option>
                   <option value="24">24</option>
-                </select>
+                </CrudSelect>
               </div>
             </div>
 
             <div className="form-field">
-              <label htmlFor="income-destination-account">Default landing account</label>
-              <select
+              <CrudLabel htmlFor="income-destination-account">Default landing account</CrudLabel>
+              <CrudSelect
                 id="income-destination-account"
                 value={incomeForm.destinationAccountId}
                 onChange={(event) =>
@@ -1154,12 +1155,12 @@ export function IncomeTab({
                     {account.name}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="income-day">Received day</label>
-              <input
+              <CrudLabel htmlFor="income-day">Received day</CrudLabel>
+              <CrudInput
                 id="income-day"
                 type="number"
                 inputMode="numeric"
@@ -1172,8 +1173,8 @@ export function IncomeTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="income-anchor">Pay date anchor</label>
-              <input
+              <CrudLabel htmlFor="income-anchor">Pay date anchor</CrudLabel>
+              <CrudInput
                 id="income-anchor"
                 type="date"
                 value={incomeForm.payDateAnchor}
@@ -1183,9 +1184,9 @@ export function IncomeTab({
 
             {isCustomCadence(incomeForm.cadence) ? (
               <div className="form-field form-field--span2">
-                <label htmlFor="income-custom-interval">Custom cadence</label>
+                <CrudLabel htmlFor="income-custom-interval">Custom cadence</CrudLabel>
                 <div className="inline-cadence-controls">
-                  <input
+                  <CrudInput
                     id="income-custom-interval"
                     type="number"
                     inputMode="numeric"
@@ -1200,7 +1201,7 @@ export function IncomeTab({
                     }
                     required
                   />
-                  <select
+                  <CrudSelect
                     id="income-custom-unit"
                     value={incomeForm.customUnit}
                     onChange={(event) =>
@@ -1215,14 +1216,14 @@ export function IncomeTab({
                         {option.label}
                       </option>
                     ))}
-                  </select>
+                  </CrudSelect>
                 </div>
               </div>
             ) : null}
 
             <div className="form-field form-field--span2">
-              <label htmlFor="income-employer-note">Employer note</label>
-              <input
+              <CrudLabel htmlFor="income-employer-note">Employer note</CrudLabel>
+              <CrudInput
                 id="income-employer-note"
                 type="text"
                 placeholder="Optional payroll / employer context"
@@ -1232,8 +1233,8 @@ export function IncomeTab({
             </div>
 
             <div className="form-field form-field--span2">
-              <label htmlFor="income-notes">Notes</label>
-              <textarea
+              <CrudLabel htmlFor="income-notes">Notes</CrudLabel>
+              <CrudTextarea
                 id="income-notes"
                 rows={3}
                 placeholder="Optional"
@@ -1261,14 +1262,14 @@ export function IncomeTab({
           </p>
 
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary">
+            <CrudButton type="submit" className="btn btn-primary">
               Add income
-            </button>
+            </CrudButton>
           </div>
         </form>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Income</p>
@@ -1279,13 +1280,13 @@ export function IncomeTab({
             </p>
           </div>
           <div className="panel-actions">
-            <input
+            <CrudInput
               aria-label="Search income entries"
               placeholder="Search sources or notes…"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
             />
-            <select
+            <CrudSelect
               aria-label="Sort income entries"
               value={sortKey}
               onChange={(event) => setSortKey(event.target.value as IncomeSortKey)}
@@ -1299,8 +1300,8 @@ export function IncomeTab({
               <option value="cadence_asc">Frequency</option>
               <option value="next_payday_asc">Next payday</option>
               <option value="day_asc">Received day</option>
-            </select>
-            <button
+            </CrudSelect>
+            <CrudButton
               type="button"
               className="btn btn-ghost btn--sm"
               onClick={() => {
@@ -1310,7 +1311,7 @@ export function IncomeTab({
               disabled={search.length === 0 && sortKey === 'source_asc'}
             >
               Clear
-            </button>
+            </CrudButton>
           </div>
         </header>
 
@@ -1340,22 +1341,22 @@ export function IncomeTab({
                   <p>Capture all sources for one month in a single save operation.</p>
                 </div>
                 {!bulkModeOpen ? (
-                  <button type="button" className="btn btn-secondary btn--sm" onClick={openBulkMode}>
+                  <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={openBulkMode}>
                     Open bulk mode
-                  </button>
+                  </CrudButton>
                 ) : (
-                  <button type="button" className="btn btn-ghost btn--sm" onClick={closeBulkMode}>
+                  <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={closeBulkMode}>
                     Close bulk mode
-                  </button>
+                  </CrudButton>
                 )}
               </header>
 
               {bulkModeOpen ? (
                 <>
                   <div className="income-bulk-mode-toolbar">
-                    <label className="income-bulk-field">
+                    <CrudLabel className="income-bulk-field">
                       <span>Cycle month</span>
-                      <input
+                      <CrudInput
                         type="month"
                         value={bulkCycleMonth}
                         onChange={(event) => {
@@ -1366,32 +1367,32 @@ export function IncomeTab({
                           }
                         }}
                       />
-                    </label>
+                    </CrudLabel>
                     <div className="income-bulk-mode-toolbar-actions">
-                      <button
+                      <CrudButton
                         type="button"
                         className="btn btn-ghost btn--sm"
                         onClick={() => setBulkRows(buildBulkRowsForMonth(bulkCycleMonth))}
                       >
                         Reload month
-                      </button>
-                      <button type="button" className="btn btn-ghost btn--sm" onClick={applyBulkDefaultValues}>
+                      </CrudButton>
+                      <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={applyBulkDefaultValues}>
                         Use planned defaults
-                      </button>
-                      <button
+                      </CrudButton>
+                      <CrudButton
                         type="button"
                         className="btn btn-primary btn--sm"
                         onClick={() => void saveBulkIncomeLogs()}
                         disabled={isBulkSaving}
                       >
                         {isBulkSaving ? 'Saving…' : `Save ${bulkRows.length} rows`}
-                      </button>
+                      </CrudButton>
                     </div>
                   </div>
 
                   <div className="income-bulk-import">
-                    <label htmlFor="income-bulk-import-text">CSV import (optional)</label>
-                    <textarea
+                    <CrudLabel htmlFor="income-bulk-import-text">CSV import (optional)</CrudLabel>
+                    <CrudTextarea
                       id="income-bulk-import-text"
                       rows={3}
                       placeholder="Source,status,receivedDay,receivedAmount,paymentReference,payslipReference,note"
@@ -1399,9 +1400,9 @@ export function IncomeTab({
                       onChange={(event) => setBulkImportText(event.target.value)}
                     />
                     <div className="income-bulk-import-actions">
-                      <button type="button" className="btn btn-ghost btn--sm" onClick={applyBulkImportText}>
+                      <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={applyBulkImportText}>
                         Apply CSV to table
-                      </button>
+                      </CrudButton>
                       <small>
                         Format: <code>source,status,day,amount,paymentRef,payslipRef,note</code>
                       </small>
@@ -1410,7 +1411,7 @@ export function IncomeTab({
                   </div>
 
                   <div className="table-wrap table-wrap--card">
-                    <table className="data-table data-table--income-bulk" data-testid="income-bulk-table">
+                    <DataTable className="data-table data-table--income-bulk" data-testid="income-bulk-table">
                       <caption className="sr-only">Bulk monthly income logs</caption>
                       <thead>
                         <tr>
@@ -1428,7 +1429,7 @@ export function IncomeTab({
                           <tr key={row.incomeId}>
                             <td>{row.source}</td>
                             <td>
-                              <select
+                              <CrudSelect
                                 className="inline-select"
                                 value={row.status}
                                 onChange={(event) => {
@@ -1452,10 +1453,10 @@ export function IncomeTab({
                                 <option value="on_time">On time</option>
                                 <option value="late">Late</option>
                                 <option value="missed">Missed</option>
-                              </select>
+                              </CrudSelect>
                             </td>
                             <td>
-                              <input
+                              <CrudInput
                                 className="inline-input"
                                 type="number"
                                 min="1"
@@ -1472,7 +1473,7 @@ export function IncomeTab({
                               />
                             </td>
                             <td>
-                              <input
+                              <CrudInput
                                 className="inline-input"
                                 type="number"
                                 min="0"
@@ -1491,7 +1492,7 @@ export function IncomeTab({
                               />
                             </td>
                             <td>
-                              <input
+                              <CrudInput
                                 className="inline-input"
                                 type="text"
                                 value={row.paymentReference}
@@ -1508,7 +1509,7 @@ export function IncomeTab({
                               />
                             </td>
                             <td>
-                              <input
+                              <CrudInput
                                 className="inline-input"
                                 type="text"
                                 value={row.payslipReference}
@@ -1525,7 +1526,7 @@ export function IncomeTab({
                               />
                             </td>
                             <td>
-                              <input
+                              <CrudInput
                                 className="inline-input"
                                 type="text"
                                 value={row.note}
@@ -1541,7 +1542,7 @@ export function IncomeTab({
                           </tr>
                         ))}
                       </tbody>
-                    </table>
+                    </DataTable>
                   </div>
                 </>
               ) : null}
@@ -1604,10 +1605,10 @@ export function IncomeTab({
               </header>
               <div className="income-source-trends-grid">
                 {sourceTrendCards.map((trend) => (
-                  <article key={trend.id} className="income-source-trend-card">
+                  <SurfaceCard key={trend.id} className="income-source-trend-card">
                     <div className="income-source-trend-head">
                       <p>{trend.source}</p>
-                      <span className={incomeStatusPillClass(trend.status)}>{incomeStatusLabel(trend.status)}</span>
+                      <PillBadge className={incomeStatusPillClass(trend.status)}>{incomeStatusLabel(trend.status)}</PillBadge>
                     </div>
                     <div className="income-source-trend-windows">
                       {trend.windows.map((window) => (
@@ -1624,12 +1625,12 @@ export function IncomeTab({
                     <small className="income-source-trend-foot">
                       {trend.lastLoggedDate ? `Last logged ${trend.lastLoggedDate}` : 'No payment logs yet'}
                     </small>
-                  </article>
+                  </SurfaceCard>
                 ))}
               </div>
             </section>
             <div className="table-wrap table-wrap--card">
-              <table className="data-table data-table--income" data-testid="income-table">
+              <DataTable className="data-table data-table--income" data-testid="income-table">
                 <caption className="sr-only">Income entries</caption>
                 <colgroup>
                   <col className="income-col income-col--source" />
@@ -1761,7 +1762,7 @@ export function IncomeTab({
                           <td className="income-reliability-cell">
                             {rowReliability.total === 0 ? (
                               <div className="cell-stack">
-                                <span className="pill pill--neutral">No logs</span>
+                                <PillBadge className="pill pill--neutral">No logs</PillBadge>
                                 <small>Start logging monthly outcomes to score reliability.</small>
                               </div>
                             ) : (
@@ -1777,30 +1778,30 @@ export function IncomeTab({
                                   Late streak {rowReliability.lateStreak} · Missed streak {rowReliability.missedStreak}
                                 </small>
                                 {latestPaymentCheck ? (
-                                  <span className={reliabilityStatusPillClass(latestPaymentCheck.status)}>
+                                  <PillBadge className={reliabilityStatusPillClass(latestPaymentCheck.status)}>
                                     {latestPaymentCheck.cycleMonth} · {reliabilityStatusLabel(latestPaymentCheck.status)}
-                                  </span>
+                                  </PillBadge>
                                 ) : null}
                               </div>
                             )}
                           </td>
                           <td>
                             <div className="cell-stack">
-                              <span className={incomeStatusPillClass(incomeStatus)}>{incomeStatusLabel(incomeStatus)}</span>
+                              <PillBadge className={incomeStatusPillClass(incomeStatus)}>{incomeStatusLabel(incomeStatus)}</PillBadge>
                               {entry.destinationAccountId ? (
                                 accountNameById.has(String(entry.destinationAccountId)) ? (
-                                  <span className="pill pill--neutral">
+                                  <PillBadge className="pill pill--neutral">
                                     {accountNameById.get(String(entry.destinationAccountId))}
-                                  </span>
+                                  </PillBadge>
                                 ) : (
-                                  <span className="pill pill--warning">Missing account</span>
+                                  <PillBadge className="pill pill--warning">Missing account</PillBadge>
                                 )
                               ) : (
-                                <span className="pill pill--neutral">Unassigned account</span>
+                                <PillBadge className="pill pill--neutral">Unassigned account</PillBadge>
                               )}
-                              <span className="pill pill--cadence">
+                              <PillBadge className="pill pill--cadence">
                                 {cadenceLabel(entry.cadence, entry.customInterval, entry.customUnit)}
-                              </span>
+                              </PillBadge>
                               {entry.forecastSmoothingEnabled ? (
                                 <small>
                                   Smoothing on ({smoothingLookbackMonths}m) · {formatMoney(rowForecastNormalizedMonthly)} / month
@@ -1812,9 +1813,9 @@ export function IncomeTab({
                           </td>
                           <td>
                             <div className="cell-stack">
-                              <span className="pill pill--neutral">{entry.receivedDay ? `Day ${entry.receivedDay}` : 'No day'}</span>
+                              <PillBadge className="pill pill--neutral">{entry.receivedDay ? `Day ${entry.receivedDay}` : 'No day'}</PillBadge>
                               <small>Anchor {entry.payDateAnchor ?? '-'}</small>
-                              <span className="pill pill--neutral">{nextPayday ? toIsoDate(nextPayday) : 'Next n/a'}</span>
+                              <PillBadge className="pill pill--neutral">{nextPayday ? toIsoDate(nextPayday) : 'Next n/a'}</PillBadge>
                             </div>
                           </td>
                           <td>
@@ -1835,53 +1836,53 @@ export function IncomeTab({
                             <div className="row-actions row-actions--income">
                               {isEditing ? (
                                 <>
-                                  <button
+                                  <CrudButton
                                     type="button"
                                     className="btn btn-secondary btn--sm"
                                     onClick={() => void saveIncomeEdit()}
                                   >
                                     Save
-                                  </button>
-                                  <button
+                                  </CrudButton>
+                                  <CrudButton
                                     type="button"
                                     className="btn btn-ghost btn--sm"
                                     onClick={() => setIncomeEditId(null)}
                                   >
                                     Cancel
-                                  </button>
+                                  </CrudButton>
                                 </>
                               ) : (
                                 <>
-                                  <button
+                                  <CrudButton
                                     type="button"
                                     className="btn btn-secondary btn--sm"
                                     onClick={() => startIncomeEdit(entry)}
                                   >
                                     Edit
-                                  </button>
-                                  <button
+                                  </CrudButton>
+                                  <CrudButton
                                     type="button"
                                     className="btn btn-ghost btn--sm"
                                     onClick={() => openPaymentLog(entry)}
                                   >
                                     Log payment
-                                  </button>
-                                  <button
+                                  </CrudButton>
+                                  <CrudButton
                                     type="button"
                                     className="btn btn-ghost btn--sm"
                                     onClick={() => (isChangeTrackerOpen ? closeChangeTracker() : openChangeTracker(entry))}
                                   >
                                     {isChangeTrackerOpen ? 'Close change' : 'Track change'}
-                                  </button>
+                                  </CrudButton>
                                 </>
                               )}
-                              <button
+                              <CrudButton
                                 type="button"
                                 className="btn btn-ghost btn--sm"
                                 onClick={() => void onDeleteIncome(entry._id)}
                               >
                                 Remove
-                              </button>
+                              </CrudButton>
                             </div>
                           </td>
                         </tr>
@@ -1920,9 +1921,9 @@ export function IncomeTab({
                                   </div>
                                 </div>
                                 <div className="income-edit-grid">
-                                  <label className="income-edit-field">
+                                  <CrudLabel className="income-edit-field">
                                     <span>Source</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       value={incomeEditDraft.source}
                                       onChange={(event) =>
@@ -1932,11 +1933,11 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field">
+                                  <CrudLabel className="income-edit-field">
                                     <span>Landing account</span>
-                                    <select
+                                    <CrudSelect
                                       className="inline-select"
                                       value={incomeEditDraft.destinationAccountId}
                                       onChange={(event) =>
@@ -1952,12 +1953,12 @@ export function IncomeTab({
                                           {account.name}
                                         </option>
                                       ))}
-                                    </select>
-                                  </label>
+                                    </CrudSelect>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field">
+                                  <CrudLabel className="income-edit-field">
                                     <span>Gross amount</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       min="0"
@@ -1971,11 +1972,11 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field">
+                                  <CrudLabel className="income-edit-field">
                                     <span>Tax deduction</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       min="0"
@@ -1989,11 +1990,11 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field">
+                                  <CrudLabel className="income-edit-field">
                                     <span>NI deduction</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       min="0"
@@ -2007,11 +2008,11 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field">
+                                  <CrudLabel className="income-edit-field">
                                     <span>Pension deduction</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       min="0"
@@ -2025,11 +2026,11 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field">
+                                  <CrudLabel className="income-edit-field">
                                     <span>Planned net</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       min="0.01"
@@ -2042,11 +2043,11 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field">
+                                  <CrudLabel className="income-edit-field">
                                     <span>Actual paid</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       min="0"
@@ -2060,12 +2061,12 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field income-edit-field--span2">
+                                  <CrudLabel className="income-edit-field income-edit-field--span2">
                                     <span>Frequency</span>
                                     <div className="inline-cadence-controls">
-                                      <select
+                                      <CrudSelect
                                         className="inline-select"
                                         value={incomeEditDraft.cadence}
                                         onChange={(event) =>
@@ -2081,10 +2082,10 @@ export function IncomeTab({
                                             {option.label}
                                           </option>
                                         ))}
-                                      </select>
+                                      </CrudSelect>
                                       {isCustomCadence(incomeEditDraft.cadence) ? (
                                         <>
-                                          <input
+                                          <CrudInput
                                             className="inline-input inline-cadence-number"
                                             type="number"
                                             min="1"
@@ -2097,7 +2098,7 @@ export function IncomeTab({
                                               }))
                                             }
                                           />
-                                          <select
+                                          <CrudSelect
                                             className="inline-select inline-cadence-unit"
                                             value={incomeEditDraft.customUnit}
                                             onChange={(event) =>
@@ -2112,15 +2113,15 @@ export function IncomeTab({
                                                 {option.label}
                                               </option>
                                             ))}
-                                          </select>
+                                          </CrudSelect>
                                         </>
                                       ) : null}
                                     </div>
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field">
+                                  <CrudLabel className="income-edit-field">
                                     <span>Received day</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       min="1"
@@ -2133,11 +2134,11 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field">
+                                  <CrudLabel className="income-edit-field">
                                     <span>Pay date anchor</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="date"
                                       value={incomeEditDraft.payDateAnchor}
@@ -2148,13 +2149,13 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field income-edit-field--span2">
+                                  <CrudLabel className="income-edit-field income-edit-field--span2">
                                     <span>Forecast smoothing</span>
                                     <div className="income-edit-smoothing">
-                                      <label className="checkbox-row">
-                                        <input
+                                      <CrudLabel className="checkbox-row">
+                                        <CrudInput
                                           type="checkbox"
                                           checked={incomeEditDraft.forecastSmoothingEnabled}
                                           onChange={(event) =>
@@ -2166,8 +2167,8 @@ export function IncomeTab({
                                           }
                                         />
                                         Smoothing enabled
-                                      </label>
-                                      <select
+                                      </CrudLabel>
+                                      <CrudSelect
                                         className="inline-select"
                                         value={incomeEditDraft.forecastSmoothingMonths}
                                         disabled={!incomeEditDraft.forecastSmoothingEnabled}
@@ -2184,13 +2185,13 @@ export function IncomeTab({
                                         <option value="12">12 months</option>
                                         <option value="18">18 months</option>
                                         <option value="24">24 months</option>
-                                      </select>
+                                      </CrudSelect>
                                     </div>
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field income-edit-field--span2">
+                                  <CrudLabel className="income-edit-field income-edit-field--span2">
                                     <span>Employer note</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       placeholder="Optional employer or payroll note"
                                       value={incomeEditDraft.employerNote}
@@ -2201,11 +2202,11 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-edit-field income-edit-field--span2">
+                                  <CrudLabel className="income-edit-field income-edit-field--span2">
                                     <span>Notes</span>
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       placeholder="Optional general note"
                                       value={incomeEditDraft.notes}
@@ -2216,23 +2217,23 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
                                 </div>
                                 <div className="income-edit-actions">
-                                  <button
+                                  <CrudButton
                                     type="button"
                                     className="btn btn-primary btn--sm"
                                     onClick={() => void saveIncomeEdit()}
                                   >
                                     Save income changes
-                                  </button>
-                                  <button
+                                  </CrudButton>
+                                  <CrudButton
                                     type="button"
                                     className="btn btn-ghost btn--sm"
                                     onClick={() => setIncomeEditId(null)}
                                   >
                                     Cancel
-                                  </button>
+                                  </CrudButton>
                                 </div>
                               </div>
                             </td>
@@ -2250,9 +2251,9 @@ export function IncomeTab({
                                 </div>
 
                                 <div className="income-payment-log-fields">
-                                  <label className="income-payment-log-field">
+                                  <CrudLabel className="income-payment-log-field">
                                     <span>Month</span>
-                                    <input
+                                    <CrudInput
                                       type="month"
                                       value={paymentLogDraft.cycleMonth}
                                       onChange={(event) =>
@@ -2262,11 +2263,11 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-payment-log-field">
+                                  <CrudLabel className="income-payment-log-field">
                                     <span>Status</span>
-                                    <select
+                                    <CrudSelect
                                       value={paymentLogDraft.status}
                                       onChange={(event) => {
                                         const status = event.target.value as IncomePaymentStatus
@@ -2283,12 +2284,12 @@ export function IncomeTab({
                                       <option value="on_time">On time</option>
                                       <option value="late">Late</option>
                                       <option value="missed">Missed</option>
-                                    </select>
-                                  </label>
+                                    </CrudSelect>
+                                  </CrudLabel>
 
-                                  <label className="income-payment-log-field">
+                                  <CrudLabel className="income-payment-log-field">
                                     <span>Received day</span>
-                                    <input
+                                    <CrudInput
                                       type="number"
                                       min="1"
                                       max="31"
@@ -2302,11 +2303,11 @@ export function IncomeTab({
                                       }
                                       disabled={paymentLogDraft.status === 'missed'}
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-payment-log-field">
+                                  <CrudLabel className="income-payment-log-field">
                                     <span>Received amount</span>
-                                    <input
+                                    <CrudInput
                                       type="number"
                                       min="0"
                                       step="0.01"
@@ -2320,11 +2321,11 @@ export function IncomeTab({
                                       }
                                       disabled={paymentLogDraft.status === 'missed'}
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-payment-log-field">
+                                  <CrudLabel className="income-payment-log-field">
                                     <span>Payment reference</span>
-                                    <input
+                                    <CrudInput
                                       type="text"
                                       placeholder="Optional bank/payroll ref"
                                       value={paymentLogDraft.paymentReference}
@@ -2336,11 +2337,11 @@ export function IncomeTab({
                                       }
                                       disabled={paymentLogDraft.status === 'missed'}
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-payment-log-field">
+                                  <CrudLabel className="income-payment-log-field">
                                     <span>Payslip reference</span>
-                                    <input
+                                    <CrudInput
                                       type="text"
                                       placeholder="Optional payslip ID"
                                       value={paymentLogDraft.payslipReference}
@@ -2352,11 +2353,11 @@ export function IncomeTab({
                                       }
                                       disabled={paymentLogDraft.status === 'missed'}
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-payment-log-field income-payment-log-field--note">
+                                  <CrudLabel className="income-payment-log-field income-payment-log-field--note">
                                     <span>Note</span>
-                                    <input
+                                    <CrudInput
                                       type="text"
                                       placeholder="Optional context"
                                       value={paymentLogDraft.note}
@@ -2367,7 +2368,7 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
                                 </div>
 
                                 <p className="income-payment-log-hint">
@@ -2376,7 +2377,7 @@ export function IncomeTab({
                                 </p>
 
                                 <div className="income-payment-log-actions">
-                                  <button
+                                  <CrudButton
                                     type="button"
                                     className="btn btn-primary btn--sm"
                                     onClick={() =>
@@ -2393,19 +2394,19 @@ export function IncomeTab({
                                     }
                                   >
                                     Save log
-                                  </button>
-                                  <button type="button" className="btn btn-ghost btn--sm" onClick={closePaymentLog}>
+                                  </CrudButton>
+                                  <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={closePaymentLog}>
                                     Close
-                                  </button>
+                                  </CrudButton>
                                 </div>
 
                                 {rowPaymentChecks.length > 0 ? (
                                   <ul className="income-payment-log-history">
                                     {rowPaymentChecks.slice(0, 6).map((paymentCheck) => (
                                       <li key={paymentCheck._id}>
-                                        <span className={reliabilityStatusPillClass(paymentCheck.status)}>
+                                        <PillBadge className={reliabilityStatusPillClass(paymentCheck.status)}>
                                           {paymentCheck.cycleMonth} · {reliabilityStatusLabel(paymentCheck.status)}
-                                        </span>
+                                        </PillBadge>
                                         <small>
                                           {paymentCheck.receivedDay ? `Day ${paymentCheck.receivedDay}` : 'No day'} ·{' '}
                                           {paymentCheck.receivedAmount !== undefined
@@ -2421,13 +2422,13 @@ export function IncomeTab({
                                             ? `Payslip ${paymentCheck.payslipReference}`
                                             : 'No payslip ref'}
                                         </small>
-                                        <button
+                                        <CrudButton
                                           type="button"
                                           className="btn btn-ghost btn--sm"
                                           onClick={() => void onDeleteIncomePaymentCheck(paymentCheck._id)}
                                         >
                                           Remove
-                                        </button>
+                                        </CrudButton>
                                       </li>
                                     ))}
                                   </ul>
@@ -2449,9 +2450,9 @@ export function IncomeTab({
                                 </div>
 
                                 <div className="income-change-tracker-fields">
-                                  <label className="income-change-tracker-field">
+                                  <CrudLabel className="income-change-tracker-field">
                                     <span>Effective date</span>
-                                    <input
+                                    <CrudInput
                                       type="date"
                                       value={changeDraft.effectiveDate}
                                       onChange={(event) =>
@@ -2462,11 +2463,11 @@ export function IncomeTab({
                                       }
                                       max={toIsoDate(new Date())}
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-change-tracker-field">
+                                  <CrudLabel className="income-change-tracker-field">
                                     <span>New net amount</span>
-                                    <input
+                                    <CrudInput
                                       type="number"
                                       min="0.01"
                                       step="0.01"
@@ -2480,11 +2481,11 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
 
-                                  <label className="income-change-tracker-field income-change-tracker-field--note">
+                                  <CrudLabel className="income-change-tracker-field income-change-tracker-field--note">
                                     <span>Note</span>
-                                    <input
+                                    <CrudInput
                                       type="text"
                                       placeholder="Optional context for this change"
                                       value={changeDraft.note}
@@ -2495,7 +2496,7 @@ export function IncomeTab({
                                         }))
                                       }
                                     />
-                                  </label>
+                                  </CrudLabel>
                                 </div>
 
                                 <p className="income-change-tracker-hint">
@@ -2503,7 +2504,7 @@ export function IncomeTab({
                                 </p>
 
                                 <div className="income-change-tracker-actions">
-                                  <button
+                                  <CrudButton
                                     type="button"
                                     className="btn btn-primary btn--sm"
                                     onClick={() =>
@@ -2516,10 +2517,10 @@ export function IncomeTab({
                                     }
                                   >
                                     Save change
-                                  </button>
-                                  <button type="button" className="btn btn-ghost btn--sm" onClick={closeChangeTracker}>
+                                  </CrudButton>
+                                  <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={closeChangeTracker}>
                                     Close
-                                  </button>
+                                  </CrudButton>
                                 </div>
 
                                 {rowChangeEvents.length > 0 ? (
@@ -2531,9 +2532,9 @@ export function IncomeTab({
                                       return (
                                         <li key={changeEvent._id}>
                                           <div className="income-change-tracker-history-main">
-                                            <span className={incomeChangeDirectionPillClass(changeEvent.direction)}>
+                                            <PillBadge className={incomeChangeDirectionPillClass(changeEvent.direction)}>
                                               {incomeChangeDirectionLabel(changeEvent.direction)}
-                                            </span>
+                                            </PillBadge>
                                             <strong>{changeEvent.effectiveDate}</strong>
                                             <small>
                                               {formatMoney(changeEvent.previousAmount)} to {formatMoney(changeEvent.newAmount)} (
@@ -2554,13 +2555,13 @@ export function IncomeTab({
                                               <small className="income-change-tracker-note">{changeEvent.note}</small>
                                             ) : null}
                                           </div>
-                                          <button
+                                          <CrudButton
                                             type="button"
                                             className="btn btn-ghost btn--sm"
                                             onClick={() => void onDeleteIncomeChangeEvent(changeEvent._id)}
                                           >
                                             Remove
-                                          </button>
+                                          </CrudButton>
                                         </li>
                                       )
                                     })}
@@ -2578,11 +2579,11 @@ export function IncomeTab({
                     )
                   })}
                 </tbody>
-              </table>
+              </DataTable>
             </div>
           </>
         )}
-      </article>
+      </SurfaceCard>
     </section>
   )
 }

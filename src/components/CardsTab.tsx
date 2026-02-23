@@ -1,4 +1,5 @@
 import { Fragment, useMemo, useState, type Dispatch, type FormEvent, type SetStateAction } from 'react'
+import { CrudButton, CrudInput, CrudLabel, CrudSelect, DataTable, PillBadge, SurfaceCard } from '@/components/ui'
 import type { CardEditDraft, CardEntry, CardForm, CardId, CardMinimumPaymentType } from './financeTypes'
 
 type CardSortKey =
@@ -649,9 +650,9 @@ export function CardsTab({
       >
         <p className="cards-quick-title">{quickActionLabel(quickAction.type)}</p>
         <div className="cards-quick-fields">
-          <label className="cards-quick-field">
+          <CrudLabel className="cards-quick-field">
             <span>Amount</span>
-            <input
+            <CrudInput
               className="inline-input"
               type="number"
               inputMode="decimal"
@@ -663,12 +664,12 @@ export function CardsTab({
               placeholder="0.00"
               required
             />
-          </label>
+          </CrudLabel>
 
           {quickAction.type === 'transfer_balance' ? (
-            <label className="cards-quick-field">
+            <CrudLabel className="cards-quick-field">
               <span>To card</span>
-              <select
+              <CrudSelect
                 className="inline-select"
                 value={quickTransferTo}
                 onChange={(event) => setQuickTransferTo(event.target.value as CardId)}
@@ -680,8 +681,8 @@ export function CardsTab({
                     {card.name}
                   </option>
                 ))}
-              </select>
-            </label>
+              </CrudSelect>
+            </CrudLabel>
           ) : (
             <div className="cards-quick-field cards-quick-field--hint">
               <span>Effect</span>
@@ -695,8 +696,8 @@ export function CardsTab({
         </div>
 
         {needsOverLimitOverride ? (
-          <label className="cards-override-toggle cards-override-toggle--inline">
-            <input
+          <CrudLabel className="cards-override-toggle cards-override-toggle--inline">
+            <CrudInput
               type="checkbox"
               checked={quickAllowOverLimitOverride}
               onChange={(event) => setQuickAllowOverLimitOverride(event.target.checked)}
@@ -706,7 +707,7 @@ export function CardsTab({
                 ? 'Allow this charge to exceed the card credit limit.'
                 : 'Allow this transfer even if destination card exceeds its credit limit.'}
             </span>
-          </label>
+          </CrudLabel>
         ) : null}
 
         {quickValidationMessage ? (
@@ -719,12 +720,12 @@ export function CardsTab({
         ) : null}
 
         <div className="cards-quick-actions">
-          <button type="button" className="btn btn-ghost btn--sm" onClick={closeQuickAction} disabled={quickSubmitting}>
+          <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={closeQuickAction} disabled={quickSubmitting}>
             Cancel
-          </button>
-          <button type="submit" className="btn btn-secondary btn--sm" disabled={!canSubmit}>
+          </CrudButton>
+          <CrudButton type="submit" className="btn btn-secondary btn--sm" disabled={!canSubmit}>
             {quickSubmitting ? 'Applying...' : quickActionLabel(quickAction.type)}
-          </button>
+          </CrudButton>
         </div>
       </form>
     )
@@ -765,7 +766,7 @@ export function CardsTab({
 
   return (
     <section className="editor-grid editor-grid--cards" aria-label="Card management">
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Cards</p>
@@ -782,8 +783,8 @@ export function CardsTab({
         <form className="entry-form entry-form--grid" onSubmit={onAddCard} aria-describedby="card-form-hint">
           <div className="form-grid">
             <div className="form-field form-field--span2">
-              <label htmlFor="card-name">Card name</label>
-              <input
+              <CrudLabel htmlFor="card-name">Card name</CrudLabel>
+              <CrudInput
                 id="card-name"
                 value={cardForm.name}
                 onChange={(event) => setCardForm((prev) => ({ ...prev, name: event.target.value }))}
@@ -792,8 +793,8 @@ export function CardsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="card-limit">Credit limit</label>
-              <input
+              <CrudLabel htmlFor="card-limit">Credit limit</CrudLabel>
+              <CrudInput
                 id="card-limit"
                 type="number"
                 inputMode="decimal"
@@ -806,8 +807,8 @@ export function CardsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="card-used">Current balance</label>
-              <input
+              <CrudLabel htmlFor="card-used">Current balance</CrudLabel>
+              <CrudInput
                 id="card-used"
                 type="number"
                 inputMode="decimal"
@@ -820,8 +821,8 @@ export function CardsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="card-statement-balance">Statement balance</label>
-              <input
+              <CrudLabel htmlFor="card-statement-balance">Statement balance</CrudLabel>
+              <CrudInput
                 id="card-statement-balance"
                 type="number"
                 inputMode="decimal"
@@ -834,8 +835,8 @@ export function CardsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="card-pending-charges">Pending charges</label>
-              <input
+              <CrudLabel htmlFor="card-pending-charges">Pending charges</CrudLabel>
+              <CrudInput
                 id="card-pending-charges"
                 type="number"
                 inputMode="decimal"
@@ -848,8 +849,8 @@ export function CardsTab({
             </div>
 
             <div className="form-field form-field--span2">
-              <label className="cards-override-toggle">
-                <input
+              <CrudLabel className="cards-override-toggle">
+                <CrudInput
                   type="checkbox"
                   checked={cardForm.allowOverLimitOverride}
                   onChange={(event) =>
@@ -860,12 +861,12 @@ export function CardsTab({
                   }
                 />
                 <span>Allow current balance above credit limit (explicit override)</span>
-              </label>
+              </CrudLabel>
             </div>
 
             <div className="form-field">
-              <label htmlFor="card-payment-type">Minimum payment mode</label>
-              <select
+              <CrudLabel htmlFor="card-payment-type">Minimum payment mode</CrudLabel>
+              <CrudSelect
                 id="card-payment-type"
                 value={cardForm.minimumPaymentType}
                 onChange={(event) =>
@@ -877,13 +878,13 @@ export function CardsTab({
               >
                 <option value="fixed">Fixed amount</option>
                 <option value="percent_plus_interest">% + interest</option>
-              </select>
+              </CrudSelect>
             </div>
 
             {cardForm.minimumPaymentType === 'fixed' ? (
               <div className="form-field">
-                <label htmlFor="card-payment">Minimum payment</label>
-                <input
+                <CrudLabel htmlFor="card-payment">Minimum payment</CrudLabel>
+                <CrudInput
                   id="card-payment"
                   type="number"
                   inputMode="decimal"
@@ -896,8 +897,8 @@ export function CardsTab({
               </div>
             ) : (
               <div className="form-field">
-                <label htmlFor="card-payment-percent">Minimum % of statement</label>
-                <input
+                <CrudLabel htmlFor="card-payment-percent">Minimum % of statement</CrudLabel>
+                <CrudInput
                   id="card-payment-percent"
                   type="number"
                   inputMode="decimal"
@@ -917,8 +918,8 @@ export function CardsTab({
             )}
 
             <div className="form-field">
-              <label htmlFor="card-extra-payment">Extra payment</label>
-              <input
+              <CrudLabel htmlFor="card-extra-payment">Extra payment</CrudLabel>
+              <CrudInput
                 id="card-extra-payment"
                 type="number"
                 inputMode="decimal"
@@ -930,8 +931,8 @@ export function CardsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="card-spend">Planned monthly spend</label>
-              <input
+              <CrudLabel htmlFor="card-spend">Planned monthly spend</CrudLabel>
+              <CrudInput
                 id="card-spend"
                 type="number"
                 inputMode="decimal"
@@ -944,8 +945,8 @@ export function CardsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="card-statement-day">Statement day (1-31)</label>
-              <input
+              <CrudLabel htmlFor="card-statement-day">Statement day (1-31)</CrudLabel>
+              <CrudInput
                 id="card-statement-day"
                 type="number"
                 inputMode="numeric"
@@ -959,8 +960,8 @@ export function CardsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="card-due-day">Payment due day (1-31)</label>
-              <input
+              <CrudLabel htmlFor="card-due-day">Payment due day (1-31)</CrudLabel>
+              <CrudInput
                 id="card-due-day"
                 type="number"
                 inputMode="numeric"
@@ -974,8 +975,8 @@ export function CardsTab({
             </div>
 
             <div className="form-field form-field--span2">
-              <label htmlFor="card-apr">APR %</label>
-              <input
+              <CrudLabel htmlFor="card-apr">APR %</CrudLabel>
+              <CrudInput
                 id="card-apr"
                 type="number"
                 inputMode="decimal"
@@ -1002,14 +1003,14 @@ export function CardsTab({
           ) : null}
 
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary" disabled={!addFormCanSubmit}>
+            <CrudButton type="submit" className="btn btn-primary" disabled={!addFormCanSubmit}>
               Add card
-            </button>
+            </CrudButton>
           </div>
         </form>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list panel-list--cards">
+      <SurfaceCard className="panel panel-list panel-list--cards">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Cards</p>
@@ -1027,13 +1028,13 @@ export function CardsTab({
             </p>
           </div>
           <div className="panel-actions">
-            <input
+            <CrudInput
               aria-label="Search cards"
               placeholder="Search cards…"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
             />
-            <select aria-label="Sort cards" value={sortKey} onChange={(event) => setSortKey(event.target.value as CardSortKey)}>
+            <CrudSelect aria-label="Sort cards" value={sortKey} onChange={(event) => setSortKey(event.target.value as CardSortKey)}>
               <option value="name_asc">Name (A-Z)</option>
               <option value="current_desc">Current balance (high-low)</option>
               <option value="statement_desc">New statement (high-low)</option>
@@ -1042,8 +1043,8 @@ export function CardsTab({
               <option value="limit_desc">Limit (high-low)</option>
               <option value="apr_desc">APR (high-low)</option>
               <option value="due_asc">Due day (soonest)</option>
-            </select>
-            <button
+            </CrudSelect>
+            <CrudButton
               type="button"
               className="btn btn-ghost btn--sm"
               onClick={() => {
@@ -1053,30 +1054,30 @@ export function CardsTab({
               disabled={search.length === 0 && sortKey === 'name_asc'}
             >
               Clear
-            </button>
+            </CrudButton>
           </div>
         </header>
 
         <section className="cards-portfolio-strip" aria-label="Card portfolio summary">
-          <article className="cards-portfolio-tile">
+          <SurfaceCard className="cards-portfolio-tile">
             <p>Total card debt</p>
             <strong>{formatMoney(dueAdjustedCurrentTotal)}</strong>
             <small>{cards.length} cards with due-adjusted balances</small>
-          </article>
+          </SurfaceCard>
 
-          <article className="cards-portfolio-tile">
+          <SurfaceCard className="cards-portfolio-tile">
             <p>Weighted APR</p>
             <strong>{weightedAprPercent.toFixed(2)}%</strong>
             <small>Balance-weighted portfolio APR</small>
-          </article>
+          </SurfaceCard>
 
-          <article className="cards-portfolio-tile">
+          <SurfaceCard className="cards-portfolio-tile">
             <p>Total minimum payments</p>
             <strong>{formatMoney(estimatedMinimumDueTotal)}</strong>
             <small>Current-cycle minimum due total</small>
-          </article>
+          </SurfaceCard>
 
-          <article className="cards-portfolio-tile">
+          <SurfaceCard className="cards-portfolio-tile">
             <p>Utilization trend</p>
             <strong>
               {formatPercent(dueAdjustedUtilizationPercent)} to {formatPercent(projectedUtilizationAfterPaymentPortfolio)}
@@ -1085,7 +1086,7 @@ export function CardsTab({
               {utilizationTrendDeltaPp >= 0 ? '+' : ''}
               {utilizationTrendDeltaPp.toFixed(1)}pp after planned payments
             </small>
-          </article>
+          </SurfaceCard>
         </section>
 
         {cards.length === 0 ? (
@@ -1118,7 +1119,7 @@ export function CardsTab({
                 <ul className="cards-risk-list">
                   {riskAlerts.map((alert) => (
                     <li key={alert.id} className={`cards-risk-item cards-risk-item--${alert.severity}`}>
-                      <span className={`pill cards-risk-pill cards-risk-pill--${alert.severity}`}>{alert.severity}</span>
+                      <PillBadge className={`pill cards-risk-pill cards-risk-pill--${alert.severity}`}>{alert.severity}</PillBadge>
                       <strong>{alert.title}</strong>
                       <small>{alert.detail}</small>
                     </li>
@@ -1134,7 +1135,7 @@ export function CardsTab({
                   <h3>Avalanche vs snowball</h3>
                 </div>
                 <div className="cards-payoff-toggle" role="tablist" aria-label="Payoff strategy">
-                  <button
+                  <CrudButton
                     type="button"
                     role="tab"
                     aria-selected={payoffStrategy === 'avalanche'}
@@ -1142,8 +1143,8 @@ export function CardsTab({
                     onClick={() => setPayoffStrategy('avalanche')}
                   >
                     Avalanche
-                  </button>
-                  <button
+                  </CrudButton>
+                  <CrudButton
                     type="button"
                     role="tab"
                     aria-selected={payoffStrategy === 'snowball'}
@@ -1151,13 +1152,13 @@ export function CardsTab({
                     onClick={() => setPayoffStrategy('snowball')}
                   >
                     Snowball
-                  </button>
+                  </CrudButton>
                 </div>
               </header>
 
               {selectedPayoffTarget ? (
                 <div className="cards-payoff-grid">
-                  <article className="cards-payoff-card cards-payoff-card--recommended">
+                  <SurfaceCard className="cards-payoff-card cards-payoff-card--recommended">
                     <p>Recommended next card to overpay</p>
                     <strong>{selectedPayoffTarget.name}</strong>
                     <small>
@@ -1181,9 +1182,9 @@ export function CardsTab({
                         {selectedPayoffBackup.apr.toFixed(2)}% APR)
                       </small>
                     ) : null}
-                  </article>
+                  </SurfaceCard>
 
-                  <article className="cards-payoff-card">
+                  <SurfaceCard className="cards-payoff-card">
                     <p>Avalanche target</p>
                     <strong>{avalancheRanking[0]?.name ?? 'n/a'}</strong>
                     <small>
@@ -1192,9 +1193,9 @@ export function CardsTab({
                         : 'No open card balances'}
                     </small>
                     <small>Optimizes for lower total interest over time.</small>
-                  </article>
+                  </SurfaceCard>
 
-                  <article className="cards-payoff-card">
+                  <SurfaceCard className="cards-payoff-card">
                     <p>Snowball target</p>
                     <strong>{snowballRanking[0]?.name ?? 'n/a'}</strong>
                     <small>
@@ -1203,7 +1204,7 @@ export function CardsTab({
                         : 'No open card balances'}
                     </small>
                     <small>Optimizes for faster wins and account count reduction.</small>
-                  </article>
+                  </SurfaceCard>
                 </div>
               ) : (
                 <p className="subnote">All cards are fully paid. No overpay target right now.</p>
@@ -1220,7 +1221,7 @@ export function CardsTab({
               <>
                 <div className="cards-desktop-table">
                   <div className="table-wrap table-wrap--card">
-                    <table className="data-table data-table--cards" data-testid="cards-table">
+                    <DataTable className="data-table data-table--cards" data-testid="cards-table">
                       <caption className="sr-only">Card entries</caption>
                       <colgroup>
                         <col className="cards-col cards-col--card" />
@@ -1295,7 +1296,7 @@ export function CardsTab({
                               <tr className={isEditing ? 'table-row--editing' : undefined}>
                               <td>
                                 {isEditing ? (
-                                  <input
+                                  <CrudInput
                                     className="inline-input"
                                     value={cardEditDraft.name}
                                     onChange={(event) =>
@@ -1316,7 +1317,7 @@ export function CardsTab({
                               <td>
                                 {isEditing ? (
                                   <div className="cell-stack">
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       inputMode="decimal"
@@ -1331,7 +1332,7 @@ export function CardsTab({
                                         }))
                                       }
                                     />
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       inputMode="decimal"
@@ -1346,7 +1347,7 @@ export function CardsTab({
                                         }))
                                       }
                                     />
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       inputMode="decimal"
@@ -1375,7 +1376,7 @@ export function CardsTab({
                               <td>
                                 {isEditing ? (
                                   <div className="cell-stack">
-                                    <select
+                                    <CrudSelect
                                       className="inline-select"
                                       value={cardEditDraft.minimumPaymentType}
                                       onChange={(event) =>
@@ -1387,9 +1388,9 @@ export function CardsTab({
                                     >
                                       <option value="fixed">Fixed minimum</option>
                                       <option value="percent_plus_interest">% + interest</option>
-                                    </select>
+                                    </CrudSelect>
                                     {cardEditDraft.minimumPaymentType === 'fixed' ? (
-                                      <input
+                                      <CrudInput
                                         className="inline-input"
                                         type="number"
                                         inputMode="decimal"
@@ -1405,7 +1406,7 @@ export function CardsTab({
                                         }
                                       />
                                     ) : (
-                                      <input
+                                      <CrudInput
                                         className="inline-input"
                                         type="number"
                                         inputMode="decimal"
@@ -1422,7 +1423,7 @@ export function CardsTab({
                                         }
                                       />
                                     )}
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       inputMode="decimal"
@@ -1437,7 +1438,7 @@ export function CardsTab({
                                         }))
                                       }
                                     />
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       inputMode="numeric"
@@ -1453,7 +1454,7 @@ export function CardsTab({
                                         }))
                                       }
                                     />
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       inputMode="numeric"
@@ -1487,7 +1488,7 @@ export function CardsTab({
                               <td>
                                 {isEditing ? (
                                   <div className="cell-stack">
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       inputMode="decimal"
@@ -1502,7 +1503,7 @@ export function CardsTab({
                                         }))
                                       }
                                     />
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       inputMode="decimal"
@@ -1517,8 +1518,8 @@ export function CardsTab({
                                         }))
                                       }
                                     />
-                                    <label className="cards-override-toggle cards-override-toggle--inline">
-                                      <input
+                                    <CrudLabel className="cards-override-toggle cards-override-toggle--inline">
+                                      <CrudInput
                                         type="checkbox"
                                         checked={cardEditDraft.allowOverLimitOverride}
                                         onChange={(event) =>
@@ -1529,14 +1530,14 @@ export function CardsTab({
                                         }
                                       />
                                       <span>Allow over-limit</span>
-                                    </label>
+                                    </CrudLabel>
                                   </div>
                                 ) : (
                                   <div className="cell-stack">
                                     <small className={availableClass}>Available {formatMoney(rowProjection.displayAvailableCredit)}</small>
-                                    <span className={`pill ${pillVariantForUtil(rowProjection.displayUtilization)}`}>
+                                    <PillBadge className={`pill ${pillVariantForUtil(rowProjection.displayUtilization)}`}>
                                       Util {formatPercent(rowProjection.displayUtilization)}
-                                    </span>
+                                    </PillBadge>
                                     <small>APR {entry.interestRate !== undefined ? `${entry.interestRate.toFixed(2)}%` : 'n/a'}</small>
                                     <small>Current-cycle interest {formatMoney(rowProjection.interestAmount)}</small>
                                     <small>Projected next-month interest {formatMoney(rowProjection.projectedNextMonthInterest)}</small>
@@ -1551,7 +1552,7 @@ export function CardsTab({
                               <td>
                                 {isEditing ? (
                                   <div className="cell-stack">
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       inputMode="decimal"
@@ -1587,42 +1588,42 @@ export function CardsTab({
                                 <div className="row-actions row-actions--cards">
                                   {isEditing ? (
                                     <>
-                                      <button
+                                      <CrudButton
                                         type="button"
                                         className="btn btn-secondary btn--sm"
                                         onClick={() => void saveCardEdit()}
                                         disabled={!canSaveEdit}
                                       >
                                         Save
-                                      </button>
-                                      <button type="button" className="btn btn-ghost btn--sm" onClick={() => setCardEditId(null)}>
+                                      </CrudButton>
+                                      <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => setCardEditId(null)}>
                                         Cancel
-                                      </button>
+                                      </CrudButton>
                                     </>
                                   ) : (
                                     <>
-                                      <button
+                                      <CrudButton
                                         type="button"
                                         className="btn btn-ghost btn--sm"
                                         onClick={() => openQuickAction(entry._id, 'add_charge')}
                                       >
                                         Add charge
-                                      </button>
-                                      <button
+                                      </CrudButton>
+                                      <CrudButton
                                         type="button"
                                         className="btn btn-ghost btn--sm"
                                         onClick={() => openQuickAction(entry._id, 'record_payment')}
                                       >
                                         Record payment
-                                      </button>
-                                      <button
+                                      </CrudButton>
+                                      <CrudButton
                                         type="button"
                                         className="btn btn-ghost btn--sm"
                                         onClick={() => openQuickAction(entry._id, 'transfer_balance')}
                                       >
                                         Transfer
-                                      </button>
-                                      <button
+                                      </CrudButton>
+                                      <CrudButton
                                         type="button"
                                         className="btn btn-secondary btn--sm"
                                         onClick={() => {
@@ -1631,10 +1632,10 @@ export function CardsTab({
                                         }}
                                       >
                                         Edit
-                                      </button>
+                                      </CrudButton>
                                     </>
                                   )}
-                                  <button
+                                  <CrudButton
                                     type="button"
                                     className="btn btn-ghost btn--sm"
                                     onClick={() => {
@@ -1645,7 +1646,7 @@ export function CardsTab({
                                     }}
                                   >
                                     Remove
-                                  </button>
+                                  </CrudButton>
                                 </div>
                               </td>
                               </tr>
@@ -1658,7 +1659,7 @@ export function CardsTab({
                           )
                         })}
                       </tbody>
-                    </table>
+                    </DataTable>
                   </div>
                 </div>
 
@@ -1726,9 +1727,9 @@ export function CardsTab({
                           </div>
                           <div className="cards-mobile-summary-metrics">
                             <span className="cards-mobile-amount">{formatMoney(rowProjection.displayCurrentBalance)}</span>
-                            <span className={`pill ${pillVariantForUtil(rowProjection.displayUtilization)}`}>
+                            <PillBadge className={`pill ${pillVariantForUtil(rowProjection.displayUtilization)}`}>
                               Util {formatPercent(rowProjection.displayUtilization)}
-                            </span>
+                            </PillBadge>
                           </div>
                         </summary>
 
@@ -1736,9 +1737,9 @@ export function CardsTab({
                           {isEditing ? (
                             <>
                               <div className="cards-mobile-edit-grid">
-                              <label className="cards-mobile-edit-field">
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>Card name</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   value={cardEditDraft.name}
                                   onChange={(event) =>
@@ -1748,10 +1749,10 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
-                              <label className="cards-mobile-edit-field">
+                              </CrudLabel>
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>Credit limit</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -1765,10 +1766,10 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
-                              <label className="cards-mobile-edit-field">
+                              </CrudLabel>
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>Current balance</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -1782,11 +1783,11 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
+                              </CrudLabel>
                               <div className="cards-mobile-edit-field cards-mobile-edit-field--span2">
                                 <span>Override</span>
-                                <label className="cards-override-toggle cards-override-toggle--inline">
-                                  <input
+                                <CrudLabel className="cards-override-toggle cards-override-toggle--inline">
+                                  <CrudInput
                                     type="checkbox"
                                     checked={cardEditDraft.allowOverLimitOverride}
                                     onChange={(event) =>
@@ -1797,11 +1798,11 @@ export function CardsTab({
                                     }
                                   />
                                   <span>Allow over-limit</span>
-                                </label>
+                                </CrudLabel>
                               </div>
-                              <label className="cards-mobile-edit-field">
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>Statement balance</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -1815,10 +1816,10 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
-                              <label className="cards-mobile-edit-field">
+                              </CrudLabel>
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>Pending charges</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -1832,10 +1833,10 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
-                              <label className="cards-mobile-edit-field">
+                              </CrudLabel>
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>Minimum mode</span>
-                                <select
+                                <CrudSelect
                                   className="inline-select"
                                   value={cardEditDraft.minimumPaymentType}
                                   onChange={(event) =>
@@ -1847,11 +1848,11 @@ export function CardsTab({
                                 >
                                   <option value="fixed">Fixed minimum</option>
                                   <option value="percent_plus_interest">% + interest</option>
-                                </select>
-                              </label>
-                              <label className="cards-mobile-edit-field">
+                                </CrudSelect>
+                              </CrudLabel>
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>{cardEditDraft.minimumPaymentType === 'fixed' ? 'Minimum payment' : 'Minimum %'}</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -1872,10 +1873,10 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
-                              <label className="cards-mobile-edit-field">
+                              </CrudLabel>
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>Extra payment</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -1889,10 +1890,10 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
-                              <label className="cards-mobile-edit-field">
+                              </CrudLabel>
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>Planned monthly spend</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -1906,10 +1907,10 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
-                              <label className="cards-mobile-edit-field">
+                              </CrudLabel>
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>APR %</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -1923,10 +1924,10 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
-                              <label className="cards-mobile-edit-field">
+                              </CrudLabel>
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>Statement day</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="numeric"
@@ -1941,10 +1942,10 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
-                              <label className="cards-mobile-edit-field">
+                              </CrudLabel>
+                              <CrudLabel className="cards-mobile-edit-field">
                                 <span>Due day</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="numeric"
@@ -1959,7 +1960,7 @@ export function CardsTab({
                                     }))
                                   }
                                 />
-                              </label>
+                              </CrudLabel>
                               </div>
                               {editOverLimitMessage ? (
                                 <p className="cards-inline-validation cards-inline-validation--error">{editOverLimitMessage}</p>
@@ -2046,42 +2047,42 @@ export function CardsTab({
                           <div className="row-actions row-actions--cards-mobile">
                             {isEditing ? (
                               <>
-                                <button
+                                <CrudButton
                                   type="button"
                                   className="btn btn-secondary btn--sm"
                                   onClick={() => void saveCardEdit()}
                                   disabled={!canSaveEdit}
                                 >
                                   Save
-                                </button>
-                                <button type="button" className="btn btn-ghost btn--sm" onClick={() => setCardEditId(null)}>
+                                </CrudButton>
+                                <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => setCardEditId(null)}>
                                   Cancel
-                                </button>
+                                </CrudButton>
                               </>
                             ) : (
                               <>
-                                <button
+                                <CrudButton
                                   type="button"
                                   className="btn btn-ghost btn--sm"
                                   onClick={() => openQuickAction(entry._id, 'add_charge')}
                                 >
                                   Add charge
-                                </button>
-                                <button
+                                </CrudButton>
+                                <CrudButton
                                   type="button"
                                   className="btn btn-ghost btn--sm"
                                   onClick={() => openQuickAction(entry._id, 'record_payment')}
                                 >
                                   Record payment
-                                </button>
-                                <button
+                                </CrudButton>
+                                <CrudButton
                                   type="button"
                                   className="btn btn-ghost btn--sm"
                                   onClick={() => openQuickAction(entry._id, 'transfer_balance')}
                                 >
                                   Transfer
-                                </button>
-                                <button
+                                </CrudButton>
+                                <CrudButton
                                   type="button"
                                   className="btn btn-secondary btn--sm"
                                   onClick={() => {
@@ -2090,10 +2091,10 @@ export function CardsTab({
                                   }}
                                 >
                                   Edit
-                                </button>
+                                </CrudButton>
                               </>
                             )}
-                            <button
+                            <CrudButton
                               type="button"
                               className="btn btn-ghost btn--sm"
                               onClick={() => {
@@ -2104,7 +2105,7 @@ export function CardsTab({
                               }}
                             >
                               Remove
-                            </button>
+                            </CrudButton>
                           </div>
                           {!isEditing ? renderQuickActionPanel(entry._id, 'mobile') : null}
                         </div>
@@ -2116,7 +2117,7 @@ export function CardsTab({
             )}
           </>
         )}
-      </article>
+      </SurfaceCard>
     </section>
   )
 }

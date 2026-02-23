@@ -1,4 +1,5 @@
 import { useMemo, useState, type Dispatch, type FormEvent, type SetStateAction } from 'react'
+import { CrudButton, CrudInput, CrudLabel, CrudSelect, CrudTextarea, PillBadge, SurfaceCard } from '@/components/ui'
 import { usePaginatedQuery, useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import type {
@@ -370,7 +371,7 @@ export function LoansTab({
 
   return (
     <section className="editor-grid loans-tab-shell" aria-label="Loan management">
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Loans</p>
@@ -388,8 +389,8 @@ export function LoansTab({
         <form className="entry-form entry-form--grid" onSubmit={onAddLoan}>
           <div className="form-grid">
             <div className="form-field form-field--span2">
-              <label htmlFor="loan-name">Loan name</label>
-              <input
+              <CrudLabel htmlFor="loan-name">Loan name</CrudLabel>
+              <CrudInput
                 id="loan-name"
                 value={loanForm.name}
                 onChange={(event) => setLoanForm((prev) => ({ ...prev, name: event.target.value }))}
@@ -398,8 +399,8 @@ export function LoansTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="loan-balance">Current balance</label>
-              <input
+              <CrudLabel htmlFor="loan-balance">Current balance</CrudLabel>
+              <CrudInput
                 id="loan-balance"
                 type="number"
                 inputMode="decimal"
@@ -412,8 +413,8 @@ export function LoansTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="loan-principal">Principal balance (optional)</label>
-              <input
+              <CrudLabel htmlFor="loan-principal">Principal balance (optional)</CrudLabel>
+              <CrudInput
                 id="loan-principal"
                 type="number"
                 inputMode="decimal"
@@ -426,8 +427,8 @@ export function LoansTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="loan-accrued">Accrued interest (optional)</label>
-              <input
+              <CrudLabel htmlFor="loan-accrued">Accrued interest (optional)</CrudLabel>
+              <CrudInput
                 id="loan-accrued"
                 type="number"
                 inputMode="decimal"
@@ -440,8 +441,8 @@ export function LoansTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="loan-payment-type">Minimum payment model</label>
-              <select
+              <CrudLabel htmlFor="loan-payment-type">Minimum payment model</CrudLabel>
+              <CrudSelect
                 id="loan-payment-type"
                 value={loanForm.minimumPaymentType}
                 onChange={(event) =>
@@ -455,13 +456,13 @@ export function LoansTab({
               >
                 <option value="fixed">Fixed amount</option>
                 <option value="percent_plus_interest">% + interest</option>
-              </select>
+              </CrudSelect>
             </div>
 
             {loanForm.minimumPaymentType === 'fixed' ? (
               <div className="form-field">
-                <label htmlFor="loan-payment">Minimum payment</label>
-                <input
+                <CrudLabel htmlFor="loan-payment">Minimum payment</CrudLabel>
+                <CrudInput
                   id="loan-payment"
                   type="number"
                   inputMode="decimal"
@@ -475,8 +476,8 @@ export function LoansTab({
             ) : (
               <>
                 <div className="form-field">
-                  <label htmlFor="loan-payment-percent">Minimum %</label>
-                  <input
+                  <CrudLabel htmlFor="loan-payment-percent">Minimum %</CrudLabel>
+                  <CrudInput
                     id="loan-payment-percent"
                     type="number"
                     inputMode="decimal"
@@ -494,8 +495,8 @@ export function LoansTab({
                   />
                 </div>
                 <div className="form-field">
-                  <label htmlFor="loan-payment">Fixed base (optional)</label>
-                  <input
+                  <CrudLabel htmlFor="loan-payment">Fixed base (optional)</CrudLabel>
+                  <CrudInput
                     id="loan-payment"
                     type="number"
                     inputMode="decimal"
@@ -510,8 +511,8 @@ export function LoansTab({
             )}
 
             <div className="form-field">
-              <label htmlFor="loan-extra-payment">Extra payment</label>
-              <input
+              <CrudLabel htmlFor="loan-extra-payment">Extra payment</CrudLabel>
+              <CrudInput
                 id="loan-extra-payment"
                 type="number"
                 inputMode="decimal"
@@ -523,8 +524,8 @@ export function LoansTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="loan-subscription">Subscription cost (monthly)</label>
-              <input
+              <CrudLabel htmlFor="loan-subscription">Subscription cost (monthly)</CrudLabel>
+              <CrudInput
                 id="loan-subscription"
                 type="number"
                 inputMode="decimal"
@@ -537,8 +538,8 @@ export function LoansTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="loan-subscription-payment-count">Subscription payments left</label>
-              <input
+              <CrudLabel htmlFor="loan-subscription-payment-count">Subscription payments left</CrudLabel>
+              <CrudInput
                 id="loan-subscription-payment-count"
                 type="number"
                 inputMode="numeric"
@@ -553,8 +554,8 @@ export function LoansTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="loan-interest-rate">APR %</label>
-              <input
+              <CrudLabel htmlFor="loan-interest-rate">APR %</CrudLabel>
+              <CrudInput
                 id="loan-interest-rate"
                 type="number"
                 inputMode="decimal"
@@ -567,8 +568,8 @@ export function LoansTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="loan-due-day">Due day</label>
-              <input
+              <CrudLabel htmlFor="loan-due-day">Due day</CrudLabel>
+              <CrudInput
                 id="loan-due-day"
                 type="number"
                 inputMode="numeric"
@@ -581,8 +582,8 @@ export function LoansTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="loan-cadence">Payment frequency</label>
-              <select
+              <CrudLabel htmlFor="loan-cadence">Payment frequency</CrudLabel>
+              <CrudSelect
                 id="loan-cadence"
                 value={loanForm.cadence}
                 onChange={(event) =>
@@ -598,14 +599,14 @@ export function LoansTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             {isCustomCadence(loanForm.cadence) ? (
               <div className="form-field form-field--span2">
-                <label htmlFor="loan-custom-interval">Custom cadence</label>
+                <CrudLabel htmlFor="loan-custom-interval">Custom cadence</CrudLabel>
                 <div className="inline-cadence-controls">
-                  <input
+                  <CrudInput
                     id="loan-custom-interval"
                     type="number"
                     inputMode="numeric"
@@ -615,7 +616,7 @@ export function LoansTab({
                     onChange={(event) => setLoanForm((prev) => ({ ...prev, customInterval: event.target.value }))}
                     required
                   />
-                  <select
+                  <CrudSelect
                     id="loan-custom-unit"
                     value={loanForm.customUnit}
                     onChange={(event) =>
@@ -630,14 +631,14 @@ export function LoansTab({
                         {option.label}
                       </option>
                     ))}
-                  </select>
+                  </CrudSelect>
                 </div>
               </div>
             ) : null}
 
             <div className="form-field form-field--span2">
-              <label htmlFor="loan-notes">Notes</label>
-              <textarea
+              <CrudLabel htmlFor="loan-notes">Notes</CrudLabel>
+              <CrudTextarea
                 id="loan-notes"
                 rows={3}
                 placeholder="Optional"
@@ -654,14 +655,14 @@ export function LoansTab({
           </p>
 
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary">
+            <CrudButton type="submit" className="btn btn-primary">
               Add loan
-            </button>
+            </CrudButton>
           </div>
         </form>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Loans</p>
@@ -673,20 +674,20 @@ export function LoansTab({
             </p>
           </div>
           <div className="panel-actions">
-            <input
+            <CrudInput
               aria-label="Search loans"
               placeholder="Search loans or notes..."
               value={search}
               onChange={(event) => setSearch(event.target.value)}
             />
-            <select aria-label="Sort loans" value={sortKey} onChange={(event) => setSortKey(event.target.value as LoanSortKey)}>
+            <CrudSelect aria-label="Sort loans" value={sortKey} onChange={(event) => setSortKey(event.target.value as LoanSortKey)}>
               <option value="name_asc">Name (A-Z)</option>
               <option value="balance_desc">Outstanding (high-low)</option>
               <option value="apr_desc">APR (high-low)</option>
               <option value="due_asc">Due soon</option>
               <option value="interest_desc">Projected interest (high-low)</option>
-            </select>
-            <button
+            </CrudSelect>
+            <CrudButton
               type="button"
               className="btn btn-ghost btn--sm"
               onClick={() => {
@@ -696,7 +697,7 @@ export function LoansTab({
               disabled={search.length === 0 && sortKey === 'name_asc'}
             >
               Clear
-            </button>
+            </CrudButton>
           </div>
         </header>
 
@@ -705,46 +706,46 @@ export function LoansTab({
         ) : (
           <>
             <div className="loan-summary-strip">
-              <article className="loan-summary-card">
+              <SurfaceCard className="loan-summary-card">
                 <p>Total debt</p>
                 <strong>{formatMoney(totalLoanBalance)}</strong>
                 <small>{loans.length} active loans</small>
-              </article>
-              <article className="loan-summary-card">
+              </SurfaceCard>
+              <SurfaceCard className="loan-summary-card">
                 <p>Projected next interest</p>
                 <strong>{formatMoney(totalProjectedInterest)}</strong>
                 <small>if unchanged this month</small>
-              </article>
-              <article className="loan-summary-card">
+              </SurfaceCard>
+              <SurfaceCard className="loan-summary-card">
                 <p>Due in next 7 days</p>
                 <strong>{dueSoonCount}</strong>
                 <small>prioritize these first</small>
-              </article>
-              <article className="loan-summary-card">
+              </SurfaceCard>
+              <SurfaceCard className="loan-summary-card">
                 <p>Payment below interest</p>
                 <strong>{belowInterestCount}</strong>
                 <small>raises long-term payoff cost</small>
-              </article>
+              </SurfaceCard>
             </div>
 
             <div className="loan-intelligence-grid">
-              <article className="loan-intelligence-card">
+              <SurfaceCard className="loan-intelligence-card">
                 <p>12m projection</p>
                 <strong>{formatMoney(baselinePortfolio.projectedAnnualInterest)}</strong>
                 <small>
                   interest · {formatMoney(baselinePortfolio.projectedAnnualPayments)} projected payments over next year
                 </small>
-              </article>
-              <article className="loan-intelligence-card">
+              </SurfaceCard>
+              <SurfaceCard className="loan-intelligence-card">
                 <p>24m projection</p>
                 <strong>{formatMoney(baselinePortfolio.projected24MonthInterest)}</strong>
                 <small>interest with current payment plan</small>
-              </article>
-              <article className="loan-intelligence-card">
+              </SurfaceCard>
+              <SurfaceCard className="loan-intelligence-card">
                 <p>36m projection</p>
                 <strong>{formatMoney(baselinePortfolio.projected36MonthInterest)}</strong>
                 <small>interest · consistency score {baselinePortfolio.averagePaymentConsistencyScore.toFixed(1)}/100</small>
-              </article>
+              </SurfaceCard>
             </div>
 
             <section className="loan-strategy-panel" aria-label="Loan debt strategy">
@@ -756,9 +757,9 @@ export function LoansTab({
                     stronger annual interest saver.
                   </p>
                 </div>
-                <label className="loan-strategy-budget">
+                <CrudLabel className="loan-strategy-budget">
                   <span>Monthly overpay budget</span>
-                  <input
+                  <CrudInput
                     type="number"
                     inputMode="decimal"
                     min="0"
@@ -766,10 +767,10 @@ export function LoansTab({
                     value={strategyOverpayBudget}
                     onChange={(event) => setStrategyOverpayBudget(event.target.value)}
                   />
-                </label>
+                </CrudLabel>
               </header>
               <div className="loan-strategy-grid">
-                <article>
+                <SurfaceCard>
                   <p>Avalanche target</p>
                   <strong>{loanStrategy.avalancheTarget?.name ?? 'n/a'}</strong>
                   <small>
@@ -777,8 +778,8 @@ export function LoansTab({
                       ? `${formatMoney(loanStrategy.avalancheTarget.balance)} · ${loanStrategy.avalancheTarget.apr.toFixed(2)}% APR · ${formatMoney(loanStrategy.avalancheTarget.annualInterestSavings)} annual savings`
                       : 'No active balances'}
                   </small>
-                </article>
-                <article>
+                </SurfaceCard>
+                <SurfaceCard>
                   <p>Snowball target</p>
                   <strong>{loanStrategy.snowballTarget?.name ?? 'n/a'}</strong>
                   <small>
@@ -786,8 +787,8 @@ export function LoansTab({
                       ? `${formatMoney(loanStrategy.snowballTarget.balance)} · ${loanStrategy.snowballTarget.apr.toFixed(2)}% APR · ${formatMoney(loanStrategy.snowballTarget.annualInterestSavings)} annual savings`
                       : 'No active balances'}
                   </small>
-                </article>
-                <article>
+                </SurfaceCard>
+                <SurfaceCard>
                   <p>Recommended</p>
                   <strong>
                     {loanStrategy.recommendedTarget
@@ -799,7 +800,7 @@ export function LoansTab({
                       ? `${formatMoney(loanStrategy.recommendedTarget.annualInterestSavings)} annual interest saved vs baseline`
                       : 'Add loan balances to calculate recommendations'}
                   </small>
-                </article>
+                </SurfaceCard>
               </div>
             </section>
 
@@ -811,70 +812,70 @@ export function LoansTab({
                 </div>
               </header>
               <div className="loan-whatif-grid">
-                <label>
+                <CrudLabel>
                   <span>Scope</span>
-                  <select value={activeWhatIfLoanId} onChange={(event) => setWhatIfLoanId(event.target.value)}>
+                  <CrudSelect value={activeWhatIfLoanId} onChange={(event) => setWhatIfLoanId(event.target.value)}>
                     <option value="all">All loans</option>
                     {baselinePortfolio.models.map((model) => (
                       <option key={model.loanId} value={model.loanId}>
                         {model.name}
                       </option>
                     ))}
-                  </select>
-                </label>
-                <label>
+                  </CrudSelect>
+                </CrudLabel>
+                <CrudLabel>
                   <span>Extra payment delta / month</span>
-                  <input
+                  <CrudInput
                     type="number"
                     inputMode="decimal"
                     step="0.01"
                     value={whatIfExtraPaymentDelta}
                     onChange={(event) => setWhatIfExtraPaymentDelta(event.target.value)}
                   />
-                </label>
-                <label>
+                </CrudLabel>
+                <CrudLabel>
                   <span>APR delta (points)</span>
-                  <input
+                  <CrudInput
                     type="number"
                     inputMode="decimal"
                     step="0.01"
                     value={whatIfAprDelta}
                     onChange={(event) => setWhatIfAprDelta(event.target.value)}
                   />
-                </label>
-                <label>
+                </CrudLabel>
+                <CrudLabel>
                   <span>Subscription delta / month</span>
-                  <input
+                  <CrudInput
                     type="number"
                     inputMode="decimal"
                     step="0.01"
                     value={whatIfSubscriptionDelta}
                     onChange={(event) => setWhatIfSubscriptionDelta(event.target.value)}
                   />
-                </label>
-                <label>
+                </CrudLabel>
+                <CrudLabel>
                   <span>Due day shift (days)</span>
-                  <input
+                  <CrudInput
                     type="number"
                     inputMode="numeric"
                     step="1"
                     value={whatIfDueDayShift}
                     onChange={(event) => setWhatIfDueDayShift(event.target.value)}
                   />
-                </label>
+                </CrudLabel>
               </div>
               <div className="loan-whatif-compare">
-                <article>
+                <SurfaceCard>
                   <p>Baseline annual interest</p>
                   <strong>{formatMoney(whatIfResult.baseline.projectedAnnualInterest)}</strong>
                   <small>{formatMoney(whatIfResult.baseline.totalOutstanding)} total outstanding now</small>
-                </article>
-                <article>
+                </SurfaceCard>
+                <SurfaceCard>
                   <p>Scenario annual interest</p>
                   <strong>{formatMoney(whatIfResult.scenario.projectedAnnualInterest)}</strong>
                   <small>{formatMoney(whatIfResult.scenario.totalOutstanding)} total outstanding now</small>
-                </article>
-                <article>
+                </SurfaceCard>
+                <SurfaceCard>
                   <p>Delta</p>
                   <strong className={whatIfResult.delta.annualInterest <= 0 ? 'amount-positive' : 'amount-negative'}>
                     {whatIfResult.delta.annualInterest > 0 ? '+' : ''}
@@ -885,7 +886,7 @@ export function LoansTab({
                     {formatMoney(whatIfResult.delta.nextMonthInterest)} · annual payment {whatIfResult.delta.annualPayments > 0 ? '+' : ''}
                     {formatMoney(whatIfResult.delta.annualPayments)}
                   </small>
-                </article>
+                </SurfaceCard>
               </div>
             </section>
 
@@ -897,19 +898,19 @@ export function LoansTab({
                 </div>
               </header>
               <div className="loan-refinance-grid">
-                <label>
+                <CrudLabel>
                   <span>Loan</span>
-                  <select value={activeRefinanceLoanId} onChange={(event) => setRefinanceLoanId(event.target.value)}>
+                  <CrudSelect value={activeRefinanceLoanId} onChange={(event) => setRefinanceLoanId(event.target.value)}>
                     {baselinePortfolio.models.map((model) => (
                       <option key={model.loanId} value={model.loanId}>
                         {model.name}
                       </option>
                     ))}
-                  </select>
-                </label>
-                <label>
+                  </CrudSelect>
+                </CrudLabel>
+                <CrudLabel>
                   <span>Offer APR %</span>
-                  <input
+                  <CrudInput
                     type="number"
                     inputMode="decimal"
                     min="0"
@@ -917,10 +918,10 @@ export function LoansTab({
                     value={refinanceApr}
                     onChange={(event) => setRefinanceApr(event.target.value)}
                   />
-                </label>
-                <label>
+                </CrudLabel>
+                <CrudLabel>
                   <span>Fees</span>
-                  <input
+                  <CrudInput
                     type="number"
                     inputMode="decimal"
                     min="0"
@@ -928,10 +929,10 @@ export function LoansTab({
                     value={refinanceFees}
                     onChange={(event) => setRefinanceFees(event.target.value)}
                   />
-                </label>
-                <label>
+                </CrudLabel>
+                <CrudLabel>
                   <span>Term (months)</span>
-                  <input
+                  <CrudInput
                     type="number"
                     inputMode="numeric"
                     min="1"
@@ -939,21 +940,21 @@ export function LoansTab({
                     value={refinanceTermMonths}
                     onChange={(event) => setRefinanceTermMonths(event.target.value)}
                   />
-                </label>
+                </CrudLabel>
               </div>
               {refinanceResult ? (
                 <div className="loan-refinance-summary">
-                  <article>
+                  <SurfaceCard>
                     <p>Refinance payment</p>
                     <strong>{formatMoney(refinanceResult.monthlyPayment)}</strong>
                     <small>{formatMoney(refinanceResult.totalRefinanceInterest)} interest across term</small>
-                  </article>
-                  <article>
+                  </SurfaceCard>
+                  <SurfaceCard>
                     <p>Break-even</p>
                     <strong>{refinanceResult.breakEvenMonth ? `Month ${refinanceResult.breakEvenMonth}` : 'No break-even'}</strong>
                     <small>{formatMoney(refinanceResult.remainingCurrentOutstandingAtTerm)} current balance left at term</small>
-                  </article>
-                  <article>
+                  </SurfaceCard>
+                  <SurfaceCard>
                     <p>Total cost delta</p>
                     <strong className={refinanceResult.totalCostDelta <= 0 ? 'amount-positive' : 'amount-negative'}>
                       {refinanceResult.totalCostDelta > 0 ? '+' : ''}
@@ -962,7 +963,7 @@ export function LoansTab({
                     <small>
                       current {formatMoney(refinanceResult.totalCurrentCost)} vs refinance {formatMoney(refinanceResult.totalRefinanceCost)}
                     </small>
-                  </article>
+                  </SurfaceCard>
                 </div>
               ) : (
                 <p className="empty-state">Add a loan balance to run refinance analysis.</p>
@@ -976,19 +977,19 @@ export function LoansTab({
                     <h3>Trend visuals</h3>
                     <p>Interest trend, balance path, payment consistency, and subscription trend (12 months).</p>
                   </div>
-                  <label>
+                  <CrudLabel>
                     <span className="sr-only">Trend loan</span>
-                    <select value={activeTrendLoanId} onChange={(event) => setTrendLoanId(event.target.value)}>
+                    <CrudSelect value={activeTrendLoanId} onChange={(event) => setTrendLoanId(event.target.value)}>
                       {baselinePortfolio.models.map((model) => (
                         <option key={model.loanId} value={model.loanId}>
                           {model.name}
                         </option>
                       ))}
-                    </select>
-                  </label>
+                    </CrudSelect>
+                  </CrudLabel>
                 </header>
                 <div className="loan-trends-grid">
-                  <article>
+                  <SurfaceCard>
                     <p>Interest trend</p>
                     <svg viewBox="0 0 220 58" role="img" aria-label="Interest trend">
                       <polyline points={buildSparklinePoints(trendInterestValues)} />
@@ -997,8 +998,8 @@ export function LoansTab({
                       Next month {formatMoney(trendModel.projectedNextMonthInterest)} · 12m{' '}
                       {formatMoney(trendModel.projectedAnnualInterest)}
                     </small>
-                  </article>
-                  <article>
+                  </SurfaceCard>
+                  <SurfaceCard>
                     <p>Balance path</p>
                     <svg viewBox="0 0 220 58" role="img" aria-label="Balance path">
                       <polyline points={buildSparklinePoints(trendBalanceValues)} />
@@ -1007,8 +1008,8 @@ export function LoansTab({
                       Current {formatMoney(trendModel.currentOutstanding)} · payoff{' '}
                       {trendModel.projectedPayoffDate ?? 'beyond model window'}
                     </small>
-                  </article>
-                  <article>
+                  </SurfaceCard>
+                  <SurfaceCard>
                     <p>Payment consistency</p>
                     <svg viewBox="0 0 220 58" role="img" aria-label="Payment consistency trend">
                       <polyline points={buildSparklinePoints(trendConsistencyValues)} />
@@ -1019,8 +1020,8 @@ export function LoansTab({
                         ? formatMonthKeyLabel(trendModel.paymentConsistencyTrend[trendModel.paymentConsistencyTrend.length - 1]!.monthKey)
                         : 'n/a'}
                     </small>
-                  </article>
-                  <article>
+                  </SurfaceCard>
+                  <SurfaceCard>
                     <p>Subscription trend</p>
                     <svg viewBox="0 0 220 58" role="img" aria-label="Subscription trend">
                       <polyline points={buildSparklinePoints(trendSubscriptionValues)} />
@@ -1030,7 +1031,7 @@ export function LoansTab({
                       {trendModel.subscriptionPaymentsRemaining === 1 ? '' : 's'} left · {formatMoney(trendModel.subscriptionCost)}
                       /month
                     </small>
-                  </article>
+                  </SurfaceCard>
                 </div>
                 <p className="subnote">
                   Payment path trend:{' '}
@@ -1047,29 +1048,29 @@ export function LoansTab({
                 </div>
               </header>
               <div className="loan-history-summary-grid">
-                <article>
+                <SurfaceCard>
                   <p>90-day events</p>
                   <strong>{loanHistorySummary?.totalEvents ?? 0}</strong>
                   <small>
                     {loanHistorySummary?.monthlyCycleMutations ?? 0} monthly-cycle mutations ·{' '}
                     {loanHistorySummary?.failedSteps ?? 0} failed cycle steps
                   </small>
-                </article>
-                <article>
+                </SurfaceCard>
+                <SurfaceCard>
                   <p>Payments vs charges</p>
                   <strong>
                     {formatMoney(loanHistorySummary?.totalPayments ?? 0)} / {formatMoney(loanHistorySummary?.totalCharges ?? 0)}
                   </strong>
                   <small>payments / charges over the last 90 days</small>
-                </article>
-                <article>
+                </SurfaceCard>
+                <SurfaceCard>
                   <p>Interest + subscriptions</p>
                   <strong>
                     {formatMoney(loanHistorySummary?.totalInterest ?? 0)} +{' '}
                     {formatMoney(loanHistorySummary?.totalSubscriptionFees ?? 0)}
                   </strong>
                   <small>interest accrual + subscription fees</small>
-                </article>
+                </SurfaceCard>
               </div>
               {loanMutationHistory.results.length === 0 ? (
                 <p className="empty-state">No loan history entries yet.</p>
@@ -1099,14 +1100,14 @@ export function LoansTab({
               )}
               {loanMutationHistory.status === 'CanLoadMore' || loanMutationHistory.status === 'LoadingMore' ? (
                 <div className="loan-history-actions">
-                  <button
+                  <CrudButton
                     type="button"
                     className="btn btn-secondary btn--sm"
                     disabled={loanMutationHistory.status !== 'CanLoadMore'}
                     onClick={() => loanMutationHistory.loadMore(18)}
                   >
                     {loanMutationHistory.status === 'LoadingMore' ? 'Loading...' : 'Load more history'}
-                  </button>
+                  </CrudButton>
                 </div>
               ) : null}
             </section>
@@ -1133,34 +1134,34 @@ export function LoansTab({
                   const projectedAfterPayment = firstRow ? firstRow.endingOutstanding : projection.currentOutstanding
 
                   return (
-                    <article key={entry._id} className="loan-row-card">
+                    <SurfaceCard key={entry._id} className="loan-row-card">
                       <header className="loan-row-head">
                         <div>
                           <h3>{entry.name}</h3>
                           <p>{cadenceLabel(projection.cadence, projection.customInterval, projection.customUnit)}</p>
                         </div>
                         <div className="loan-row-pills">
-                          <span className="pill pill--neutral">Day {projection.dueDay}</span>
-                          {projection.apr > 0 ? <span className="pill pill--warning">APR {projection.apr.toFixed(2)}%</span> : null}
-                          {paymentBelowInterest ? <span className="pill pill--critical">Payment below interest</span> : null}
-                          <span className="pill pill--cadence">
+                          <PillBadge className="pill pill--neutral">Day {projection.dueDay}</PillBadge>
+                          {projection.apr > 0 ? <PillBadge className="pill pill--warning">APR {projection.apr.toFixed(2)}%</PillBadge> : null}
+                          {paymentBelowInterest ? <PillBadge className="pill pill--critical">Payment below interest</PillBadge> : null}
+                          <PillBadge className="pill pill--cadence">
                             Due in {dueInDays} day{dueInDays === 1 ? '' : 's'}
-                          </span>
+                          </PillBadge>
                         </div>
                       </header>
 
                       {isEditing ? (
                         <div className="loan-row-edit-grid">
-                          <label>
+                          <CrudLabel>
                             <span>Name</span>
-                            <input
+                            <CrudInput
                               value={loanEditDraft.name}
                               onChange={(event) => setLoanEditDraft((prev) => ({ ...prev, name: event.target.value }))}
                             />
-                          </label>
-                          <label>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>Balance</span>
-                            <input
+                            <CrudInput
                               type="number"
                               inputMode="decimal"
                               min="0"
@@ -1168,10 +1169,10 @@ export function LoansTab({
                               value={loanEditDraft.balance}
                               onChange={(event) => setLoanEditDraft((prev) => ({ ...prev, balance: event.target.value }))}
                             />
-                          </label>
-                          <label>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>Principal</span>
-                            <input
+                            <CrudInput
                               type="number"
                               inputMode="decimal"
                               min="0"
@@ -1181,10 +1182,10 @@ export function LoansTab({
                                 setLoanEditDraft((prev) => ({ ...prev, principalBalance: event.target.value }))
                               }
                             />
-                          </label>
-                          <label>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>Accrued interest</span>
-                            <input
+                            <CrudInput
                               type="number"
                               inputMode="decimal"
                               min="0"
@@ -1194,10 +1195,10 @@ export function LoansTab({
                                 setLoanEditDraft((prev) => ({ ...prev, accruedInterest: event.target.value }))
                               }
                             />
-                          </label>
-                          <label>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>Payment model</span>
-                            <select
+                            <CrudSelect
                               value={loanEditDraft.minimumPaymentType}
                               onChange={(event) =>
                                 setLoanEditDraft((prev) => ({
@@ -1212,11 +1213,11 @@ export function LoansTab({
                             >
                               <option value="fixed">Fixed amount</option>
                               <option value="percent_plus_interest">% + interest</option>
-                            </select>
-                          </label>
-                          <label>
+                            </CrudSelect>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>{loanEditDraft.minimumPaymentType === 'fixed' ? 'Minimum payment' : 'Minimum %'}</span>
-                            <input
+                            <CrudInput
                               type="number"
                               inputMode="decimal"
                               min="0"
@@ -1235,10 +1236,10 @@ export function LoansTab({
                                 )
                               }
                             />
-                          </label>
-                          <label>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>Extra payment</span>
-                            <input
+                            <CrudInput
                               type="number"
                               inputMode="decimal"
                               min="0"
@@ -1246,10 +1247,10 @@ export function LoansTab({
                               value={loanEditDraft.extraPayment}
                               onChange={(event) => setLoanEditDraft((prev) => ({ ...prev, extraPayment: event.target.value }))}
                             />
-                          </label>
-                          <label>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>Subscription/mo</span>
-                            <input
+                            <CrudInput
                               type="number"
                               inputMode="decimal"
                               min="0"
@@ -1259,10 +1260,10 @@ export function LoansTab({
                                 setLoanEditDraft((prev) => ({ ...prev, subscriptionCost: event.target.value }))
                               }
                             />
-                          </label>
-                          <label>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>Subscription payments left</span>
-                            <input
+                            <CrudInput
                               type="number"
                               inputMode="numeric"
                               min="1"
@@ -1272,10 +1273,10 @@ export function LoansTab({
                                 setLoanEditDraft((prev) => ({ ...prev, subscriptionPaymentCount: event.target.value }))
                               }
                             />
-                          </label>
-                          <label>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>APR %</span>
-                            <input
+                            <CrudInput
                               type="number"
                               inputMode="decimal"
                               min="0"
@@ -1283,10 +1284,10 @@ export function LoansTab({
                               value={loanEditDraft.interestRate}
                               onChange={(event) => setLoanEditDraft((prev) => ({ ...prev, interestRate: event.target.value }))}
                             />
-                          </label>
-                          <label>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>Due day</span>
-                            <input
+                            <CrudInput
                               type="number"
                               inputMode="numeric"
                               min="1"
@@ -1294,10 +1295,10 @@ export function LoansTab({
                               value={loanEditDraft.dueDay}
                               onChange={(event) => setLoanEditDraft((prev) => ({ ...prev, dueDay: event.target.value }))}
                             />
-                          </label>
-                          <label>
+                          </CrudLabel>
+                          <CrudLabel>
                             <span>Frequency</span>
-                            <select
+                            <CrudSelect
                               value={loanEditDraft.cadence}
                               onChange={(event) =>
                                 setLoanEditDraft((prev) => ({
@@ -1312,13 +1313,13 @@ export function LoansTab({
                                   {option.label}
                                 </option>
                               ))}
-                            </select>
-                          </label>
+                            </CrudSelect>
+                          </CrudLabel>
                           {isCustomCadence(loanEditDraft.cadence) ? (
                             <>
-                              <label>
+                              <CrudLabel>
                                 <span>Custom interval</span>
-                                <input
+                                <CrudInput
                                   type="number"
                                   inputMode="numeric"
                                   min="1"
@@ -1328,10 +1329,10 @@ export function LoansTab({
                                     setLoanEditDraft((prev) => ({ ...prev, customInterval: event.target.value }))
                                   }
                                 />
-                              </label>
-                              <label>
+                              </CrudLabel>
+                              <CrudLabel>
                                 <span>Custom unit</span>
-                                <select
+                                <CrudSelect
                                   value={loanEditDraft.customUnit}
                                   onChange={(event) =>
                                     setLoanEditDraft((prev) => ({ ...prev, customUnit: event.target.value as CustomCadenceUnit }))
@@ -1342,17 +1343,17 @@ export function LoansTab({
                                       {option.label}
                                     </option>
                                   ))}
-                                </select>
-                              </label>
+                                </CrudSelect>
+                              </CrudLabel>
                             </>
                           ) : null}
-                          <label className="loan-row-edit-notes">
+                          <CrudLabel className="loan-row-edit-notes">
                             <span>Notes</span>
-                            <input
+                            <CrudInput
                               value={loanEditDraft.notes}
                               onChange={(event) => setLoanEditDraft((prev) => ({ ...prev, notes: event.target.value }))}
                             />
-                          </label>
+                          </CrudLabel>
                         </div>
                       ) : (
                         <div className="loan-row-metrics">
@@ -1394,23 +1395,23 @@ export function LoansTab({
                       <div className="loan-row-actions">
                         {isEditing ? (
                           <>
-                            <button type="button" className="btn btn-secondary btn--sm" onClick={() => void saveLoanEdit()}>
+                            <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void saveLoanEdit()}>
                               Save
-                            </button>
-                            <button type="button" className="btn btn-ghost btn--sm" onClick={() => setLoanEditId(null)}>
+                            </CrudButton>
+                            <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => setLoanEditId(null)}>
                               Cancel
-                            </button>
+                            </CrudButton>
                           </>
                         ) : (
-                          <button type="button" className="btn btn-secondary btn--sm" onClick={() => startLoanEdit(entry)}>
+                          <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => startLoanEdit(entry)}>
                             Edit
-                          </button>
+                          </CrudButton>
                         )}
 
-                        <button type="button" className="btn btn-ghost btn--sm" onClick={() => void onDeleteLoan(entry._id)}>
+                        <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => void onDeleteLoan(entry._id)}>
                           Remove
-                        </button>
-                        <button
+                        </CrudButton>
+                        <CrudButton
                           type="button"
                           className="btn btn-ghost btn--sm"
                           onClick={() => {
@@ -1421,8 +1422,8 @@ export function LoansTab({
                           }}
                         >
                           Add charge
-                        </button>
-                        <button
+                        </CrudButton>
+                        <CrudButton
                           type="button"
                           className="btn btn-ghost btn--sm"
                           onClick={() => {
@@ -1433,8 +1434,8 @@ export function LoansTab({
                           }}
                         >
                           Record payment
-                        </button>
-                        <button
+                        </CrudButton>
+                        <CrudButton
                           type="button"
                           className="btn btn-ghost btn--sm"
                           onClick={() => {
@@ -1445,8 +1446,8 @@ export function LoansTab({
                           }}
                         >
                           Apply interest
-                        </button>
-                        <button
+                        </CrudButton>
+                        <CrudButton
                           type="button"
                           className="btn btn-ghost btn--sm"
                           onClick={() => {
@@ -1457,16 +1458,16 @@ export function LoansTab({
                           }}
                         >
                           Add subscription fee
-                        </button>
+                        </CrudButton>
                       </div>
 
                       {isQuickOpen ? (
                         <div className="loan-quick-action">
                           <div className="loan-quick-action-grid">
                             {quickAction.type === 'charge' || quickAction.type === 'payment' ? (
-                              <label>
+                              <CrudLabel>
                                 <span>Amount</span>
-                                <input
+                                <CrudInput
                                   type="number"
                                   inputMode="decimal"
                                   min="0.01"
@@ -1475,12 +1476,12 @@ export function LoansTab({
                                   onChange={(event) => setQuickAmount(event.target.value)}
                                   required
                                 />
-                              </label>
+                              </CrudLabel>
                             ) : null}
-                            <label>
+                            <CrudLabel>
                               <span>Notes (optional)</span>
-                              <input value={quickNotes} onChange={(event) => setQuickNotes(event.target.value)} />
-                            </label>
+                              <CrudInput value={quickNotes} onChange={(event) => setQuickNotes(event.target.value)} />
+                            </CrudLabel>
                           </div>
 
                           {quickAction.type === 'payment' ? (
@@ -1496,7 +1497,7 @@ export function LoansTab({
                           {quickError ? <p className="inline-error">{quickError}</p> : null}
 
                           <div className="loan-quick-action-buttons">
-                            <button type="button" className="btn btn-primary btn--sm" onClick={() => void submitQuickAction(entry)}>
+                            <CrudButton type="button" className="btn btn-primary btn--sm" onClick={() => void submitQuickAction(entry)}>
                               {quickAction.type === 'charge'
                                 ? 'Confirm charge'
                                 : quickAction.type === 'payment'
@@ -1504,8 +1505,8 @@ export function LoansTab({
                                   : quickAction.type === 'interest'
                                     ? 'Apply interest now'
                                     : 'Log subscription fee'}
-                            </button>
-                            <button
+                            </CrudButton>
+                            <CrudButton
                               type="button"
                               className="btn btn-ghost btn--sm"
                               onClick={() => {
@@ -1516,18 +1517,18 @@ export function LoansTab({
                               }}
                             >
                               Cancel
-                            </button>
+                            </CrudButton>
                           </div>
                         </div>
                       ) : null}
-                    </article>
+                    </SurfaceCard>
                   )
                 })}
               </div>
             )}
           </>
         )}
-      </article>
+      </SurfaceCard>
     </section>
   )
 }

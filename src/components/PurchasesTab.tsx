@@ -1,4 +1,5 @@
 import { useCallback, useEffect, useMemo, useState, type Dispatch, type FormEvent, type SetStateAction } from 'react'
+import { CrudButton, CrudInput, CrudLabel, CrudSelect, CrudTextarea, DataTable, PillBadge, SurfaceCard } from '@/components/ui'
 import { useMutation, usePaginatedQuery, useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import type {
@@ -1286,7 +1287,7 @@ export function PurchasesTab({
 
   return (
     <section className="editor-grid purchases-tab-shell" aria-label="Purchase management">
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Purchases</p>
@@ -1304,8 +1305,8 @@ export function PurchasesTab({
         <form className="entry-form entry-form--grid" onSubmit={onAddPurchase} aria-describedby="purchase-form-hint">
           <div className="form-grid">
             <div className="form-field form-field--span2">
-              <label htmlFor="purchase-item">Merchant / item</label>
-              <input
+              <CrudLabel htmlFor="purchase-item">Merchant / item</CrudLabel>
+              <CrudInput
                 id="purchase-item"
                 value={purchaseForm.item}
                 onChange={(event) => setPurchaseForm((prev) => ({ ...prev, item: event.target.value }))}
@@ -1314,8 +1315,8 @@ export function PurchasesTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="purchase-amount">Amount</label>
-              <input
+              <CrudLabel htmlFor="purchase-amount">Amount</CrudLabel>
+              <CrudInput
                 id="purchase-amount"
                 type="number"
                 inputMode="decimal"
@@ -1328,8 +1329,8 @@ export function PurchasesTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="purchase-category">Category</label>
-              <input
+              <CrudLabel htmlFor="purchase-category">Category</CrudLabel>
+              <CrudInput
                 id="purchase-category"
                 list="purchase-category-list"
                 value={purchaseForm.category}
@@ -1344,8 +1345,8 @@ export function PurchasesTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="purchase-date">Purchase date</label>
-              <input
+              <CrudLabel htmlFor="purchase-date">Purchase date</CrudLabel>
+              <CrudInput
                 id="purchase-date"
                 type="date"
                 value={purchaseForm.purchaseDate}
@@ -1355,8 +1356,8 @@ export function PurchasesTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="purchase-statement-month">Statement month</label>
-              <input
+              <CrudLabel htmlFor="purchase-statement-month">Statement month</CrudLabel>
+              <CrudInput
                 id="purchase-statement-month"
                 type="month"
                 value={purchaseForm.statementMonth}
@@ -1366,8 +1367,8 @@ export function PurchasesTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="purchase-reconciliation-status">Status</label>
-              <select
+              <CrudLabel htmlFor="purchase-reconciliation-status">Status</CrudLabel>
+              <CrudSelect
                 id="purchase-reconciliation-status"
                 value={purchaseForm.reconciliationStatus}
                 onChange={(event) =>
@@ -1380,12 +1381,12 @@ export function PurchasesTab({
                 <option value="pending">Pending</option>
                 <option value="posted">Posted</option>
                 <option value="reconciled">Reconciled</option>
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="purchase-ownership">Ownership</label>
-              <select
+              <CrudLabel htmlFor="purchase-ownership">Ownership</CrudLabel>
+              <CrudSelect
                 id="purchase-ownership"
                 value={purchaseForm.ownership}
                 onChange={(event) =>
@@ -1397,12 +1398,12 @@ export function PurchasesTab({
               >
                 <option value="shared">Shared / household</option>
                 <option value="personal">Personal</option>
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="purchase-source-type">Funding source type</label>
-              <select
+              <CrudLabel htmlFor="purchase-source-type">Funding source type</CrudLabel>
+              <CrudSelect
                 id="purchase-source-type"
                 value={purchaseForm.fundingSourceType}
                 onChange={(event) =>
@@ -1416,12 +1417,12 @@ export function PurchasesTab({
                 <option value="unassigned">Unassigned</option>
                 <option value="account">Account</option>
                 <option value="card">Card</option>
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="purchase-source-id">Source</label>
-              <select
+              <CrudLabel htmlFor="purchase-source-id">Source</CrudLabel>
+              <CrudSelect
                 id="purchase-source-id"
                 value={purchaseForm.fundingSourceId}
                 onChange={(event) => setPurchaseForm((prev) => ({ ...prev, fundingSourceId: event.target.value }))}
@@ -1448,22 +1449,22 @@ export function PurchasesTab({
                       </option>
                     ))
                   : null}
-              </select>
+              </CrudSelect>
             </div>
 
-            <label className="checkbox-row form-field--span2" htmlFor="purchase-tax-deductible">
-              <input
+            <CrudLabel className="checkbox-row form-field--span2" htmlFor="purchase-tax-deductible">
+              <CrudInput
                 id="purchase-tax-deductible"
                 type="checkbox"
                 checked={purchaseForm.taxDeductible}
                 onChange={(event) => setPurchaseForm((prev) => ({ ...prev, taxDeductible: event.target.checked }))}
               />
               Tax deductible
-            </label>
+            </CrudLabel>
 
             <div className="form-field form-field--span2">
-              <label htmlFor="purchase-notes">Notes</label>
-              <textarea
+              <CrudLabel htmlFor="purchase-notes">Notes</CrudLabel>
+              <CrudTextarea
                 id="purchase-notes"
                 rows={3}
                 placeholder="Optional"
@@ -1478,14 +1479,14 @@ export function PurchasesTab({
           </p>
 
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary">
+            <CrudButton type="submit" className="btn btn-primary">
               Add purchase
-            </button>
+            </CrudButton>
           </div>
         </form>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Purchases</p>
@@ -1500,7 +1501,7 @@ export function PurchasesTab({
 
         <div className="saved-view-row" role="group" aria-label="Saved purchase views">
           {savedViewOptions.map((option) => (
-            <button
+            <CrudButton
               key={option.value}
               type="button"
               className={`saved-view-chip ${savedView === option.value ? 'saved-view-chip--active' : ''}`}
@@ -1508,12 +1509,12 @@ export function PurchasesTab({
               title={option.detail}
             >
               {option.label}
-            </button>
+            </CrudButton>
           ))}
         </div>
 
         <div className="filter-row purchases-filter-row" role="group" aria-label="Purchase filters">
-          <input
+          <CrudInput
             type="search"
             aria-label="Search purchases"
             placeholder="Search merchant, category, notes"
@@ -1526,7 +1527,7 @@ export function PurchasesTab({
             }
           />
 
-          <select
+          <CrudSelect
             aria-label="Filter by category"
             value={purchaseFilter.category}
             onChange={(event) =>
@@ -1542,9 +1543,9 @@ export function PurchasesTab({
                 {category}
               </option>
             ))}
-          </select>
+          </CrudSelect>
 
-          <input
+          <CrudInput
             type="month"
             aria-label="Filter by month"
             value={purchaseFilter.month}
@@ -1556,7 +1557,7 @@ export function PurchasesTab({
             }
           />
 
-          <select
+          <CrudSelect
             aria-label="Filter by status"
             value={purchaseFilter.reconciliationStatus}
             onChange={(event) =>
@@ -1570,9 +1571,9 @@ export function PurchasesTab({
             <option value="pending">Pending</option>
             <option value="posted">Posted</option>
             <option value="reconciled">Reconciled</option>
-          </select>
+          </CrudSelect>
 
-          <select
+          <CrudSelect
             aria-label="Filter by ownership"
             value={purchaseFilter.ownership}
             onChange={(event) =>
@@ -1585,9 +1586,9 @@ export function PurchasesTab({
             <option value="all">All ownership</option>
             <option value="shared">Shared</option>
             <option value="personal">Personal</option>
-          </select>
+          </CrudSelect>
 
-          <select
+          <CrudSelect
             aria-label="Filter by funding source"
             value={purchaseFilter.fundingSourceType}
             onChange={(event) =>
@@ -1601,9 +1602,9 @@ export function PurchasesTab({
             <option value="account">Account</option>
             <option value="card">Card</option>
             <option value="unassigned">Unassigned</option>
-          </select>
+          </CrudSelect>
 
-          <select
+          <CrudSelect
             aria-label="Filter by tax deductible"
             value={purchaseFilter.taxDeductible}
             onChange={(event) =>
@@ -1616,9 +1617,9 @@ export function PurchasesTab({
             <option value="all">Tax tag: all</option>
             <option value="yes">Tax deductible</option>
             <option value="no">Non-deductible</option>
-          </select>
+          </CrudSelect>
 
-          <select
+          <CrudSelect
             aria-label="Sort purchases"
             value={sortKey}
             onChange={(event) => setSortKey(event.target.value as PurchaseSortKey)}
@@ -1630,9 +1631,9 @@ export function PurchasesTab({
             <option value="status">Status</option>
             <option value="category_asc">Category</option>
             <option value="merchant_asc">Merchant</option>
-          </select>
+          </CrudSelect>
 
-          <button
+          <CrudButton
             type="button"
             className="btn btn-ghost btn--sm"
             onClick={() => {
@@ -1651,36 +1652,36 @@ export function PurchasesTab({
             }}
           >
             Clear
-          </button>
+          </CrudButton>
         </div>
 
         <div className="purchase-batch-row" role="group" aria-label="Purchase batch actions">
           <p className="subnote">
             {selectedPurchaseCount} selected · {formatMoney(selectedPurchaseTotal)}
           </p>
-          <button type="button" className="btn btn-secondary btn--sm" onClick={toggleSelectFilteredPurchases}>
+          <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={toggleSelectFilteredPurchases}>
             {allVisibleSelected ? 'Unselect visible' : 'Select visible'}
-          </button>
-          <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkStatus('reconciled')}>
+          </CrudButton>
+          <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkStatus('reconciled')}>
             Mark reconciled
-          </button>
-          <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkStatus('posted')}>
+          </CrudButton>
+          <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkStatus('posted')}>
             Mark posted
-          </button>
-          <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkStatus('pending')}>
+          </CrudButton>
+          <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkStatus('pending')}>
             Mark pending
-          </button>
-          <input
+          </CrudButton>
+          <CrudInput
             type="text"
             aria-label="Bulk category"
             placeholder="Bulk category"
             value={bulkCategory}
             onChange={(event) => setBulkCategory(event.target.value)}
           />
-          <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkCategory()}>
+          <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkCategory()}>
             Recategorize
-          </button>
-          <button
+          </CrudButton>
+          <CrudButton
             type="button"
             className="btn btn-danger btn--sm"
             onClick={() => {
@@ -1691,25 +1692,25 @@ export function PurchasesTab({
             }}
           >
             Delete selected
-          </button>
-          <button type="button" className="btn btn-ghost btn--sm" onClick={clearSelectedPurchases}>
+          </CrudButton>
+          <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={clearSelectedPurchases}>
             Clear selected
-          </button>
+          </CrudButton>
         </div>
 
         {visiblePurchases.length === 0 ? (
           <p className="empty-state">No purchases match this view.</p>
         ) : (
           <div className="table-wrap table-wrap--card purchases-table-wrap">
-            <table className="data-table data-table--purchases" data-testid="purchases-table">
+            <DataTable className="data-table data-table--purchases" data-testid="purchases-table">
               <caption className="sr-only">Purchase entries</caption>
               <thead>
                 <tr>
                   <th scope="col" className="purchase-col--select">
-                    <label className="sr-only" htmlFor="purchase-select-visible">
+                    <CrudLabel className="sr-only" htmlFor="purchase-select-visible">
                       Select visible purchases
-                    </label>
-                    <input
+                    </CrudLabel>
+                    <CrudInput
                       id="purchase-select-visible"
                       type="checkbox"
                       checked={allVisibleSelected}
@@ -1733,7 +1734,7 @@ export function PurchasesTab({
                   return (
                     <tr key={entry._id} className={isEditing ? 'table-row--editing' : undefined}>
                       <td>
-                        <input
+                        <CrudInput
                           type="checkbox"
                           aria-label={`Select ${entry.item}`}
                           checked={selectedPurchaseSet.has(entry._id)}
@@ -1742,7 +1743,7 @@ export function PurchasesTab({
                       </td>
                       <td>
                         {isEditing ? (
-                          <input
+                          <CrudInput
                             className="inline-input"
                             value={purchaseEditDraft.item}
                             onChange={(event) => setPurchaseEditDraft((prev) => ({ ...prev, item: event.target.value }))}
@@ -1757,7 +1758,7 @@ export function PurchasesTab({
                       <td className="table-amount amount-negative">
                         {isEditing ? (
                           <div className="purchase-inline-stack">
-                            <input
+                            <CrudInput
                               className="inline-input"
                               type="number"
                               inputMode="decimal"
@@ -1766,7 +1767,7 @@ export function PurchasesTab({
                               value={purchaseEditDraft.amount}
                               onChange={(event) => setPurchaseEditDraft((prev) => ({ ...prev, amount: event.target.value }))}
                             />
-                            <input
+                            <CrudInput
                               className="inline-input"
                               type="date"
                               value={purchaseEditDraft.purchaseDate}
@@ -1777,7 +1778,7 @@ export function PurchasesTab({
                                 }))
                               }
                             />
-                            <input
+                            <CrudInput
                               className="inline-input"
                               type="month"
                               value={purchaseEditDraft.statementMonth}
@@ -1799,7 +1800,7 @@ export function PurchasesTab({
                       <td>
                         {isEditing ? (
                           <div className="purchase-inline-stack">
-                            <input
+                            <CrudInput
                               className="inline-input"
                               value={purchaseEditDraft.category}
                               onChange={(event) =>
@@ -1809,7 +1810,7 @@ export function PurchasesTab({
                                 }))
                               }
                             />
-                            <select
+                            <CrudSelect
                               className="inline-select"
                               value={purchaseEditDraft.ownership}
                               onChange={(event) =>
@@ -1821,9 +1822,9 @@ export function PurchasesTab({
                             >
                               <option value="shared">Shared</option>
                               <option value="personal">Personal</option>
-                            </select>
-                            <label className="checkbox-row purchase-inline-toggle">
-                              <input
+                            </CrudSelect>
+                            <CrudLabel className="checkbox-row purchase-inline-toggle">
+                              <CrudInput
                                 type="checkbox"
                                 checked={purchaseEditDraft.taxDeductible}
                                 onChange={(event) =>
@@ -1834,18 +1835,18 @@ export function PurchasesTab({
                                 }
                               />
                               Tax deductible
-                            </label>
+                            </CrudLabel>
                           </div>
                         ) : (
                           <div className="purchase-meta-cell">
-                            <span className="pill pill--neutral">{entry.category}</span>
-                            <span className="pill pill--neutral">{ownershipLabel(entry.ownership)}</span>
-                            {entry.taxDeductible ? <span className="pill pill--good">Tax</span> : null}
+                            <PillBadge className="pill pill--neutral">{entry.category}</PillBadge>
+                            <PillBadge className="pill pill--neutral">{ownershipLabel(entry.ownership)}</PillBadge>
+                            {entry.taxDeductible ? <PillBadge className="pill pill--good">Tax</PillBadge> : null}
                             {purchaseSplitMap.get(String(entry._id))?.length ? (
-                              <span className="pill pill--cadence">
+                              <PillBadge className="pill pill--cadence">
                                 {purchaseSplitMap.get(String(entry._id))?.length} split
                                 {(purchaseSplitMap.get(String(entry._id))?.length ?? 0) > 1 ? 's' : ''}
-                              </span>
+                              </PillBadge>
                             ) : null}
                           </div>
                         )}
@@ -1853,7 +1854,7 @@ export function PurchasesTab({
                       <td>
                         {isEditing ? (
                           <div className="purchase-inline-stack">
-                            <select
+                            <CrudSelect
                               className="inline-select"
                               value={purchaseEditDraft.fundingSourceType}
                               onChange={(event) =>
@@ -1867,8 +1868,8 @@ export function PurchasesTab({
                               <option value="unassigned">Unassigned</option>
                               <option value="account">Account</option>
                               <option value="card">Card</option>
-                            </select>
-                            <select
+                            </CrudSelect>
+                            <CrudSelect
                               className="inline-select"
                               value={purchaseEditDraft.fundingSourceId}
                               disabled={purchaseEditDraft.fundingSourceType === 'unassigned'}
@@ -1894,15 +1895,15 @@ export function PurchasesTab({
                                     </option>
                                   ))
                                 : null}
-                            </select>
+                            </CrudSelect>
                           </div>
                         ) : (
-                          <span className="pill pill--neutral">{fundingLabelByEntry(entry)}</span>
+                          <PillBadge className="pill pill--neutral">{fundingLabelByEntry(entry)}</PillBadge>
                         )}
                       </td>
                       <td>
                         {isEditing ? (
-                          <select
+                          <CrudSelect
                             className="inline-select"
                             value={purchaseEditDraft.reconciliationStatus}
                             onChange={(event) =>
@@ -1915,14 +1916,14 @@ export function PurchasesTab({
                             <option value="pending">Pending</option>
                             <option value="posted">Posted</option>
                             <option value="reconciled">Reconciled</option>
-                          </select>
+                          </CrudSelect>
                         ) : (
-                          <span className={statusPillClass(status)}>{statusLabel(status)}</span>
+                          <PillBadge className={statusPillClass(status)}>{statusLabel(status)}</PillBadge>
                         )}
                       </td>
                       <td>
                         {isEditing ? (
-                          <input
+                          <CrudInput
                             className="inline-input"
                             value={purchaseEditDraft.notes}
                             onChange={(event) =>
@@ -1942,19 +1943,19 @@ export function PurchasesTab({
                         <div className="row-actions">
                           {isEditing ? (
                             <>
-                              <button type="button" className="btn btn-secondary btn--sm" onClick={() => void savePurchaseEdit()}>
+                              <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void savePurchaseEdit()}>
                                 Save
-                              </button>
-                              <button type="button" className="btn btn-ghost btn--sm" onClick={() => setPurchaseEditId(null)}>
+                              </CrudButton>
+                              <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => setPurchaseEditId(null)}>
                                 Cancel
-                              </button>
+                              </CrudButton>
                             </>
                           ) : (
                             <>
-                              <button type="button" className="btn btn-secondary btn--sm" onClick={() => startPurchaseEdit(entry)}>
+                              <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => startPurchaseEdit(entry)}>
                                 Edit
-                              </button>
-                              <button
+                              </CrudButton>
+                              <CrudButton
                                 type="button"
                                 className="btn btn-secondary btn--sm"
                                 onClick={() => {
@@ -1963,31 +1964,31 @@ export function PurchasesTab({
                                 }}
                               >
                                 Split
-                              </button>
+                              </CrudButton>
                               {status !== 'reconciled' ? (
-                                <button
+                                <CrudButton
                                   type="button"
                                   className="btn btn-secondary btn--sm"
                                   onClick={() => void onSetPurchaseReconciliation(entry._id, 'reconciled')}
                                 >
                                   Reconcile
-                                </button>
+                                </CrudButton>
                               ) : null}
                               {status !== 'posted' ? (
-                                <button
+                                <CrudButton
                                   type="button"
                                   className="btn btn-secondary btn--sm"
                                   onClick={() => void onSetPurchaseReconciliation(entry._id, 'posted')}
                                 >
                                   Mark posted
-                                </button>
+                                </CrudButton>
                               ) : null}
-                              <button type="button" className="btn btn-secondary btn--sm" onClick={() => void duplicatePurchase(entry)}>
+                              <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void duplicatePurchase(entry)}>
                                 Duplicate
-                              </button>
-                              <button type="button" className="btn btn-ghost btn--sm" onClick={() => void onDeletePurchase(entry._id)}>
+                              </CrudButton>
+                              <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => void onDeletePurchase(entry._id)}>
                                 Remove
-                              </button>
+                              </CrudButton>
                             </>
                           )}
                         </div>
@@ -1996,12 +1997,12 @@ export function PurchasesTab({
                   )
                 })}
               </tbody>
-            </table>
+            </DataTable>
           </div>
         )}
-      </article>
+      </SurfaceCard>
 
-      <article className="panel purchases-panel-insights">
+      <SurfaceCard className="panel purchases-panel-insights">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Insights</p>
@@ -2014,50 +2015,50 @@ export function PurchasesTab({
         </header>
 
         <div className="purchase-summary-strip">
-          <article className="purchase-summary-card">
+          <SurfaceCard className="purchase-summary-card">
             <p>Month total</p>
             <strong>{formatMoney(monthPurchaseSummary.monthTotal)}</strong>
             <small>{monthPurchaseSummary.pendingCount + monthPurchaseSummary.postedCount + monthPurchaseSummary.reconciledCount} records</small>
-          </article>
-          <article className="purchase-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-summary-card">
             <p>Cleared total</p>
             <strong>{formatMoney(monthPurchaseSummary.clearedTotal)}</strong>
             <small>{monthPurchaseSummary.postedCount + monthPurchaseSummary.reconciledCount} posted/reconciled</small>
-          </article>
-          <article className="purchase-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-summary-card">
             <p>Pending exposure</p>
             <strong>{formatMoney(monthPurchaseSummary.pendingTotal)}</strong>
             <small>{monthPurchaseSummary.pendingCount} pending in current month</small>
-          </article>
-          <article className="purchase-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-summary-card">
             <p>Tax-deductible</p>
             <strong>{insights.deductibleCount}</strong>
             <small>{formatMoney(filteredPurchaseTotal)} filtered spend base</small>
-          </article>
+          </SurfaceCard>
         </div>
 
         <div className="purchase-insight-grid">
-          <article className="purchase-insight-card">
+          <SurfaceCard className="purchase-insight-card">
             <p>Ownership split</p>
             <strong>{formatMoney(insights.personalSpend)}</strong>
             <small>personal</small>
             <small>{formatMoney(insights.sharedSpend)} shared</small>
-          </article>
-          <article className="purchase-insight-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-insight-card">
             <p>Reconciliation backlog</p>
             <strong>{pendingPurchases}</strong>
             <small>{postedPurchases} posted · {reconciledPurchases} reconciled</small>
-          </article>
-          <article className="purchase-insight-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-insight-card">
             <p>Data quality</p>
             <strong>{insights.uncategorized}</strong>
             <small>uncategorized in current filter</small>
-          </article>
-          <article className="purchase-insight-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-insight-card">
             <p>Duplicate / overlap pairs</p>
             <strong>{purchaseDuplicateOverlaps.length}</strong>
             <small>{duplicateSummary.duplicatePairs} duplicates · {duplicateSummary.overlapPairs} overlaps</small>
-          </article>
+          </SurfaceCard>
         </div>
 
         <div className="purchase-top-merchants">
@@ -2075,9 +2076,9 @@ export function PurchasesTab({
             </ul>
           )}
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel purchases-phase2-panel purchases-phase2-panel--detection">
+      <SurfaceCard className="panel purchases-phase2-panel purchases-phase2-panel--detection">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Intelligence</p>
@@ -2090,26 +2091,26 @@ export function PurchasesTab({
         </header>
 
         <div className="purchase-phase2-summary-grid">
-          <article className="purchase-phase2-summary-card">
+          <SurfaceCard className="purchase-phase2-summary-card">
             <p>Duplicate pairs</p>
             <strong>{duplicateSummary.duplicatePairs}</strong>
             <small>high confidence duplicate records</small>
-          </article>
-          <article className="purchase-phase2-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-phase2-summary-card">
             <p>Overlap pairs</p>
             <strong>{duplicateSummary.overlapPairs}</strong>
             <small>likely overlap to review</small>
-          </article>
-          <article className="purchase-phase2-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-phase2-summary-card">
             <p>Impacted purchases</p>
             <strong>{duplicateSummary.impactedCount}</strong>
             <small>records flagged for cleanup</small>
-          </article>
-          <article className="purchase-phase2-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-phase2-summary-card">
             <p>Anomaly signals</p>
             <strong>{purchaseAnomalies.length}</strong>
             <small>spikes, outliers, and category shifts</small>
-          </article>
+          </SurfaceCard>
         </div>
 
         <div className="purchase-phase2-grid">
@@ -2128,7 +2129,7 @@ export function PurchasesTab({
                     <li key={match.id} className="purchase-duplicate-item">
                       <div className="purchase-duplicate-main">
                         <div>
-                          <span className={duplicateKindPillClass(match.kind)}>{duplicateKindLabel(match.kind)}</span>
+                          <PillBadge className={duplicateKindPillClass(match.kind)}>{duplicateKindLabel(match.kind)}</PillBadge>
                         </div>
                         <strong>{match.primaryItem}</strong>
                         <small>
@@ -2142,30 +2143,30 @@ export function PurchasesTab({
                         <small>{(match.amountDeltaPercent * 100).toFixed(1)}% amount delta</small>
                         <small>{match.dayDelta}d date gap</small>
                         <div className="purchase-duplicate-actions">
-                          <button
+                          <CrudButton
                             type="button"
                             className="btn btn-secondary btn--sm"
                             disabled={isBusy}
                             onClick={() => void onRunDuplicateAction(match, 'merge')}
                           >
                             Merge
-                          </button>
-                          <button
+                          </CrudButton>
+                          <CrudButton
                             type="button"
                             className="btn btn-secondary btn--sm"
                             disabled={isBusy}
                             onClick={() => void onRunDuplicateAction(match, 'archive_duplicate')}
                           >
                             Archive duplicate
-                          </button>
-                          <button
+                          </CrudButton>
+                          <CrudButton
                             type="button"
                             className="btn btn-ghost btn--sm"
                             disabled={isBusy}
                             onClick={() => void onRunDuplicateAction(match, 'mark_intentional')}
                           >
                             Mark intentional
-                          </button>
+                          </CrudButton>
                         </div>
                       </div>
                     </li>
@@ -2186,9 +2187,9 @@ export function PurchasesTab({
               <ul className="purchase-anomaly-list">
                 {purchaseAnomalies.map((anomaly) => (
                   <li key={anomaly.id} className="purchase-anomaly-item">
-                    <span className={anomalySeverityPillClass(anomaly.severity)}>
+                    <PillBadge className={anomalySeverityPillClass(anomaly.severity)}>
                       {anomaly.kind.replaceAll('_', ' ')}
-                    </span>
+                    </PillBadge>
                     <strong>{anomaly.title}</strong>
                     <small>{anomaly.detail}</small>
                   </li>
@@ -2197,9 +2198,9 @@ export function PurchasesTab({
             )}
           </section>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel purchases-phase2-panel">
+      <SurfaceCard className="panel purchases-phase2-panel">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Intelligence</p>
@@ -2216,12 +2217,12 @@ export function PurchasesTab({
         ) : (
           <div className="purchase-merchant-grid">
             {merchantIntelligence.map((merchant) => (
-              <article key={merchant.id} className="purchase-merchant-card">
+              <SurfaceCard key={merchant.id} className="purchase-merchant-card">
                 <header>
                   <h3>{merchant.merchant}</h3>
-                  <span className={merchant.priceCreep ? 'pill pill--warning' : 'pill pill--good'}>
+                  <PillBadge className={merchant.priceCreep ? 'pill pill--warning' : 'pill pill--good'}>
                     {merchant.priceCreep ? 'Price creep' : 'Stable'}
-                  </span>
+                  </PillBadge>
                 </header>
                 <div className="purchase-merchant-windows">
                   <div>
@@ -2244,13 +2245,13 @@ export function PurchasesTab({
                     {merchant.trendPercent.toFixed(1)}%
                   </small>
                 </footer>
-              </article>
+              </SurfaceCard>
             ))}
           </div>
         )}
-      </article>
+      </SurfaceCard>
 
-      <article className="panel purchases-phase2-panel">
+      <SurfaceCard className="panel purchases-phase2-panel">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Planning</p>
@@ -2284,14 +2285,14 @@ export function PurchasesTab({
                         Next expected {candidate.nextExpectedDate} · {Math.round(candidate.confidence * 100)}% confidence
                       </small>
                     </div>
-                    <button
+                    <CrudButton
                       type="button"
                       className="btn btn-secondary btn--sm"
                       disabled={convertingRecurringId === candidate.id}
                       onClick={() => void onConvertRecurring(candidate.id)}
                     >
                       {convertingRecurringId === candidate.id ? 'Converting…' : 'Convert to bill'}
-                    </button>
+                    </CrudButton>
                   </li>
                 ))}
               </ul>
@@ -2305,7 +2306,7 @@ export function PurchasesTab({
             </header>
             <div className="purchase-cashflow-grid">
               {forecastRows.map((window) => (
-                <article key={window.days} className="purchase-cashflow-item">
+                <SurfaceCard key={window.days} className="purchase-cashflow-item">
                   <p>{window.days} days</p>
                   <strong>{formatMoney(window.projectedCash)}</strong>
                   <small>
@@ -2318,14 +2319,14 @@ export function PurchasesTab({
                   >
                     {window.risk}
                   </span>
-                </article>
+                </SurfaceCard>
               ))}
-              <article className="purchase-cashflow-item">
+              <SurfaceCard className="purchase-cashflow-item">
                 <p>Purchase run-rate (90d)</p>
                 <strong>{formatMoney(purchaseRunRate.monthlyFrom90)} / month</strong>
                 <small>{formatMoney(purchaseRunRate.total90)} across last 90 days</small>
-                <span className="pill pill--neutral">Behavioral baseline</span>
-              </article>
+                <PillBadge className="pill pill--neutral">Behavioral baseline</PillBadge>
+              </SurfaceCard>
             </div>
 
             <div className="purchase-timeline">
@@ -2333,14 +2334,14 @@ export function PurchasesTab({
                 <h4>Upcoming money timeline</h4>
                 <div className="purchase-timeline-window-toggle">
                   {[14, 30].map((window) => (
-                    <button
+                    <CrudButton
                       key={window}
                       type="button"
                       className={`btn btn-ghost btn--sm ${timelineWindowDays === window ? 'purchase-timeline-window-btn--active' : ''}`}
                       onClick={() => setTimelineWindowDays(window as 14 | 30)}
                     >
                       {window}d
-                    </button>
+                    </CrudButton>
                   ))}
                 </div>
               </div>
@@ -2370,9 +2371,9 @@ export function PurchasesTab({
             </div>
           </section>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel purchases-phase3-panel">
+      <SurfaceCard className="panel purchases-phase3-panel">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Trust + Reporting</p>
@@ -2386,63 +2387,63 @@ export function PurchasesTab({
         </header>
 
         <div className="purchase-phase3-toolbar">
-          <label className="purchase-split-field">
+          <CrudLabel className="purchase-split-field">
             <span>Summary window</span>
-            <select
+            <CrudSelect
               value={historyWindowDays}
               onChange={(event) => setHistoryWindowDays(Number(event.target.value) as 30 | 90 | 365)}
             >
               <option value={30}>30 days</option>
               <option value={90}>90 days</option>
               <option value={365}>365 days</option>
-            </select>
-          </label>
+            </CrudSelect>
+          </CrudLabel>
 
-          <label className="purchase-split-field">
+          <CrudLabel className="purchase-split-field">
             <span>Month close target</span>
-            <input
+            <CrudInput
               type="month"
               value={closeMonth}
               onChange={(event) => setCloseMonth(event.target.value)}
             />
-          </label>
+          </CrudLabel>
 
           <div className="purchase-phase3-toolbar-actions">
-            <button
+            <CrudButton
               type="button"
               className="btn btn-secondary btn--sm"
               onClick={() => void onRunPurchaseMonthCloseNow()}
               disabled={isRunningMonthClose}
             >
               {isRunningMonthClose ? 'Running month close…' : 'Run month close now'}
-            </button>
+            </CrudButton>
           </div>
         </div>
 
         {monthCloseFeedback ? <p className="subnote">{monthCloseFeedback}</p> : null}
 
         <div className="purchase-phase3-summary-grid">
-          <article className="purchase-phase2-summary-card">
+          <SurfaceCard className="purchase-phase2-summary-card">
             <p>Purchases in window</p>
             <strong>{purchaseSummaryWindow.totalPurchases}</strong>
             <small>{formatMoney(purchaseSummaryWindow.totalAmount)} cleared amount</small>
-          </article>
-          <article className="purchase-phase2-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-phase2-summary-card">
             <p>Reconciliation mix</p>
             <strong>{purchaseSummaryWindow.pendingCount} pending</strong>
             <small>
               {purchaseSummaryWindow.postedCount} posted · {purchaseSummaryWindow.reconciledCount} reconciled
             </small>
-          </article>
-          <article className="purchase-phase2-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-phase2-summary-card">
             <p>Data quality</p>
             <strong>{purchaseSummaryWindow.duplicateCount + purchaseSummaryWindow.anomalyCount} alerts</strong>
             <small>
               {purchaseSummaryWindow.duplicateCount} duplicates · {purchaseSummaryWindow.anomalyCount} anomalies ·{' '}
               {purchaseSummaryWindow.missingCategoryCount} uncategorized
             </small>
-          </article>
-          <article className="purchase-phase2-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="purchase-phase2-summary-card">
             <p>Last mutation</p>
             <strong>
               {purchaseSummaryWindow.lastMutationAt ? dateLabel.format(new Date(purchaseSummaryWindow.lastMutationAt)) : '-'}
@@ -2453,7 +2454,7 @@ export function PurchasesTab({
                 ? `${purchaseSummaryWindow.lastCompletedMonthCloseKey ?? ''} · ${dateLabel.format(new Date(purchaseSummaryWindow.lastMonthCloseAt))}`
                 : 'none'}
             </small>
-          </article>
+          </SurfaceCard>
         </div>
 
         <div className="purchase-phase3-grid">
@@ -2466,7 +2467,7 @@ export function PurchasesTab({
               <p className="empty-state">No month close runs yet.</p>
             ) : (
               <div className="table-wrap table-wrap--card">
-                <table className="data-table data-table--purchase-phase3">
+                <DataTable className="data-table data-table--purchase-phase3">
                   <thead>
                     <tr>
                       <th>Month</th>
@@ -2482,9 +2483,9 @@ export function PurchasesTab({
                       <tr key={run._id}>
                         <td>{run.monthKey}</td>
                         <td>
-                          <span className={run.status === 'completed' ? 'pill pill--good' : 'pill pill--critical'}>
+                          <PillBadge className={run.status === 'completed' ? 'pill pill--good' : 'pill pill--critical'}>
                             {run.status}
-                          </span>
+                          </PillBadge>
                         </td>
                         <td>
                           <small>
@@ -2501,7 +2502,7 @@ export function PurchasesTab({
                       </tr>
                     ))}
                   </tbody>
-                </table>
+                </DataTable>
               </div>
             )}
           </section>
@@ -2515,7 +2516,7 @@ export function PurchasesTab({
               <p className="empty-state">No purchase mutation events in this filter window yet.</p>
             ) : (
               <div className="table-wrap table-wrap--card">
-                <table className="data-table data-table--purchase-phase3">
+                <DataTable className="data-table data-table--purchase-phase3">
                   <thead>
                     <tr>
                       <th>When</th>
@@ -2536,24 +2537,24 @@ export function PurchasesTab({
                       </tr>
                     ))}
                   </tbody>
-                </table>
+                </DataTable>
               </div>
             )}
             <div className="purchase-phase3-footer">
-              <button
+              <CrudButton
                 type="button"
                 className="btn btn-secondary btn--sm"
                 onClick={() => purchaseMutationHistory.loadMore(12)}
                 disabled={!canLoadMoreMutationHistory || isLoadingMoreMutationHistory}
               >
                 {isLoadingMoreMutationHistory ? 'Loading…' : canLoadMoreMutationHistory ? 'Load more events' : 'No more events'}
-              </button>
+              </CrudButton>
             </div>
           </section>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel purchases-phase2-panel">
+      <SurfaceCard className="panel purchases-phase2-panel">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Planning</p>
@@ -2566,9 +2567,9 @@ export function PurchasesTab({
         </header>
 
         <div className="purchase-split-toolbar">
-          <label className="purchase-split-field">
+          <CrudLabel className="purchase-split-field">
             <span>Purchase</span>
-            <select
+            <CrudSelect
               value={splitPurchaseId ? String(splitPurchaseId) : ''}
               onChange={(event) => setSplitPurchaseId(event.target.value as PurchaseId)}
             >
@@ -2578,31 +2579,31 @@ export function PurchasesTab({
                   {entry.item} · {formatMoney(entry.amount)} · {entry.purchaseDate}
                 </option>
               ))}
-            </select>
-          </label>
+            </CrudSelect>
+          </CrudLabel>
 
-          <label className="purchase-split-field">
+          <CrudLabel className="purchase-split-field">
             <span>Template</span>
-            <select value={selectedTemplateId} onChange={(event) => setSelectedTemplateId(event.target.value)}>
+            <CrudSelect value={selectedTemplateId} onChange={(event) => setSelectedTemplateId(event.target.value)}>
               <option value="">Select template</option>
               {purchaseSplitTemplates.map((template) => (
                 <option key={template._id} value={String(template._id)}>
                   {template.name}
                 </option>
               ))}
-            </select>
-          </label>
+            </CrudSelect>
+          </CrudLabel>
 
           <div className="purchase-split-toolbar-actions">
-            <button type="button" className="btn btn-secondary btn--sm" onClick={() => void onApplyTemplate()} disabled={!selectedSplitPurchase || !selectedTemplate || isApplyingTemplate}>
+            <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void onApplyTemplate()} disabled={!selectedSplitPurchase || !selectedTemplate || isApplyingTemplate}>
               {isApplyingTemplate ? 'Applying…' : 'Apply template'}
-            </button>
-            <button type="button" className="btn btn-secondary btn--sm" onClick={() => void onSaveSplitDraft()} disabled={!selectedSplitPurchase || isSavingSplits}>
+            </CrudButton>
+            <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void onSaveSplitDraft()} disabled={!selectedSplitPurchase || isSavingSplits}>
               {isSavingSplits ? 'Saving…' : 'Save splits'}
-            </button>
-            <button type="button" className="btn btn-ghost btn--sm" onClick={() => void onClearSplitDraft()} disabled={!selectedSplitPurchase || isSavingSplits}>
+            </CrudButton>
+            <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => void onClearSplitDraft()} disabled={!selectedSplitPurchase || isSavingSplits}>
               Clear splits
-            </button>
+            </CrudButton>
           </div>
         </div>
 
@@ -2619,7 +2620,7 @@ export function PurchasesTab({
             </p>
 
             <div className="purchase-split-table-wrap">
-              <table className="data-table data-table--purchase-splits">
+              <DataTable className="data-table data-table--purchase-splits">
                 <thead>
                   <tr>
                     <th>Category</th>
@@ -2633,14 +2634,14 @@ export function PurchasesTab({
                   {splitDraftRows.map((row) => (
                     <tr key={row.id}>
                       <td>
-                        <input
+                        <CrudInput
                           className="inline-input"
                           value={row.category}
                           onChange={(event) => updateSplitDraftRow(row.id, { category: event.target.value })}
                         />
                       </td>
                       <td>
-                        <input
+                        <CrudInput
                           className="inline-input"
                           type="number"
                           min="0.01"
@@ -2650,7 +2651,7 @@ export function PurchasesTab({
                         />
                       </td>
                       <td>
-                        <select
+                        <CrudSelect
                           className="inline-select"
                           value={row.goalId}
                           onChange={(event) => updateSplitDraftRow(row.id, { goalId: event.target.value })}
@@ -2661,10 +2662,10 @@ export function PurchasesTab({
                               {goal.title}
                             </option>
                           ))}
-                        </select>
+                        </CrudSelect>
                       </td>
                       <td>
-                        <select
+                        <CrudSelect
                           className="inline-select"
                           value={row.accountId}
                           onChange={(event) => updateSplitDraftRow(row.id, { accountId: event.target.value })}
@@ -2675,28 +2676,28 @@ export function PurchasesTab({
                               {account.name}
                             </option>
                           ))}
-                        </select>
+                        </CrudSelect>
                       </td>
                       <td>
-                        <button
+                        <CrudButton
                           type="button"
                           className="btn btn-ghost btn--sm"
                           onClick={() => removeSplitDraftRow(row.id)}
                           disabled={splitDraftRows.length <= 1}
                         >
                           Remove
-                        </button>
+                        </CrudButton>
                       </td>
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </DataTable>
             </div>
 
             <div className="purchase-split-footer">
-              <button type="button" className="btn btn-secondary btn--sm" onClick={addSplitDraftRow}>
+              <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={addSplitDraftRow}>
                 Add split line
-              </button>
+              </CrudButton>
               <small>
                 Goal mapping: {splitDraftRows.filter((row) => row.goalId).length} line
                 {splitDraftRows.filter((row) => row.goalId).length === 1 ? '' : 's'} · Account mapping:{' '}
@@ -2715,24 +2716,24 @@ export function PurchasesTab({
             <p>Create templates from the current split draft and reuse them across purchases.</p>
           </header>
           <div className="purchase-template-toolbar">
-            <label className="purchase-split-field">
+            <CrudLabel className="purchase-split-field">
               <span>Template name</span>
-              <input
+              <CrudInput
                 value={splitTemplateName}
                 placeholder={selectedTemplate?.name ?? 'Template name'}
                 onChange={(event) => setSplitTemplateName(event.target.value)}
               />
-            </label>
+            </CrudLabel>
             <div className="purchase-template-actions">
-              <button type="button" className="btn btn-secondary btn--sm" onClick={() => void onCreateTemplateFromDraft()} disabled={!selectedSplitPurchase || isSavingTemplate}>
+              <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void onCreateTemplateFromDraft()} disabled={!selectedSplitPurchase || isSavingTemplate}>
                 {isSavingTemplate ? 'Saving…' : 'Create template from split'}
-              </button>
-              <button type="button" className="btn btn-secondary btn--sm" onClick={() => void onUpdateSelectedTemplateFromDraft()} disabled={!selectedTemplate || !selectedSplitPurchase || isUpdatingTemplate}>
+              </CrudButton>
+              <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void onUpdateSelectedTemplateFromDraft()} disabled={!selectedTemplate || !selectedSplitPurchase || isUpdatingTemplate}>
                 {isUpdatingTemplate ? 'Updating…' : 'Update selected template'}
-              </button>
-              <button type="button" className="btn btn-ghost btn--sm" onClick={() => void onRemoveSelectedTemplate()} disabled={!selectedTemplate || isRemovingTemplate}>
+              </CrudButton>
+              <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => void onRemoveSelectedTemplate()} disabled={!selectedTemplate || isRemovingTemplate}>
                 {isRemovingTemplate ? 'Removing…' : 'Remove selected template'}
-              </button>
+              </CrudButton>
             </div>
           </div>
 
@@ -2756,9 +2757,9 @@ export function PurchasesTab({
             <p className="subnote">Select a template to preview its split lines.</p>
           )}
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel purchases-phase2-panel">
+      <SurfaceCard className="panel purchases-phase2-panel">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Import</p>
@@ -2767,37 +2768,37 @@ export function PurchasesTab({
             <p className="subnote">CSV mapping + validation + preview + commit.</p>
           </div>
           <div className="panel-actions">
-            <button type="button" className="btn btn-secondary btn--sm" onClick={() => setBulkImportOpen((prev) => !prev)}>
+            <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => setBulkImportOpen((prev) => !prev)}>
               {bulkImportOpen ? 'Close bulk mode' : 'Open bulk mode'}
-            </button>
+            </CrudButton>
           </div>
         </header>
 
         {bulkImportOpen ? (
           <div className="purchase-import-mode">
-            <label className="purchase-import-field" htmlFor="purchase-import-csv">
+            <CrudLabel className="purchase-import-field" htmlFor="purchase-import-csv">
               <span>CSV rows</span>
-              <textarea
+              <CrudTextarea
                 id="purchase-import-csv"
                 rows={7}
                 value={bulkImportCsvText}
                 onChange={(event) => setBulkImportCsvText(event.target.value)}
                 placeholder="item,amount,category,purchase_date,statement_month,status,ownership,tax_deductible,source_type,source_id,notes"
               />
-            </label>
+            </CrudLabel>
             <div className="purchase-import-actions">
-              <button type="button" className="btn btn-secondary btn--sm" onClick={parseBulkImportCsv}>
+              <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={parseBulkImportCsv}>
                 Validate + preview
-              </button>
-              <button
+              </CrudButton>
+              <CrudButton
                 type="button"
                 className="btn btn-primary btn--sm"
                 onClick={() => void runBulkImportCommit()}
                 disabled={bulkImportRows.length === 0 || isBulkImporting}
               >
                 {isBulkImporting ? 'Importing…' : 'Commit import'}
-              </button>
-              <button
+              </CrudButton>
+              <CrudButton
                 type="button"
                 className="btn btn-ghost btn--sm"
                 onClick={() => {
@@ -2808,7 +2809,7 @@ export function PurchasesTab({
                 }}
               >
                 Clear
-              </button>
+              </CrudButton>
             </div>
 
             {bulkImportMessage ? <p className="subnote">{bulkImportMessage}</p> : null}
@@ -2824,7 +2825,7 @@ export function PurchasesTab({
               <div className="purchase-import-preview">
                 <h3>Preview</h3>
                 <div className="table-wrap table-wrap--card">
-                  <table className="data-table data-table--purchase-import">
+                  <DataTable className="data-table data-table--purchase-import">
                     <thead>
                       <tr>
                         <th>Item</th>
@@ -2846,7 +2847,7 @@ export function PurchasesTab({
                             <small> · {row.statementMonth}</small>
                           </td>
                           <td>
-                            <span className={statusPillClass(row.reconciliationStatus)}>{statusLabel(row.reconciliationStatus)}</span>
+                            <PillBadge className={statusPillClass(row.reconciliationStatus)}>{statusLabel(row.reconciliationStatus)}</PillBadge>
                           </td>
                           <td>
                             <small>
@@ -2857,7 +2858,7 @@ export function PurchasesTab({
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </DataTable>
                 </div>
               </div>
             ) : null}
@@ -2867,7 +2868,7 @@ export function PurchasesTab({
             CSV headers supported: <code>item, amount, category, purchase_date, statement_month, status, ownership, tax_deductible, source_type, source_id, notes</code>.
           </p>
         )}
-      </article>
+      </SurfaceCard>
     </section>
   )
 }

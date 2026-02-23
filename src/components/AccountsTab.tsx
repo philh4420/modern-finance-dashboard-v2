@@ -1,4 +1,5 @@
 import { useMemo, useState, type Dispatch, type FormEvent, type SetStateAction } from 'react'
+import { CrudButton, CrudInput, CrudLabel, CrudSelect, DataTable, PillBadge, SurfaceCard } from '@/components/ui'
 import { nextDateForCadence, toIsoDate } from '../lib/cadenceDates'
 import { resolveIncomeNetAmount } from '../lib/incomeMath'
 import type {
@@ -1476,7 +1477,7 @@ export function AccountsTab({
 
   return (
     <section className="editor-grid accounts-tab-shell" aria-label="Account management">
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Accounts</p>
@@ -1491,8 +1492,8 @@ export function AccountsTab({
         <form className="entry-form entry-form--grid" onSubmit={onAddAccount} aria-describedby="account-form-hint">
           <div className="form-grid">
             <div className="form-field form-field--span2">
-              <label htmlFor="account-name">Account name</label>
-              <input
+              <CrudLabel htmlFor="account-name">Account name</CrudLabel>
+              <CrudInput
                 id="account-name"
                 value={accountForm.name}
                 onChange={(event) => setAccountForm((prev) => ({ ...prev, name: event.target.value }))}
@@ -1501,8 +1502,8 @@ export function AccountsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="account-type">Type</label>
-              <select
+              <CrudLabel htmlFor="account-type">Type</CrudLabel>
+              <CrudSelect
                 id="account-type"
                 value={accountForm.type}
                 onChange={(event) => {
@@ -1519,12 +1520,12 @@ export function AccountsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="account-purpose">Purpose</label>
-              <select
+              <CrudLabel htmlFor="account-purpose">Purpose</CrudLabel>
+              <CrudSelect
                 id="account-purpose"
                 value={accountForm.purpose}
                 onChange={(event) =>
@@ -1539,12 +1540,12 @@ export function AccountsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="account-ledger-balance">Ledger balance</label>
-              <input
+              <CrudLabel htmlFor="account-ledger-balance">Ledger balance</CrudLabel>
+              <CrudInput
                 id="account-ledger-balance"
                 type="number"
                 inputMode="decimal"
@@ -1561,8 +1562,8 @@ export function AccountsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="account-pending-balance">Pending (+/-)</label>
-              <input
+              <CrudLabel htmlFor="account-pending-balance">Pending (+/-)</CrudLabel>
+              <CrudInput
                 id="account-pending-balance"
                 type="number"
                 inputMode="decimal"
@@ -1578,15 +1579,15 @@ export function AccountsTab({
             </div>
 
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="account-liquid">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="account-liquid">
+                <CrudInput
                   id="account-liquid"
                   type="checkbox"
                   checked={accountForm.liquid}
                   onChange={(event) => setAccountForm((prev) => ({ ...prev, liquid: event.target.checked }))}
                 />
                 Include this account in liquid-cash calculations
-              </label>
+              </CrudLabel>
             </div>
           </div>
 
@@ -1595,14 +1596,14 @@ export function AccountsTab({
           </p>
 
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary">
+            <CrudButton type="submit" className="btn btn-primary">
               Save account
-            </button>
+            </CrudButton>
           </div>
         </form>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Accounts</p>
@@ -1613,13 +1614,13 @@ export function AccountsTab({
             </p>
           </div>
           <div className="panel-actions">
-            <input
+            <CrudInput
               aria-label="Search accounts"
               placeholder="Search account name, type, or purpose…"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
             />
-            <select
+            <CrudSelect
               aria-label="Filter account type"
               value={typeFilter}
               onChange={(event) => setTypeFilter(event.target.value as 'all' | AccountType)}
@@ -1630,8 +1631,8 @@ export function AccountsTab({
                   {option.label}
                 </option>
               ))}
-            </select>
-            <select
+            </CrudSelect>
+            <CrudSelect
               aria-label="Filter account purpose"
               value={purposeFilter}
               onChange={(event) => setPurposeFilter(event.target.value as 'all' | AccountPurpose)}
@@ -1642,8 +1643,8 @@ export function AccountsTab({
                   {option.label}
                 </option>
               ))}
-            </select>
-            <select
+            </CrudSelect>
+            <CrudSelect
               aria-label="Filter account liquidity"
               value={liquidityFilter}
               onChange={(event) => setLiquidityFilter(event.target.value as 'all' | 'liquid' | 'non_liquid')}
@@ -1651,8 +1652,8 @@ export function AccountsTab({
               <option value="all">All liquidity</option>
               <option value="liquid">Liquid only</option>
               <option value="non_liquid">Non-liquid only</option>
-            </select>
-            <select
+            </CrudSelect>
+            <CrudSelect
               aria-label="Filter account health"
               value={healthFilter}
               onChange={(event) => setHealthFilter(event.target.value as AccountHealthFilter)}
@@ -1661,8 +1662,8 @@ export function AccountsTab({
               <option value="healthy">Healthy</option>
               <option value="watch">Watch</option>
               <option value="critical">Critical</option>
-            </select>
-            <select
+            </CrudSelect>
+            <CrudSelect
               aria-label="Sort accounts"
               value={sortKey}
               onChange={(event) => setSortKey(event.target.value as AccountSortKey)}
@@ -1674,8 +1675,8 @@ export function AccountsTab({
               <option value="type_asc">Type (A-Z)</option>
               <option value="purpose_asc">Purpose (A-Z)</option>
               <option value="risk_first">Risk first</option>
-            </select>
-            <button
+            </CrudSelect>
+            <CrudButton
               type="button"
               className="btn btn-ghost btn--sm"
               onClick={() => {
@@ -1689,36 +1690,36 @@ export function AccountsTab({
               disabled={!hasFilters}
             >
               Clear
-            </button>
+            </CrudButton>
           </div>
         </header>
 
         <div className="accounts-summary-strip">
-          <article className="accounts-summary-card">
+          <SurfaceCard className="accounts-summary-card">
             <p>Total assets</p>
             <strong>{formatMoney(totals.assetTotal)}</strong>
             <small>Positive non-debt balances</small>
-          </article>
-          <article className="accounts-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="accounts-summary-card">
             <p>Liquid cash</p>
             <strong>{formatMoney(totals.liquidCash)}</strong>
             <small>Accounts flagged as liquid</small>
-          </article>
-          <article className="accounts-summary-card accounts-summary-card--warning">
+          </SurfaceCard>
+          <SurfaceCard className="accounts-summary-card accounts-summary-card--warning">
             <p>Debt balance</p>
             <strong>{formatMoney(totals.debtTotal)}</strong>
             <small>Debt accounts + negative balances</small>
-          </article>
-          <article className="accounts-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="accounts-summary-card">
             <p>Net contribution</p>
             <strong>{formatMoney(totals.netContribution)}</strong>
             <small>Assets minus debt exposure</small>
-          </article>
-          <article className="accounts-summary-card">
+          </SurfaceCard>
+          <SurfaceCard className="accounts-summary-card">
             <p>30-day net cashflow</p>
             <strong>{formatMoney(projectedMonthlyNet)}</strong>
             <small>Projected income minus commitments</small>
-          </article>
+          </SurfaceCard>
         </div>
 
         {accounts.length === 0 ? (
@@ -1732,7 +1733,7 @@ export function AccountsTab({
             </p>
             <div className="accounts-desktop-table">
               <div className="table-wrap table-wrap--card">
-                <table className="data-table data-table--accounts" data-testid="accounts-table">
+                <DataTable className="data-table data-table--accounts" data-testid="accounts-table">
                 <caption className="sr-only">Account entries</caption>
                 <thead>
                   <tr>
@@ -1782,7 +1783,7 @@ export function AccountsTab({
                       <tr key={entry._id} className={isEditing ? 'table-row--editing' : undefined}>
                         <td>
                           {isEditing ? (
-                            <input
+                            <CrudInput
                               className="inline-input"
                               value={accountEditDraft.name}
                               onChange={(event) =>
@@ -1803,7 +1804,7 @@ export function AccountsTab({
                         <td>
                           {isEditing ? (
                             <div className="accounts-inline-grid">
-                              <select
+                              <CrudSelect
                                 className="inline-select"
                                 value={accountEditDraft.type}
                                 onChange={(event) => {
@@ -1820,8 +1821,8 @@ export function AccountsTab({
                                     {option.label}
                                   </option>
                                 ))}
-                              </select>
-                              <select
+                              </CrudSelect>
+                              <CrudSelect
                                 className="inline-select"
                                 value={accountEditDraft.purpose}
                                 onChange={(event) =>
@@ -1836,12 +1837,12 @@ export function AccountsTab({
                                     {option.label}
                                   </option>
                                 ))}
-                              </select>
+                              </CrudSelect>
                             </div>
                           ) : (
                             <div className="accounts-row-pills">
                               <span className={purposeColorClass(activePurpose)}>{accountPurposeLabel(activePurpose)}</span>
-                              <span className="pill pill--neutral">{accountTypeLabel(entry.type)}</span>
+                              <PillBadge className="pill pill--neutral">{accountTypeLabel(entry.type)}</PillBadge>
                             </div>
                           )}
                         </td>
@@ -1849,9 +1850,9 @@ export function AccountsTab({
                         <td className={`table-amount ${activeAvailable >= 0 ? 'amount-positive' : 'amount-negative'}`}>
                           {isEditing ? (
                             <div className="accounts-inline-grid accounts-inline-grid--balances">
-                              <label>
+                              <CrudLabel>
                                 <span>Ledger</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -1864,10 +1865,10 @@ export function AccountsTab({
                                     }))
                                   }
                                 />
-                              </label>
-                              <label>
+                              </CrudLabel>
+                              <CrudLabel>
                                 <span>Pending</span>
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -1880,7 +1881,7 @@ export function AccountsTab({
                                     }))
                                   }
                                 />
-                              </label>
+                              </CrudLabel>
                               <p className="subnote">Available {formatMoney(activeAvailable)}</p>
                             </div>
                           ) : (
@@ -1911,8 +1912,8 @@ export function AccountsTab({
 
                         <td>
                           {isEditing ? (
-                            <label className="checkbox-row" htmlFor={`account-edit-liquid-${entry._id}`}>
-                              <input
+                            <CrudLabel className="checkbox-row" htmlFor={`account-edit-liquid-${entry._id}`}>
+                              <CrudInput
                                 id={`account-edit-liquid-${entry._id}`}
                                 type="checkbox"
                                 checked={accountEditDraft.liquid}
@@ -1923,14 +1924,14 @@ export function AccountsTab({
                                   }))
                                 }
                               />
-                              <span className={activeIsLiability ? 'pill pill--critical' : 'pill pill--good'}>
+                              <PillBadge className={activeIsLiability ? 'pill pill--critical' : 'pill pill--good'}>
                                 {activeIsLiability ? 'liability' : 'asset'}
-                              </span>
-                            </label>
+                              </PillBadge>
+                            </CrudLabel>
                           ) : (
-                            <span className={activeIsLiability ? 'pill pill--critical' : 'pill pill--good'}>
+                            <PillBadge className={activeIsLiability ? 'pill pill--critical' : 'pill pill--good'}>
                               {activeIsLiability ? 'liability' : 'asset'}
-                            </span>
+                            </PillBadge>
                           )}
                         </td>
 
@@ -1938,28 +1939,28 @@ export function AccountsTab({
                           <div className="row-actions">
                             {isEditing ? (
                               <>
-                                <button type="button" className="btn btn-secondary btn--sm" onClick={() => void saveAccountEdit()}>
+                                <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void saveAccountEdit()}>
                                   Save
-                                </button>
-                                <button type="button" className="btn btn-ghost btn--sm" onClick={() => setAccountEditId(null)}>
+                                </CrudButton>
+                                <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => setAccountEditId(null)}>
                                   Cancel
-                                </button>
+                                </CrudButton>
                               </>
                             ) : (
-                              <button type="button" className="btn btn-secondary btn--sm" onClick={() => startAccountEdit(entry)}>
+                              <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => startAccountEdit(entry)}>
                                 Edit
-                              </button>
+                              </CrudButton>
                             )}
-                            <button type="button" className="btn btn-ghost btn--sm" onClick={() => void onDeleteAccount(entry._id)}>
+                            <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => void onDeleteAccount(entry._id)}>
                               Remove
-                            </button>
+                            </CrudButton>
                           </div>
                         </td>
                       </tr>
                     )
                   })}
                   </tbody>
-                </table>
+                </DataTable>
               </div>
             </div>
 
@@ -1998,11 +1999,11 @@ export function AccountsTab({
                 const activeIsLiability = isEditing ? accountEditDraft.type === 'debt' || activeAvailable < 0 : row.isLiability
 
                 return (
-                  <article
+                  <SurfaceCard
                     key={`mobile-${entry._id}`}
                     className={`accounts-mobile-item ${isEditing ? 'accounts-mobile-item--editing' : ''}`}
                   >
-                    <button
+                    <CrudButton
                       type="button"
                       className="accounts-mobile-toggle"
                       aria-expanded={isExpanded}
@@ -2023,14 +2024,14 @@ export function AccountsTab({
                           {activeHealth.healthStatus} {activeHealth.healthScore}/100
                         </span>
                       </div>
-                    </button>
+                    </CrudButton>
 
                     <div id={`account-mobile-panel-${accountId}`} className="accounts-mobile-content" hidden={!isExpanded}>
                       {isEditing ? (
                         <div className="accounts-mobile-edit-grid">
-                          <label className="accounts-mobile-edit-field">
+                          <CrudLabel className="accounts-mobile-edit-field">
                             <span>Name</span>
-                            <input
+                            <CrudInput
                               className="inline-input"
                               value={accountEditDraft.name}
                               onChange={(event) =>
@@ -2040,10 +2041,10 @@ export function AccountsTab({
                                 }))
                               }
                             />
-                          </label>
-                          <label className="accounts-mobile-edit-field">
+                          </CrudLabel>
+                          <CrudLabel className="accounts-mobile-edit-field">
                             <span>Type</span>
-                            <select
+                            <CrudSelect
                               className="inline-select"
                               value={accountEditDraft.type}
                               onChange={(event) => {
@@ -2060,11 +2061,11 @@ export function AccountsTab({
                                   {option.label}
                                 </option>
                               ))}
-                            </select>
-                          </label>
-                          <label className="accounts-mobile-edit-field">
+                            </CrudSelect>
+                          </CrudLabel>
+                          <CrudLabel className="accounts-mobile-edit-field">
                             <span>Purpose</span>
-                            <select
+                            <CrudSelect
                               className="inline-select"
                               value={accountEditDraft.purpose}
                               onChange={(event) =>
@@ -2079,11 +2080,11 @@ export function AccountsTab({
                                   {option.label}
                                 </option>
                               ))}
-                            </select>
-                          </label>
-                          <label className="accounts-mobile-edit-field">
+                            </CrudSelect>
+                          </CrudLabel>
+                          <CrudLabel className="accounts-mobile-edit-field">
                             <span>Ledger</span>
-                            <input
+                            <CrudInput
                               className="inline-input"
                               type="number"
                               inputMode="decimal"
@@ -2096,10 +2097,10 @@ export function AccountsTab({
                                 }))
                               }
                             />
-                          </label>
-                          <label className="accounts-mobile-edit-field">
+                          </CrudLabel>
+                          <CrudLabel className="accounts-mobile-edit-field">
                             <span>Pending</span>
-                            <input
+                            <CrudInput
                               className="inline-input"
                               type="number"
                               inputMode="decimal"
@@ -2112,11 +2113,11 @@ export function AccountsTab({
                                 }))
                               }
                             />
-                          </label>
+                          </CrudLabel>
                           <div className="accounts-mobile-edit-field accounts-mobile-edit-field--span2">
                             <span>Liquid cash inclusion</span>
-                            <label className="checkbox-row" htmlFor={`account-mobile-edit-liquid-${entry._id}`}>
-                              <input
+                            <CrudLabel className="checkbox-row" htmlFor={`account-mobile-edit-liquid-${entry._id}`}>
+                              <CrudInput
                                 id={`account-mobile-edit-liquid-${entry._id}`}
                                 type="checkbox"
                                 checked={accountEditDraft.liquid}
@@ -2128,7 +2129,7 @@ export function AccountsTab({
                                 }
                               />
                               Include in liquid-cash and forecasting models
-                            </label>
+                            </CrudLabel>
                           </div>
                           <p className="subnote accounts-mobile-edit-field--span2">
                             Available preview {formatMoney(activeAvailable)} · {activeIsLiability ? 'liability class' : 'asset class'}
@@ -2182,15 +2183,15 @@ export function AccountsTab({
                       <div className="row-actions row-actions--accounts-mobile">
                         {isEditing ? (
                           <>
-                            <button type="button" className="btn btn-secondary btn--sm" onClick={() => void saveAccountEdit()}>
+                            <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void saveAccountEdit()}>
                               Save
-                            </button>
-                            <button type="button" className="btn btn-ghost btn--sm" onClick={() => setAccountEditId(null)}>
+                            </CrudButton>
+                            <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => setAccountEditId(null)}>
                               Cancel
-                            </button>
+                            </CrudButton>
                           </>
                         ) : (
-                          <button
+                          <CrudButton
                             type="button"
                             className="btn btn-secondary btn--sm"
                             onClick={() => {
@@ -2199,22 +2200,22 @@ export function AccountsTab({
                             }}
                           >
                             Edit
-                          </button>
+                          </CrudButton>
                         )}
-                        <button type="button" className="btn btn-ghost btn--sm" onClick={() => void onDeleteAccount(entry._id)}>
+                        <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => void onDeleteAccount(entry._id)}>
                           Remove
-                        </button>
+                        </CrudButton>
                       </div>
                     </div>
-                  </article>
+                  </SurfaceCard>
                 )
               })}
             </div>
           </>
         )}
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-insights">
+      <SurfaceCard className="panel panel-insights">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Insights</p>
@@ -2255,7 +2256,7 @@ export function AccountsTab({
         </section>
 
         <section className="accounts-phase3-grid" aria-label="Forecasting and risk intelligence">
-          <article className="accounts-phase3-card accounts-phase3-card--forecast">
+          <SurfaceCard className="accounts-phase3-card accounts-phase3-card--forecast">
             <header className="accounts-phase3-head">
               <div>
                 <h3>Projected balance timeline</h3>
@@ -2264,36 +2265,36 @@ export function AccountsTab({
                 </p>
               </div>
               <div className="accounts-forecast-window-toggle" role="group" aria-label="Forecast timeline window">
-                <button
+                <CrudButton
                   type="button"
                   className={`btn btn-ghost btn--sm ${forecastWindowDays === 14 ? 'accounts-forecast-window-btn--active' : ''}`}
                   onClick={() => setForecastWindowDays(14)}
                 >
                   Next 14 days
-                </button>
-                <button
+                </CrudButton>
+                <CrudButton
                   type="button"
                   className={`btn btn-ghost btn--sm ${forecastWindowDays === 30 ? 'accounts-forecast-window-btn--active' : ''}`}
                   onClick={() => setForecastWindowDays(30)}
                 >
                   Next 30 days
-                </button>
+                </CrudButton>
               </div>
             </header>
 
             <div className="accounts-forecast-summary">
-              <article>
+              <SurfaceCard>
                 <p>Liquid start</p>
                 <strong>{formatMoney(accountForecastModel.liquidStart)}</strong>
-              </article>
-              <article>
+              </SurfaceCard>
+              <SurfaceCard>
                 <p>Projected end</p>
                 <strong>{formatMoney(forecastWindowSummary.projectedEnd)}</strong>
-              </article>
-              <article>
+              </SurfaceCard>
+              <SurfaceCard>
                 <p>Forecast floor</p>
                 <strong>{formatMoney(forecastWindowSummary.minBalance)}</strong>
-              </article>
+              </SurfaceCard>
             </div>
 
             <div className="accounts-forecast-chart-wrap" aria-label="Projected liquid balance path">
@@ -2336,9 +2337,9 @@ export function AccountsTab({
               <ul className="accounts-forecast-risk-list">
                 {forecastLowRiskPoints.map((point) => (
                   <li key={`risk-point-${point.day}`}>
-                    <span className={point.risk === 'critical' ? 'pill pill--critical' : 'pill pill--warning'}>
+                    <PillBadge className={point.risk === 'critical' ? 'pill pill--critical' : 'pill pill--warning'}>
                       {point.risk === 'critical' ? 'critical' : 'watch'}
-                    </span>
+                    </PillBadge>
                     <p>
                       Day {point.day} ({point.date}) · {formatMoney(point.balance)}
                     </p>
@@ -2379,18 +2380,18 @@ export function AccountsTab({
                 ))}
               </ul>
             )}
-          </article>
+          </SurfaceCard>
 
-          <article className="accounts-phase3-card accounts-phase3-card--alerts">
+          <SurfaceCard className="accounts-phase3-card accounts-phase3-card--alerts">
             <header className="accounts-phase3-head">
               <div>
                 <h3>Risk alerts</h3>
                 <p>Low-balance forecast, overdraft risk, dormant accounts, and unusual swing detection.</p>
               </div>
               <div className="accounts-alert-summary">
-                <span className="pill pill--critical">{accountRiskSummary.critical} critical</span>
-                <span className="pill pill--warning">{accountRiskSummary.warning} warning</span>
-                <span className="pill pill--neutral">{accountRiskSummary.watch} watch</span>
+                <PillBadge className="pill pill--critical">{accountRiskSummary.critical} critical</PillBadge>
+                <PillBadge className="pill pill--warning">{accountRiskSummary.warning} warning</PillBadge>
+                <PillBadge className="pill pill--neutral">{accountRiskSummary.watch} watch</PillBadge>
               </div>
             </header>
 
@@ -2419,7 +2420,7 @@ export function AccountsTab({
                 ))}
               </ul>
             )}
-          </article>
+          </SurfaceCard>
         </section>
 
         <section className="accounts-trend-panel" aria-label="Account trend cards">
@@ -2432,7 +2433,7 @@ export function AccountsTab({
           ) : (
             <div className="accounts-trend-grid">
               {accountRows.map((row) => (
-                <article key={`trend-${row.entry._id}`} className="accounts-trend-card">
+                <SurfaceCard key={`trend-${row.entry._id}`} className="accounts-trend-card">
                   <header>
                     <div>
                       <h4>{row.entry.name}</h4>
@@ -2466,25 +2467,25 @@ export function AccountsTab({
                       )
                     })}
                   </div>
-                </article>
+                </SurfaceCard>
               ))}
             </div>
           )}
         </section>
 
         <section className="accounts-phase2-grid" aria-label="Account transfers and reconciliation controls">
-          <article className="accounts-phase2-card">
+          <SurfaceCard className="accounts-phase2-card">
             <header className="accounts-phase2-head">
               <div>
                 <h3>Transfer center</h3>
                 <p>Move funds between accounts with date/reference tracking and a durable audit trail.</p>
               </div>
-              <span className="pill pill--neutral">{accountTransfers.length} transfers logged</span>
+              <PillBadge className="pill pill--neutral">{accountTransfers.length} transfers logged</PillBadge>
             </header>
             <form className="accounts-phase2-form" onSubmit={submitAccountTransfer}>
-              <label>
+              <CrudLabel>
                 <span>Source account</span>
-                <select
+                <CrudSelect
                   value={accountTransferForm.sourceAccountId}
                   onChange={(event) =>
                     setAccountTransferForm((prev) => ({ ...prev, sourceAccountId: event.target.value }))
@@ -2497,11 +2498,11 @@ export function AccountsTab({
                       {entry.name}
                     </option>
                   ))}
-                </select>
-              </label>
-              <label>
+                </CrudSelect>
+              </CrudLabel>
+              <CrudLabel>
                 <span>Destination account</span>
-                <select
+                <CrudSelect
                   value={accountTransferForm.destinationAccountId}
                   onChange={(event) =>
                     setAccountTransferForm((prev) => ({ ...prev, destinationAccountId: event.target.value }))
@@ -2514,11 +2515,11 @@ export function AccountsTab({
                       {entry.name}
                     </option>
                   ))}
-                </select>
-              </label>
-              <label>
+                </CrudSelect>
+              </CrudLabel>
+              <CrudLabel>
                 <span>Amount</span>
-                <input
+                <CrudInput
                   type="number"
                   inputMode="decimal"
                   step="0.01"
@@ -2526,10 +2527,10 @@ export function AccountsTab({
                   onChange={(event) => setAccountTransferForm((prev) => ({ ...prev, amount: event.target.value }))}
                   required
                 />
-              </label>
-              <label>
+              </CrudLabel>
+              <CrudLabel>
                 <span>Transfer date</span>
-                <input
+                <CrudInput
                   type="date"
                   value={accountTransferForm.transferDate}
                   onChange={(event) =>
@@ -2537,43 +2538,43 @@ export function AccountsTab({
                   }
                   required
                 />
-              </label>
-              <label>
+              </CrudLabel>
+              <CrudLabel>
                 <span>Reference</span>
-                <input
+                <CrudInput
                   value={accountTransferForm.reference}
                   onChange={(event) => setAccountTransferForm((prev) => ({ ...prev, reference: event.target.value }))}
                   placeholder="Optional"
                 />
-              </label>
-              <label className="accounts-phase2-field--span2">
+              </CrudLabel>
+              <CrudLabel className="accounts-phase2-field--span2">
                 <span>Note</span>
-                <input
+                <CrudInput
                   value={accountTransferForm.note}
                   onChange={(event) => setAccountTransferForm((prev) => ({ ...prev, note: event.target.value }))}
                   placeholder="Optional"
                 />
-              </label>
-              <button type="submit" className="btn btn-primary">
+              </CrudLabel>
+              <CrudButton type="submit" className="btn btn-primary">
                 Record transfer
-              </button>
+              </CrudButton>
             </form>
-          </article>
+          </SurfaceCard>
 
-          <article className="accounts-phase2-card">
+          <SurfaceCard className="accounts-phase2-card">
             <header className="accounts-phase2-head">
               <div>
                 <h3>Reconciliation mode</h3>
                 <p>Capture statement start/end balances, unmatched delta, and cycle status per account.</p>
               </div>
-              <span className={totals.unreconciledCount > 0 ? 'pill pill--warning' : 'pill pill--good'}>
+              <PillBadge className={totals.unreconciledCount > 0 ? 'pill pill--warning' : 'pill pill--good'}>
                 {totals.unreconciledCount} unreconciled account{totals.unreconciledCount === 1 ? '' : 's'}
-              </span>
+              </PillBadge>
             </header>
             <form className="accounts-phase2-form" onSubmit={submitAccountReconciliation}>
-              <label>
+              <CrudLabel>
                 <span>Account</span>
-                <select
+                <CrudSelect
                   value={accountReconciliationForm.accountId}
                   onChange={(event) =>
                     setAccountReconciliationForm((prev) => ({ ...prev, accountId: event.target.value }))
@@ -2586,11 +2587,11 @@ export function AccountsTab({
                       {entry.name}
                     </option>
                   ))}
-                </select>
-              </label>
-              <label>
+                </CrudSelect>
+              </CrudLabel>
+              <CrudLabel>
                 <span>Cycle month</span>
-                <input
+                <CrudInput
                   type="month"
                   value={accountReconciliationForm.cycleMonth}
                   onChange={(event) =>
@@ -2598,10 +2599,10 @@ export function AccountsTab({
                   }
                   required
                 />
-              </label>
-              <label>
+              </CrudLabel>
+              <CrudLabel>
                 <span>Statement start</span>
-                <input
+                <CrudInput
                   type="number"
                   inputMode="decimal"
                   step="0.01"
@@ -2611,10 +2612,10 @@ export function AccountsTab({
                   }
                   required
                 />
-              </label>
-              <label>
+              </CrudLabel>
+              <CrudLabel>
                 <span>Statement end</span>
-                <input
+                <CrudInput
                   type="number"
                   inputMode="decimal"
                   step="0.01"
@@ -2624,17 +2625,17 @@ export function AccountsTab({
                   }
                   required
                 />
-              </label>
-              <label className="accounts-phase2-field--span2">
+              </CrudLabel>
+              <CrudLabel className="accounts-phase2-field--span2">
                 <span>Reconciliation note</span>
-                <input
+                <CrudInput
                   value={accountReconciliationForm.note}
                   onChange={(event) => setAccountReconciliationForm((prev) => ({ ...prev, note: event.target.value }))}
                   placeholder="Optional"
                 />
-              </label>
-              <label className="checkbox-row accounts-phase2-field--span2">
-                <input
+              </CrudLabel>
+              <CrudLabel className="checkbox-row accounts-phase2-field--span2">
+                <CrudInput
                   type="checkbox"
                   checked={accountReconciliationForm.reconciled}
                   onChange={(event) =>
@@ -2642,9 +2643,9 @@ export function AccountsTab({
                   }
                 />
                 Mark this cycle as reconciled
-              </label>
-              <label className="checkbox-row accounts-phase2-field--span2">
-                <input
+              </CrudLabel>
+              <CrudLabel className="checkbox-row accounts-phase2-field--span2">
+                <CrudInput
                   type="checkbox"
                   checked={accountReconciliationForm.applyAdjustment}
                   onChange={(event) =>
@@ -2652,15 +2653,15 @@ export function AccountsTab({
                   }
                 />
                 Apply adjustment to account ledger (if delta exists)
-              </label>
+              </CrudLabel>
               <p className="subnote accounts-phase2-field--span2">
                 Ledger now {formatMoney(selectedReconciliationBalances?.ledgerBalance ?? 0)} · preview delta {formatMoney(previewDelta)}
               </p>
-              <button type="submit" className="btn btn-secondary">
+              <CrudButton type="submit" className="btn btn-secondary">
                 Save reconciliation
-              </button>
+              </CrudButton>
             </form>
-          </article>
+          </SurfaceCard>
         </section>
 
         <section className="accounts-reconciliation-log" aria-label="Reconciliation history">
@@ -2672,7 +2673,7 @@ export function AccountsTab({
             <p className="subnote">No reconciliation checks logged yet.</p>
           ) : (
             <div className="table-wrap">
-              <table className="data-table data-table--accounts-reconciliation">
+              <DataTable className="data-table data-table--accounts-reconciliation">
                 <caption className="sr-only">Account reconciliation checks</caption>
                 <thead>
                   <tr>
@@ -2699,14 +2700,14 @@ export function AccountsTab({
                         {formatMoney(entry.unmatchedDelta)}
                       </td>
                       <td>
-                        <span className={entry.reconciled ? 'pill pill--good' : 'pill pill--warning'}>
+                        <PillBadge className={entry.reconciled ? 'pill pill--good' : 'pill pill--warning'}>
                           {entry.reconciled ? 'reconciled' : 'pending'}
-                        </span>
+                        </PillBadge>
                       </td>
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </DataTable>
             </div>
           )}
         </section>
@@ -2748,7 +2749,7 @@ export function AccountsTab({
             </ul>
           )}
         </section>
-      </article>
+      </SurfaceCard>
     </section>
   )
 }

@@ -1,4 +1,20 @@
 import { Fragment, useEffect, useMemo, useState, type Dispatch, type FormEvent, type SetStateAction } from 'react'
+import {
+  CrudButton,
+  CrudInput,
+  CrudLabel,
+  CrudSelect,
+  CrudTextarea,
+  DataTable,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  PillBadge,
+  SurfaceCard,
+} from '@/components/ui'
 import type {
   AccountId,
   AccountEntry,
@@ -1381,7 +1397,7 @@ export function BillsTab({
 
   return (
     <section className="editor-grid bills-tab-shell" aria-label="Bill management">
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Bills</p>
@@ -1394,8 +1410,8 @@ export function BillsTab({
         <form className="entry-form entry-form--grid" onSubmit={onAddBill} aria-describedby="bill-form-hint">
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="bill-name">Bill name</label>
-              <input
+              <CrudLabel htmlFor="bill-name">Bill name</CrudLabel>
+              <CrudInput
                 id="bill-name"
                 value={billForm.name}
                 onChange={(event) => setBillForm((prev) => ({ ...prev, name: event.target.value }))}
@@ -1404,8 +1420,8 @@ export function BillsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="bill-amount">Amount</label>
-              <input
+              <CrudLabel htmlFor="bill-amount">Amount</CrudLabel>
+              <CrudInput
                 id="bill-amount"
                 type="number"
                 inputMode="decimal"
@@ -1418,8 +1434,8 @@ export function BillsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="bill-day">Due day</label>
-              <input
+              <CrudLabel htmlFor="bill-day">Due day</CrudLabel>
+              <CrudInput
                 id="bill-day"
                 type="number"
                 inputMode="numeric"
@@ -1432,8 +1448,8 @@ export function BillsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="bill-cadence">Frequency</label>
-              <select
+              <CrudLabel htmlFor="bill-cadence">Frequency</CrudLabel>
+              <CrudSelect
                 id="bill-cadence"
                 value={billForm.cadence}
                 onChange={(event) =>
@@ -1449,12 +1465,12 @@ export function BillsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="bill-category">Category</label>
-              <select
+              <CrudLabel htmlFor="bill-category">Category</CrudLabel>
+              <CrudSelect
                 id="bill-category"
                 value={billForm.category}
                 onChange={(event) =>
@@ -1469,12 +1485,12 @@ export function BillsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="bill-scope">Ownership</label>
-              <select
+              <CrudLabel htmlFor="bill-scope">Ownership</CrudLabel>
+              <CrudSelect
                 id="bill-scope"
                 value={billForm.scope}
                 onChange={(event) =>
@@ -1489,14 +1505,14 @@ export function BillsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             {isCustomCadence(billForm.cadence) ? (
               <div className="form-field form-field--span2">
-                <label htmlFor="bill-custom-interval">Custom cadence</label>
+                <CrudLabel htmlFor="bill-custom-interval">Custom cadence</CrudLabel>
                 <div className="inline-cadence-controls">
-                  <input
+                  <CrudInput
                     id="bill-custom-interval"
                     type="number"
                     inputMode="numeric"
@@ -1511,7 +1527,7 @@ export function BillsTab({
                     }
                     required
                   />
-                  <select
+                  <CrudSelect
                     id="bill-custom-unit"
                     value={billForm.customUnit}
                     onChange={(event) =>
@@ -1526,14 +1542,14 @@ export function BillsTab({
                         {option.label}
                       </option>
                     ))}
-                  </select>
+                  </CrudSelect>
                 </div>
               </div>
             ) : null}
 
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="bill-is-subscription">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="bill-is-subscription">
+                <CrudInput
                   id="bill-is-subscription"
                   type="checkbox"
                   checked={billForm.isSubscription}
@@ -1546,13 +1562,13 @@ export function BillsTab({
                   }
                 />
                 Track as subscription / renewal
-              </label>
+              </CrudLabel>
             </div>
 
             {billForm.isSubscription ? (
               <div className="form-field">
-                <label htmlFor="bill-cancel-reminder">Cancel reminder (days before renewal)</label>
-                <input
+                <CrudLabel htmlFor="bill-cancel-reminder">Cancel reminder (days before renewal)</CrudLabel>
+                <CrudInput
                   id="bill-cancel-reminder"
                   type="number"
                   inputMode="numeric"
@@ -1571,8 +1587,8 @@ export function BillsTab({
             ) : null}
 
             <div className="form-field form-field--span2">
-              <label htmlFor="bill-linked-account">Linked account (for autopay risk)</label>
-              <select
+              <CrudLabel htmlFor="bill-linked-account">Linked account (for autopay risk)</CrudLabel>
+              <CrudSelect
                 id="bill-linked-account"
                 value={billForm.linkedAccountId}
                 onChange={(event) => setBillForm((prev) => ({ ...prev, linkedAccountId: event.target.value }))}
@@ -1583,36 +1599,36 @@ export function BillsTab({
                     {account.name} ({account.type})
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="bill-autopay">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="bill-autopay">
+                <CrudInput
                   id="bill-autopay"
                   type="checkbox"
                   checked={billForm.autopay}
                   onChange={(event) => setBillForm((prev) => ({ ...prev, autopay: event.target.checked }))}
                 />
                 Autopay enabled
-              </label>
+              </CrudLabel>
             </div>
 
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="bill-deductible">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="bill-deductible">
+                <CrudInput
                   id="bill-deductible"
                   type="checkbox"
                   checked={billForm.deductible}
                   onChange={(event) => setBillForm((prev) => ({ ...prev, deductible: event.target.checked }))}
                 />
                 Tax deductible
-              </label>
+              </CrudLabel>
             </div>
 
             <div className="form-field form-field--span2">
-              <label htmlFor="bill-notes">Notes</label>
-              <textarea
+              <CrudLabel htmlFor="bill-notes">Notes</CrudLabel>
+              <CrudTextarea
                 id="bill-notes"
                 rows={3}
                 placeholder="Optional"
@@ -1630,14 +1646,14 @@ export function BillsTab({
           </p>
 
           <div className="form-actions">
-            <button type="submit" className="btn btn-primary">
+            <CrudButton type="submit" className="btn btn-primary">
               Add bill
-            </button>
+            </CrudButton>
           </div>
         </form>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Bills</p>
@@ -1645,21 +1661,21 @@ export function BillsTab({
             <p className="panel-value">{formatMoney(monthlyBills)} monthly estimate</p>
           </div>
           <div className="panel-actions">
-            <input
+            <CrudInput
               aria-label="Search bills"
               placeholder="Search bills or notes…"
               value={search}
               onChange={(event) => setSearch(event.target.value)}
             />
-            <select aria-label="Sort bills" value={sortKey} onChange={(event) => setSortKey(event.target.value as BillSortKey)}>
+            <CrudSelect aria-label="Sort bills" value={sortKey} onChange={(event) => setSortKey(event.target.value as BillSortKey)}>
               <option value="name_asc">Name (A-Z)</option>
               <option value="amount_desc">Amount (high-low)</option>
               <option value="amount_asc">Amount (low-high)</option>
               <option value="day_asc">Due day</option>
               <option value="cadence_asc">Frequency</option>
               <option value="autopay_first">Autopay first</option>
-            </select>
-            <button
+            </CrudSelect>
+            <CrudButton
               type="button"
               className="btn btn-ghost btn--sm"
               onClick={() => {
@@ -1669,7 +1685,7 @@ export function BillsTab({
               disabled={search.length === 0 && sortKey === 'name_asc'}
             >
               Clear
-            </button>
+            </CrudButton>
           </div>
         </header>
 
@@ -1678,24 +1694,24 @@ export function BillsTab({
         ) : (
           <>
             <section className="bills-summary-strip" aria-label="Bills executive summary strip">
-              <article className="bills-summary-card">
+              <SurfaceCard className="bills-summary-card">
                 <p>Monthly bills total</p>
                 <strong>{formatMoney(monthlyBills)}</strong>
                 <small>
                   {bills.length} tracked bill{bills.length === 1 ? '' : 's'}
                 </small>
-              </article>
-              <article className="bills-summary-card bills-summary-card--watch">
+              </SurfaceCard>
+              <SurfaceCard className="bills-summary-card bills-summary-card--watch">
                 <p>Due in next 7 days</p>
                 <strong>{billSummary.dueIn7DaysCount}</strong>
                 <small>{formatMoney(billSummary.dueIn7DaysAmount)} upcoming</small>
-              </article>
-              <article className="bills-summary-card bills-summary-card--critical">
+              </SurfaceCard>
+              <SurfaceCard className="bills-summary-card bills-summary-card--critical">
                 <p>Overdue (manual)</p>
                 <strong>{billSummary.overdueCount}</strong>
                 <small>Based on cadence cycle and due-day rollovers</small>
-              </article>
-              <article className="bills-summary-card bills-summary-card--good">
+              </SurfaceCard>
+              <SurfaceCard className="bills-summary-card bills-summary-card--good">
                 <p>Autopay coverage</p>
                 <strong>{billSummary.autopayCoveragePercent.toFixed(1)}%</strong>
                 <small>
@@ -1703,8 +1719,8 @@ export function BillsTab({
                     ? `${formatMoney(billSummary.autopayCoverageAmountGap)} remains manual`
                     : 'All monthly bill volume is autopay-covered'}
                 </small>
-              </article>
-              <article
+              </SurfaceCard>
+              <SurfaceCard
                 className={
                   billSummary.autopayRiskCriticalCount > 0
                     ? 'bills-summary-card bills-summary-card--critical'
@@ -1723,8 +1739,8 @@ export function BillsTab({
                     ? ` · ${billSummary.autopayRiskUnlinkedCount} unlinked`
                     : ' · all checked bills linked'}
                 </small>
-              </article>
-              <article className="bills-summary-card">
+              </SurfaceCard>
+              <SurfaceCard className="bills-summary-card">
                 <p>Variable-bill variance</p>
                 <strong>
                   {billSummary.variableBillCount > 1 ? `${billSummary.variableVariancePercent.toFixed(1)}%` : 'n/a'}
@@ -1734,20 +1750,20 @@ export function BillsTab({
                     ? `σ ${formatMoney(billSummary.variableVarianceStd)} across ${billSummary.variableBillCount} variable bills`
                     : 'Tag notes with "variable" or use custom/weekly cadence to track variability'}
                 </small>
-              </article>
-              <article className="bills-summary-card">
+              </SurfaceCard>
+              <SurfaceCard className="bills-summary-card">
                 <p>Shared / personal split</p>
                 <strong>{formatMoney(billTaggingSummary.sharedMonthly)}</strong>
                 <small>{formatMoney(billTaggingSummary.personalMonthly)} personal monthly estimate</small>
-              </article>
-              <article className="bills-summary-card bills-summary-card--good">
+              </SurfaceCard>
+              <SurfaceCard className="bills-summary-card bills-summary-card--good">
                 <p>Tax deductible bills</p>
                 <strong>{formatMoney(billTaggingSummary.deductibleMonthly)}</strong>
                 <small>
                   {billTaggingSummary.deductibleCount} deductible bill{billTaggingSummary.deductibleCount === 1 ? '' : 's'}
                 </small>
-              </article>
-              <article className="bills-summary-card">
+              </SurfaceCard>
+              <SurfaceCard className="bills-summary-card">
                 <p>Top categories</p>
                 <strong>
                   {billTaggingSummary.topCategories.length > 0
@@ -1761,8 +1777,8 @@ export function BillsTab({
                         .join(' · ')
                     : 'Start tagging categories for cleaner reporting'}
                 </small>
-              </article>
-              <article className="bills-summary-card">
+              </SurfaceCard>
+              <SurfaceCard className="bills-summary-card">
                 <p>Expected vs actual trend</p>
                 <strong
                   className={
@@ -1782,7 +1798,7 @@ export function BillsTab({
                     ? `${formatVarianceTrendLabel(billVarianceOverview.averageVariance)} across ${billVarianceOverview.recentEntries.length} logs`
                     : 'No bill cycle logs yet'}
                 </small>
-              </article>
+              </SurfaceCard>
             </section>
 
             <section className="bills-bulk-actions" aria-label="Bills monthly bulk actions">
@@ -1794,18 +1810,18 @@ export function BillsTab({
               </header>
 
               <div className="bills-bulk-actions-toolbar">
-                <label className="bills-bulk-field" htmlFor="bills-bulk-cycle-month">
+                <CrudLabel className="bills-bulk-field" htmlFor="bills-bulk-cycle-month">
                   <span>Cycle month</span>
-                  <input
+                  <CrudInput
                     id="bills-bulk-cycle-month"
                     type="month"
                     value={bulkCycleMonth}
                     onChange={(event) => setBulkCycleMonth(event.target.value)}
                   />
-                </label>
-                <label className="bills-bulk-field" htmlFor="bills-bulk-funding-account">
+                </CrudLabel>
+                <CrudLabel className="bills-bulk-field" htmlFor="bills-bulk-funding-account">
                   <span>Funding account (for mark paid)</span>
-                  <select
+                  <CrudSelect
                     id="bills-bulk-funding-account"
                     value={bulkFundingAccountId}
                     onChange={(event) => setBulkFundingAccountId(event.target.value)}
@@ -1816,35 +1832,35 @@ export function BillsTab({
                         {account.name} ({account.type})
                       </option>
                     ))}
-                  </select>
-                </label>
+                  </CrudSelect>
+                </CrudLabel>
               </div>
 
               <div className="bills-bulk-actions-buttons">
-                <button
+                <CrudButton
                   type="button"
                   className="btn btn-secondary btn--sm"
                   disabled={runningBulkAction !== null}
                   onClick={() => void runBillsBulkAction('roll_recurring_forward')}
                 >
                   {runningBulkAction === 'roll_recurring_forward' ? 'Rolling…' : 'Roll recurring into next month'}
-                </button>
-                <button
+                </CrudButton>
+                <CrudButton
                   type="button"
                   className="btn btn-secondary btn--sm"
                   disabled={runningBulkAction !== null}
                   onClick={() => void runBillsBulkAction('mark_all_paid_from_account')}
                 >
                   {runningBulkAction === 'mark_all_paid_from_account' ? 'Applying…' : 'Mark all paid from account'}
-                </button>
-                <button
+                </CrudButton>
+                <CrudButton
                   type="button"
                   className="btn btn-secondary btn--sm"
                   disabled={runningBulkAction !== null}
                   onClick={() => void runBillsBulkAction('reconcile_batch')}
                 >
                   {runningBulkAction === 'reconcile_batch' ? 'Reconciling…' : 'Reconcile in batch'}
-                </button>
+                </CrudButton>
               </div>
 
               <p className="subnote">
@@ -1855,13 +1871,13 @@ export function BillsTab({
               {bulkActionError ? <p className="bills-bulk-feedback bills-bulk-feedback--error">{bulkActionError}</p> : null}
 
               {bulkActionResult ? (
-                <article className="bills-bulk-result" aria-live="polite">
+                <SurfaceCard className="bills-bulk-result" aria-live="polite">
                   <div className="bills-bulk-result-head">
                     <div>
                       <p className="panel-kicker">Last bulk run</p>
                       <h4>{bulkActionResultLabel}</h4>
                     </div>
-                    <span className="pill pill--good">{bulkActionResult.batchId}</span>
+                    <PillBadge className="pill pill--good">{bulkActionResult.batchId}</PillBadge>
                   </div>
                   <div className="bills-bulk-result-grid">
                     <div>
@@ -1896,7 +1912,7 @@ export function BillsTab({
                       <small>roll action writes to next month only</small>
                     </div>
                   </div>
-                </article>
+                </SurfaceCard>
               ) : null}
             </section>
 
@@ -1909,7 +1925,7 @@ export function BillsTab({
               </header>
 
               <div className="bills-summary-strip">
-                <article
+                <SurfaceCard
                   className={
                     duplicateOverlapData.duplicatePairs > 0
                       ? 'bills-summary-card bills-summary-card--critical'
@@ -1919,8 +1935,8 @@ export function BillsTab({
                   <p>Potential duplicate pairs</p>
                   <strong>{duplicateOverlapData.duplicatePairs}</strong>
                   <small>Near-identical name/amount/due signals</small>
-                </article>
-                <article
+                </SurfaceCard>
+                <SurfaceCard
                   className={
                     duplicateOverlapData.overlapPairs > 0
                       ? 'bills-summary-card bills-summary-card--watch'
@@ -1930,8 +1946,8 @@ export function BillsTab({
                   <p>Potential overlap pairs</p>
                   <strong>{duplicateOverlapData.overlapPairs}</strong>
                   <small>Likely overlap where one bill may replace another</small>
-                </article>
-                <article className="bills-summary-card">
+                </SurfaceCard>
+                <SurfaceCard className="bills-summary-card">
                   <p>Impacted bills</p>
                   <strong>{duplicateOverlapData.impactedCount}</strong>
                   <small>
@@ -1939,8 +1955,8 @@ export function BillsTab({
                       ? 'Review these before running monthly cycle'
                       : 'No collisions detected in current bill set'}
                   </small>
-                </article>
-                <article
+                </SurfaceCard>
+                <SurfaceCard
                   className={
                     duplicateOverlapData.matches.length > 0
                       ? 'bills-summary-card bills-summary-card--watch'
@@ -1954,7 +1970,7 @@ export function BillsTab({
                       ? 'Merge/remove overlap pairs before cycle close'
                       : 'No duplicate or overlap blockers'}
                   </small>
-                </article>
+                </SurfaceCard>
               </div>
 
               {duplicateOverlapData.matches.length === 0 ? (
@@ -1973,9 +1989,9 @@ export function BillsTab({
                         </small>
                       </div>
                       <div className="bills-overlap-metrics">
-                        <span className={match.kind === 'duplicate' ? 'pill pill--critical' : 'pill pill--warning'}>
+                        <PillBadge className={match.kind === 'duplicate' ? 'pill pill--critical' : 'pill pill--warning'}>
                           {match.kind}
-                        </span>
+                        </PillBadge>
                         <small>{Math.round(match.nameSimilarity * 100)}% name match</small>
                         <small>
                           {formatMoney(match.amountDelta)} delta ({(match.amountDeltaPercent * 100).toFixed(1)}%)
@@ -1984,30 +2000,30 @@ export function BillsTab({
                           {match.dueDayDelta} day{match.dueDayDelta === 1 ? '' : 's'} apart
                         </small>
                         <div className="bills-overlap-actions">
-                          <button
+                          <CrudButton
                             type="button"
                             className="btn btn-secondary btn--sm"
                             disabled={resolvingOverlapId === match.id}
                             onClick={() => openOverlapConfirmation(match, 'merge')}
                           >
                             Merge
-                          </button>
-                          <button
+                          </CrudButton>
+                          <CrudButton
                             type="button"
                             className="btn btn-ghost btn--sm"
                             disabled={resolvingOverlapId === match.id}
                             onClick={() => openOverlapConfirmation(match, 'archive_duplicate')}
                           >
                             Archive duplicate
-                          </button>
-                          <button
+                          </CrudButton>
+                          <CrudButton
                             type="button"
                             className="btn btn-ghost btn--sm"
                             disabled={resolvingOverlapId === match.id}
                             onClick={() => openOverlapConfirmation(match, 'mark_intentional')}
                           >
                             Mark intentional
-                          </button>
+                          </CrudButton>
                         </div>
                       </div>
                     </li>
@@ -2025,17 +2041,17 @@ export function BillsTab({
               </header>
 
               <div className="bills-summary-strip">
-                <article className="bills-summary-card">
+                <SurfaceCard className="bills-summary-card">
                   <p>Tracked subscriptions</p>
                   <strong>{subscriptionInsights.rows.length}</strong>
                   <small>{formatMoney(subscriptionInsights.monthlyCostTotal)} monthly run-rate</small>
-                </article>
-                <article className="bills-summary-card bills-summary-card--watch">
+                </SurfaceCard>
+                <SurfaceCard className="bills-summary-card bills-summary-card--watch">
                   <p>Annualized cost</p>
                   <strong>{formatMoney(subscriptionInsights.annualizedCostTotal)}</strong>
                   <small>Total yearly renewal exposure</small>
-                </article>
-                <article
+                </SurfaceCard>
+                <SurfaceCard
                   className={
                     subscriptionInsights.cancelReminderDueCount > 0
                       ? 'bills-summary-card bills-summary-card--critical'
@@ -2045,24 +2061,24 @@ export function BillsTab({
                   <p>Cancel reminders due</p>
                   <strong>{subscriptionInsights.cancelReminderDueCount}</strong>
                   <small>Based on reminder lead times</small>
-                </article>
-                <article className="bills-summary-card">
+                </SurfaceCard>
+                <SurfaceCard className="bills-summary-card">
                   <p>Renewals in next 30 days</p>
                   <strong>{subscriptionInsights.renewalsIn30DaysCount}</strong>
                   <small>Upcoming subscription charges</small>
-                </article>
-                <article className="bills-summary-card">
+                </SurfaceCard>
+                <SurfaceCard className="bills-summary-card">
                   <p>Price changes (90 days)</p>
                   <strong>{subscriptionInsights.priceChangesIn90DaysCount}</strong>
                   <small>Amount updates tracked automatically</small>
-                </article>
+                </SurfaceCard>
               </div>
 
               {subscriptionInsights.rows.length === 0 ? (
                 <p className="subnote">No subscription bills yet. Enable “Track as subscription / renewal” on a bill to start.</p>
               ) : (
                 <div className="table-wrap table-wrap--card">
-                  <table className="data-table">
+                  <DataTable className="data-table">
                     <caption className="sr-only">Subscription renewals</caption>
                     <thead>
                       <tr>
@@ -2111,9 +2127,9 @@ export function BillsTab({
                               <small>
                                 {row.cancelReminderDays} day{row.cancelReminderDays === 1 ? '' : 's'} before renewal
                               </small>
-                              <span className={row.cancelReminderDue ? 'pill pill--critical' : 'pill pill--good'}>
+                              <PillBadge className={row.cancelReminderDue ? 'pill pill--critical' : 'pill pill--good'}>
                                 {row.cancelReminderDue ? 'Reminder due' : 'On track'}
-                              </span>
+                              </PillBadge>
                             </div>
                           </td>
                           <td>
@@ -2140,13 +2156,13 @@ export function BillsTab({
                                 </small>
                               </div>
                             ) : (
-                              <span className="pill pill--neutral">No change logs yet</span>
+                              <PillBadge className="pill pill--neutral">No change logs yet</PillBadge>
                             )}
                           </td>
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </DataTable>
                 </div>
               )}
             </section>
@@ -2164,30 +2180,30 @@ export function BillsTab({
               ) : (
                 <>
                   <div className="bills-summary-strip">
-                    <article className="bills-summary-card">
+                    <SurfaceCard className="bills-summary-card">
                       <p>Providers tracked</p>
                       <strong>{providerIntelligence.rows.length}</strong>
                       <small>Subscription providers with trend analytics</small>
-                    </article>
-                    <article className="bills-summary-card bills-summary-card--critical">
+                    </SurfaceCard>
+                    <SurfaceCard className="bills-summary-card bills-summary-card--critical">
                       <p>Critical creep alerts</p>
                       <strong>{providerIntelligence.criticalCount}</strong>
                       <small>Strong price creep signal</small>
-                    </article>
-                    <article className="bills-summary-card bills-summary-card--watch">
+                    </SurfaceCard>
+                    <SurfaceCard className="bills-summary-card bills-summary-card--watch">
                       <p>Warning creep alerts</p>
                       <strong>{providerIntelligence.warningCount}</strong>
                       <small>Moderate upward trend</small>
-                    </article>
-                    <article className="bills-summary-card bills-summary-card--good">
+                    </SurfaceCard>
+                    <SurfaceCard className="bills-summary-card bills-summary-card--good">
                       <p>Stable providers</p>
                       <strong>{providerIntelligence.goodCount}</strong>
                       <small>No material creep signal</small>
-                    </article>
+                    </SurfaceCard>
                   </div>
 
                   <div className="table-wrap table-wrap--card">
-                    <table className="data-table">
+                    <DataTable className="data-table">
                       <caption className="sr-only">Provider intelligence</caption>
                       <thead>
                         <tr>
@@ -2240,7 +2256,7 @@ export function BillsTab({
                           </tr>
                         ))}
                       </tbody>
-                    </table>
+                    </DataTable>
                   </div>
                 </>
               )}
@@ -2256,20 +2272,20 @@ export function BillsTab({
                   </p>
                 </div>
                 <div className="bills-timeline-window-toggle" role="group" aria-label="Timeline window">
-                  <button
+                  <CrudButton
                     type="button"
                     className={`btn btn-ghost btn--sm ${timelineWindowDays === 14 ? 'bills-timeline-window-btn--active' : ''}`}
                     onClick={() => setTimelineWindowDays(14)}
                   >
                     Next 14 days
-                  </button>
-                  <button
+                  </CrudButton>
+                  <CrudButton
                     type="button"
                     className={`btn btn-ghost btn--sm ${timelineWindowDays === 30 ? 'bills-timeline-window-btn--active' : ''}`}
                     onClick={() => setTimelineWindowDays(30)}
                   >
                     Next 30 days
-                  </button>
+                  </CrudButton>
                 </div>
               </header>
 
@@ -2333,7 +2349,7 @@ export function BillsTab({
               <p className="empty-state">No bills match your search.</p>
             ) : (
               <div className="table-wrap table-wrap--card">
-                <table className="data-table data-table--bills" data-testid="bills-table">
+                <DataTable className="data-table data-table--bills" data-testid="bills-table">
                   <caption className="sr-only">Bill entries</caption>
                   <thead>
                     <tr>
@@ -2396,7 +2412,7 @@ export function BillsTab({
                             <td>
                               {isEditing ? (
                                 <div className="cell-stack">
-                                  <input
+                                  <CrudInput
                                     className="inline-input"
                                     value={billEditDraft.name}
                                     onChange={(event) =>
@@ -2407,7 +2423,7 @@ export function BillsTab({
                                     }
                                   />
                                   <div className="bills-inline-tag-grid">
-                                    <select
+                                    <CrudSelect
                                       className="inline-select"
                                       value={billEditDraft.category}
                                       onChange={(event) =>
@@ -2422,8 +2438,8 @@ export function BillsTab({
                                           {option.label}
                                         </option>
                                       ))}
-                                    </select>
-                                    <select
+                                    </CrudSelect>
+                                    <CrudSelect
                                       className="inline-select"
                                       value={billEditDraft.scope}
                                       onChange={(event) =>
@@ -2438,10 +2454,10 @@ export function BillsTab({
                                           {option.label}
                                         </option>
                                       ))}
-                                    </select>
+                                    </CrudSelect>
                                   </div>
-                                  <label className="checkbox-row" htmlFor={`bill-edit-deductible-${entry._id}`}>
-                                    <input
+                                  <CrudLabel className="checkbox-row" htmlFor={`bill-edit-deductible-${entry._id}`}>
+                                    <CrudInput
                                       id={`bill-edit-deductible-${entry._id}`}
                                       type="checkbox"
                                       checked={billEditDraft.deductible}
@@ -2453,22 +2469,22 @@ export function BillsTab({
                                       }
                                     />
                                     Tax deductible
-                                  </label>
+                                  </CrudLabel>
                                 </div>
                               ) : (
                                 <div className="cell-stack">
                                   <strong>{entry.name}</strong>
                                   <div className="bills-entry-tags">
-                                    <span className="pill pill--cadence">{billCategoryText(resolveBillCategory(entry))}</span>
-                                    <span className="pill pill--neutral">{billScopeText(resolveBillScope(entry))}</span>
-                                    {entry.deductible ? <span className="pill pill--good">Deductible</span> : null}
+                                    <PillBadge className="pill pill--cadence">{billCategoryText(resolveBillCategory(entry))}</PillBadge>
+                                    <PillBadge className="pill pill--neutral">{billScopeText(resolveBillScope(entry))}</PillBadge>
+                                    {entry.deductible ? <PillBadge className="pill pill--good">Deductible</PillBadge> : null}
                                   </div>
                                 </div>
                               )}
                             </td>
                             <td className="table-amount amount-negative">
                               {isEditing ? (
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="decimal"
@@ -2488,7 +2504,7 @@ export function BillsTab({
                             </td>
                             <td>
                               {isEditing ? (
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   type="number"
                                   inputMode="numeric"
@@ -2503,13 +2519,13 @@ export function BillsTab({
                                   }
                                 />
                               ) : (
-                                <span className="pill pill--neutral">Day {entry.dueDay}</span>
+                                <PillBadge className="pill pill--neutral">Day {entry.dueDay}</PillBadge>
                               )}
                             </td>
                             <td>
                               {isEditing ? (
                                 <div className="inline-cadence-controls">
-                                  <select
+                                  <CrudSelect
                                     className="inline-select"
                                     value={billEditDraft.cadence}
                                     onChange={(event) =>
@@ -2525,10 +2541,10 @@ export function BillsTab({
                                         {option.label}
                                       </option>
                                     ))}
-                                  </select>
+                                  </CrudSelect>
                                   {isCustomCadence(billEditDraft.cadence) ? (
                                     <>
-                                      <input
+                                      <CrudInput
                                         className="inline-input inline-cadence-number"
                                         type="number"
                                         inputMode="numeric"
@@ -2542,7 +2558,7 @@ export function BillsTab({
                                           }))
                                         }
                                       />
-                                      <select
+                                      <CrudSelect
                                         className="inline-select inline-cadence-unit"
                                         value={billEditDraft.customUnit}
                                         onChange={(event) =>
@@ -2557,21 +2573,21 @@ export function BillsTab({
                                             {option.label}
                                           </option>
                                         ))}
-                                      </select>
+                                      </CrudSelect>
                                     </>
                                   ) : null}
                                 </div>
                               ) : (
-                                <span className="pill pill--cadence">
+                                <PillBadge className="pill pill--cadence">
                                   {cadenceLabel(entry.cadence, entry.customInterval, entry.customUnit)}
-                                </span>
+                                </PillBadge>
                               )}
                             </td>
                             <td>
                               {isEditing ? (
                                 <div className="cell-stack">
-                                  <label className="checkbox-row" htmlFor={`bill-edit-autopay-${entry._id}`}>
-                                    <input
+                                  <CrudLabel className="checkbox-row" htmlFor={`bill-edit-autopay-${entry._id}`}>
+                                    <CrudInput
                                       id={`bill-edit-autopay-${entry._id}`}
                                       aria-label="Autopay enabled"
                                       type="checkbox"
@@ -2584,9 +2600,9 @@ export function BillsTab({
                                       }
                                     />
                                     Autopay
-                                  </label>
-                                  <label className="checkbox-row" htmlFor={`bill-edit-subscription-${entry._id}`}>
-                                    <input
+                                  </CrudLabel>
+                                  <CrudLabel className="checkbox-row" htmlFor={`bill-edit-subscription-${entry._id}`}>
+                                    <CrudInput
                                       id={`bill-edit-subscription-${entry._id}`}
                                       type="checkbox"
                                       checked={billEditDraft.isSubscription}
@@ -2599,9 +2615,9 @@ export function BillsTab({
                                       }
                                     />
                                     Subscription
-                                  </label>
+                                  </CrudLabel>
                                   {billEditDraft.isSubscription ? (
-                                    <input
+                                    <CrudInput
                                       className="inline-input"
                                       type="number"
                                       inputMode="numeric"
@@ -2618,7 +2634,7 @@ export function BillsTab({
                                       placeholder="Reminder days"
                                     />
                                   ) : null}
-                                  <select
+                                  <CrudSelect
                                     className="inline-select"
                                     value={billEditDraft.linkedAccountId}
                                     onChange={(event) =>
@@ -2634,15 +2650,15 @@ export function BillsTab({
                                         {account.name} ({account.type})
                                       </option>
                                     ))}
-                                  </select>
+                                  </CrudSelect>
                                 </div>
                               ) : entry.autopay ? (
                                 <div className="cell-stack">
-                                  <span className="pill pill--good">Autopay</span>
+                                  <PillBadge className="pill pill--good">Autopay</PillBadge>
                                   {entry.isSubscription ? (
-                                    <span className="pill pill--cadence">
+                                    <PillBadge className="pill pill--cadence">
                                       Subscription · {entry.cancelReminderDays ?? 7}d reminder
-                                    </span>
+                                    </PillBadge>
                                   ) : null}
                                   <small>{linkedAccount ? `Linked ${linkedAccount.name}` : 'No linked account'}</small>
                                   <span
@@ -2678,18 +2694,18 @@ export function BillsTab({
                                 </div>
                               ) : (
                                 <div className="cell-stack">
-                                  <span className="pill pill--neutral">Manual</span>
+                                  <PillBadge className="pill pill--neutral">Manual</PillBadge>
                                   {entry.isSubscription ? (
-                                    <span className="pill pill--cadence">
+                                    <PillBadge className="pill pill--cadence">
                                       Subscription · {entry.cancelReminderDays ?? 7}d reminder
-                                    </span>
+                                    </PillBadge>
                                   ) : null}
                                 </div>
                               )}
                             </td>
                             <td>
                               {rowPaymentChecks.length === 0 ? (
-                                <span className="pill pill--neutral">No cycle logs</span>
+                                <PillBadge className="pill pill--neutral">No cycle logs</PillBadge>
                               ) : (
                                 <div className="cell-stack">
                                   <small>
@@ -2735,7 +2751,7 @@ export function BillsTab({
                             </td>
                             <td>
                               {isEditing ? (
-                                <input
+                                <CrudInput
                                   className="inline-input"
                                   value={billEditDraft.notes}
                                   onChange={(event) =>
@@ -2755,20 +2771,20 @@ export function BillsTab({
                               <div className="row-actions row-actions--bills">
                                 {isEditing ? (
                                   <>
-                                    <button
+                                    <CrudButton
                                       type="button"
                                       className="btn btn-secondary btn--sm"
                                       onClick={() => void saveBillEdit()}
                                     >
                                       Save
-                                    </button>
-                                    <button type="button" className="btn btn-ghost btn--sm" onClick={() => setBillEditId(null)}>
+                                    </CrudButton>
+                                    <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => setBillEditId(null)}>
                                       Cancel
-                                    </button>
+                                    </CrudButton>
                                   </>
                                 ) : (
                                   <>
-                                    <button
+                                    <CrudButton
                                       type="button"
                                       className="btn btn-secondary btn--sm"
                                       onClick={() => {
@@ -2777,17 +2793,17 @@ export function BillsTab({
                                       }}
                                     >
                                       Edit
-                                    </button>
-                                    <button
+                                    </CrudButton>
+                                    <CrudButton
                                       type="button"
                                       className="btn btn-ghost btn--sm"
                                       onClick={() => (isPaymentLogOpen ? closePaymentLog() : openPaymentLog(entry))}
                                     >
                                       {isPaymentLogOpen ? 'Close log' : 'Log cycle'}
-                                    </button>
+                                    </CrudButton>
                                   </>
                                 )}
-                                <button
+                                <CrudButton
                                   type="button"
                                   className="btn btn-ghost btn--sm"
                                   onClick={() => {
@@ -2798,7 +2814,7 @@ export function BillsTab({
                                   }}
                                 >
                                   Remove
-                                </button>
+                                </CrudButton>
                               </div>
                             </td>
                           </tr>
@@ -2814,9 +2830,9 @@ export function BillsTab({
                                   </div>
 
                                   <div className="income-payment-log-fields">
-                                    <label className="income-payment-log-field">
+                                    <CrudLabel className="income-payment-log-field">
                                       <span>Cycle month</span>
-                                      <input
+                                      <CrudInput
                                         type="month"
                                         value={paymentLogDraft.cycleMonth}
                                         onChange={(event) =>
@@ -2826,11 +2842,11 @@ export function BillsTab({
                                           }))
                                         }
                                       />
-                                    </label>
+                                    </CrudLabel>
 
-                                    <label className="income-payment-log-field">
+                                    <CrudLabel className="income-payment-log-field">
                                       <span>Planned amount</span>
-                                      <input
+                                      <CrudInput
                                         type="number"
                                         min="0.01"
                                         step="0.01"
@@ -2843,11 +2859,11 @@ export function BillsTab({
                                           }))
                                         }
                                       />
-                                    </label>
+                                    </CrudLabel>
 
-                                    <label className="income-payment-log-field">
+                                    <CrudLabel className="income-payment-log-field">
                                       <span>Actual paid</span>
-                                      <input
+                                      <CrudInput
                                         type="number"
                                         min="0"
                                         step="0.01"
@@ -2861,11 +2877,11 @@ export function BillsTab({
                                           }))
                                         }
                                       />
-                                    </label>
+                                    </CrudLabel>
 
-                                    <label className="income-payment-log-field">
+                                    <CrudLabel className="income-payment-log-field">
                                       <span>Paid day</span>
-                                      <input
+                                      <CrudInput
                                         type="number"
                                         min="1"
                                         max="31"
@@ -2878,11 +2894,11 @@ export function BillsTab({
                                           }))
                                         }
                                       />
-                                    </label>
+                                    </CrudLabel>
 
-                                    <label className="income-payment-log-field income-payment-log-field--note">
+                                    <CrudLabel className="income-payment-log-field income-payment-log-field--note">
                                       <span>Note</span>
-                                      <input
+                                      <CrudInput
                                         type="text"
                                         placeholder="Optional context"
                                         value={paymentLogDraft.note}
@@ -2893,7 +2909,7 @@ export function BillsTab({
                                           }))
                                         }
                                       />
-                                    </label>
+                                    </CrudLabel>
                                   </div>
 
                                   <p className="income-payment-log-hint">
@@ -2901,7 +2917,7 @@ export function BillsTab({
                                   </p>
 
                                   <div className="income-payment-log-actions">
-                                    <button
+                                    <CrudButton
                                       type="button"
                                       className="btn btn-primary btn--sm"
                                       onClick={() =>
@@ -2916,17 +2932,17 @@ export function BillsTab({
                                       }
                                     >
                                       Save cycle log
-                                    </button>
-                                    <button type="button" className="btn btn-ghost btn--sm" onClick={closePaymentLog}>
+                                    </CrudButton>
+                                    <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={closePaymentLog}>
                                       Close
-                                    </button>
+                                    </CrudButton>
                                   </div>
 
                                   {rowPaymentChecks.length > 0 ? (
                                     <ul className="income-payment-log-history">
                                       {rowPaymentChecks.slice(0, 8).map((paymentCheck) => (
                                         <li key={paymentCheck._id}>
-                                          <span className="pill pill--neutral">{paymentCheck.cycleMonth}</span>
+                                          <PillBadge className="pill pill--neutral">{paymentCheck.cycleMonth}</PillBadge>
                                           <small>
                                             planned {formatMoney(paymentCheck.expectedAmount)} · actual{' '}
                                             {paymentCheck.actualAmount !== undefined
@@ -2950,13 +2966,13 @@ export function BillsTab({
                                               : 'n/a'}{' '}
                                             · {paymentCheck.paidDay ? `day ${paymentCheck.paidDay}` : 'no paid day'}
                                           </small>
-                                          <button
+                                          <CrudButton
                                             type="button"
                                             className="btn btn-ghost btn--sm"
                                             onClick={() => void onDeleteBillPaymentCheck(paymentCheck._id)}
                                           >
                                             Remove
-                                          </button>
+                                          </CrudButton>
                                         </li>
                                       ))}
                                     </ul>
@@ -2972,54 +2988,51 @@ export function BillsTab({
                       )
                     })}
                   </tbody>
-                </table>
+                </DataTable>
               </div>
             )}
           </>
         )}
-      </article>
+      </SurfaceCard>
 
       {overlapConfirmation && overlapConfirmationCopy ? (
-        <div className="modal-backdrop" role="presentation" onMouseDown={closeOverlapConfirmation}>
-          <div
-            className="modal bills-overlap-confirm-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="bill-overlap-confirm-title"
-            onMouseDown={(event) => event.stopPropagation()}
+        <Dialog open onOpenChange={(open) => (!open ? closeOverlapConfirmation() : undefined)}>
+          <DialogContent
+            showCloseButton={false}
+            className="modal bills-overlap-confirm-modal max-w-[min(92vw,52rem)] gap-0 p-0"
           >
-            <header className="modal__header bills-overlap-confirm-modal__header">
+            <DialogHeader className="modal__header bills-overlap-confirm-modal__header">
               <div>
                 <p className="panel-kicker">Bills</p>
-                <h2 id="bill-overlap-confirm-title">{overlapConfirmationCopy.title}</h2>
-                <p className="subnote">{overlapConfirmationCopy.description}</p>
+                <DialogTitle id="bill-overlap-confirm-title">{overlapConfirmationCopy.title}</DialogTitle>
+                <DialogDescription className="subnote text-inherit">{overlapConfirmationCopy.description}</DialogDescription>
               </div>
-              <button
+              <CrudButton
                 type="button"
                 className="btn btn-ghost btn--sm"
                 onClick={closeOverlapConfirmation}
                 disabled={isConfirmingOverlapAction}
               >
                 Close
-              </button>
-            </header>
+              </CrudButton>
+            </DialogHeader>
 
             <div className="modal__body bills-overlap-confirm-modal__body">
               <div className="bills-overlap-confirm-grid">
-                <article className="bills-overlap-confirm-card bills-overlap-confirm-card--keep">
+                <SurfaceCard className="bills-overlap-confirm-card bills-overlap-confirm-card--keep">
                   <p>Bill kept</p>
                   <strong>{confirmationPrimarySummary.name}</strong>
                   <small>{confirmationPrimarySummary.details}</small>
-                  <span className="pill pill--good">
+                  <PillBadge className="pill pill--good">
                     {overlapConfirmation.resolution === 'mark_intentional' ? 'Keeps bill (tagged)' : 'Keeps active bill'}
-                  </span>
-                </article>
+                  </PillBadge>
+                </SurfaceCard>
 
-                <article className="bills-overlap-confirm-card bills-overlap-confirm-card--change">
+                <SurfaceCard className="bills-overlap-confirm-card bills-overlap-confirm-card--change">
                   <p>{overlapConfirmation.resolution === 'mark_intentional' ? 'Paired bill' : 'Bill changed'}</p>
                   <strong>{confirmationSecondarySummary.name}</strong>
                   <small>{confirmationSecondarySummary.details}</small>
-                  <span
+                  <PillBadge
                     className={
                       overlapConfirmation.resolution === 'merge'
                         ? 'pill pill--critical'
@@ -3033,31 +3046,31 @@ export function BillsTab({
                       : overlapConfirmation.resolution === 'archive_duplicate'
                         ? 'Archived duplicate'
                         : 'Tagged intentional pair'}
-                  </span>
-                </article>
+                  </PillBadge>
+                </SurfaceCard>
               </div>
             </div>
 
-            <footer className="modal__footer bills-overlap-confirm-modal__footer">
-              <button
+            <DialogFooter className="modal__footer bills-overlap-confirm-modal__footer">
+              <CrudButton
                 type="button"
                 className="btn btn-ghost"
                 onClick={closeOverlapConfirmation}
                 disabled={isConfirmingOverlapAction}
               >
                 Cancel
-              </button>
-              <button
+              </CrudButton>
+              <CrudButton
                 type="button"
                 className="btn btn-primary"
                 disabled={isConfirmingOverlapAction}
                 onClick={() => void resolveOverlapMatch(overlapConfirmation.match, overlapConfirmation.resolution)}
               >
                 {isConfirmingOverlapAction ? 'Applying…' : overlapConfirmationCopy.confirmLabel}
-              </button>
-            </footer>
-          </div>
-        </div>
+              </CrudButton>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       ) : null}
     </section>
   )
