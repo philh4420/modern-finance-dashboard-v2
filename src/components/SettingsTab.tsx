@@ -1,4 +1,5 @@
 import { useMemo, useState, type Dispatch, type SetStateAction } from 'react'
+import { CrudButton, CrudInput, CrudLabel, CrudSelect, CrudTextarea, DataTable, PillBadge, SurfaceCard } from '@/components/ui'
 import type {
   BillCategory,
   BillScope,
@@ -568,7 +569,7 @@ export function SettingsTab({
 
   return (
     <section className="content-grid" aria-label="Settings and trust controls">
-      <article className="panel panel-trust-kpis">
+      <SurfaceCard className="panel panel-trust-kpis">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Settings</p>
@@ -576,22 +577,22 @@ export function SettingsTab({
             <p className="panel-value">Profile, notifications, defaults, and UI personalization</p>
           </div>
           <div className="panel-actions">
-            <button
+            <CrudButton
               type="button"
               className="btn btn-secondary btn--sm"
               onClick={() => void onSavePreferences()}
               disabled={isSavingPreferences || !hasUnsavedPreferences}
             >
               {isSavingPreferences ? 'Saving...' : 'Save settings'}
-            </button>
-            <button
+            </CrudButton>
+            <CrudButton
               type="button"
               className="btn btn-ghost btn--sm"
               onClick={onResetPreferencesDraft}
               disabled={isSavingPreferences || !hasUnsavedPreferences}
             >
               Reset
-            </button>
+            </CrudButton>
           </div>
         </header>
 
@@ -631,9 +632,9 @@ export function SettingsTab({
             <small>{hasUnsavedPreferences ? 'Unsaved changes' : 'Synced with app shell'}</small>
           </div>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Phase 1</p>
@@ -645,8 +646,8 @@ export function SettingsTab({
         <div className="entry-form entry-form--grid">
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="settings-display-name">Display name</label>
-              <input
+              <CrudLabel htmlFor="settings-display-name">Display name</CrudLabel>
+              <CrudInput
                 id="settings-display-name"
                 value={preferenceDraft.displayName}
                 placeholder="Optional"
@@ -655,8 +656,8 @@ export function SettingsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-timezone">Timezone</label>
-              <select
+              <CrudLabel htmlFor="settings-timezone">Timezone</CrudLabel>
+              <CrudSelect
                 id="settings-timezone"
                 value={preferenceDraft.timezone}
                 onChange={(event) => setPreferenceDraft((prev) => ({ ...prev, timezone: event.target.value }))}
@@ -666,12 +667,12 @@ export function SettingsTab({
                     {timezone}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-currency">Base currency</label>
-              <select
+              <CrudLabel htmlFor="settings-currency">Base currency</CrudLabel>
+              <CrudSelect
                 id="settings-currency"
                 value={preferenceDraft.currency}
                 onChange={(event) => setPreferenceDraft((prev) => ({ ...prev, currency: event.target.value }))}
@@ -681,12 +682,12 @@ export function SettingsTab({
                     {currency}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-locale">Locale</label>
-              <select
+              <CrudLabel htmlFor="settings-locale">Locale</CrudLabel>
+              <CrudSelect
                 id="settings-locale"
                 value={preferenceDraft.locale}
                 onChange={(event) => setPreferenceDraft((prev) => ({ ...prev, locale: event.target.value }))}
@@ -696,12 +697,12 @@ export function SettingsTab({
                     {locale}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-week-start">Week start day</label>
-              <select
+              <CrudLabel htmlFor="settings-week-start">Week start day</CrudLabel>
+              <CrudSelect
                 id="settings-week-start"
                 value={preferenceDraft.weekStartDay}
                 onChange={(event) =>
@@ -713,12 +714,12 @@ export function SettingsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-default-month">Default month</label>
-              <select
+              <CrudLabel htmlFor="settings-default-month">Default month</CrudLabel>
+              <CrudSelect
                 id="settings-default-month"
                 value={preferenceDraft.defaultMonthPreset}
                 onChange={(event) =>
@@ -730,7 +731,7 @@ export function SettingsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
           </div>
 
@@ -738,9 +739,9 @@ export function SettingsTab({
             Currency, locale, timezone, density, dashboard order, and landing tab are applied across the app shell after save.
           </p>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Phase 1</p>
@@ -752,8 +753,8 @@ export function SettingsTab({
         <div className="entry-form entry-form--grid">
           <div className="form-grid">
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="settings-due-reminders-enabled">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="settings-due-reminders-enabled">
+                <CrudInput
                   id="settings-due-reminders-enabled"
                   type="checkbox"
                   checked={preferenceDraft.dueRemindersEnabled}
@@ -762,12 +763,12 @@ export function SettingsTab({
                   }
                 />
                 Due reminders enabled
-              </label>
+              </CrudLabel>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-due-reminder-days">Due reminder lead days</label>
-              <input
+              <CrudLabel htmlFor="settings-due-reminder-days">Due reminder lead days</CrudLabel>
+              <CrudInput
                 id="settings-due-reminder-days"
                 type="number"
                 min="0"
@@ -779,8 +780,8 @@ export function SettingsTab({
             </div>
 
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="settings-cycle-alerts-enabled">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="settings-cycle-alerts-enabled">
+                <CrudInput
                   id="settings-cycle-alerts-enabled"
                   type="checkbox"
                   checked={preferenceDraft.monthlyCycleAlertsEnabled}
@@ -789,12 +790,12 @@ export function SettingsTab({
                   }
                 />
                 Monthly cycle alerts
-              </label>
+              </CrudLabel>
             </div>
 
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="settings-reconcile-reminders-enabled">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="settings-reconcile-reminders-enabled">
+                <CrudInput
                   id="settings-reconcile-reminders-enabled"
                   type="checkbox"
                   checked={preferenceDraft.reconciliationRemindersEnabled}
@@ -803,12 +804,12 @@ export function SettingsTab({
                   }
                 />
                 Reconciliation reminders
-              </label>
+              </CrudLabel>
             </div>
 
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="settings-goal-alerts-enabled">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="settings-goal-alerts-enabled">
+                <CrudInput
                   id="settings-goal-alerts-enabled"
                   type="checkbox"
                   checked={preferenceDraft.goalAlertsEnabled}
@@ -817,13 +818,13 @@ export function SettingsTab({
                   }
                 />
                 Goal alerts
-              </label>
+              </CrudLabel>
             </div>
           </div>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Phase 1</p>
@@ -835,8 +836,8 @@ export function SettingsTab({
         <div className="entry-form entry-form--grid">
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="settings-default-bill-category">Default bill category</label>
-              <select
+              <CrudLabel htmlFor="settings-default-bill-category">Default bill category</CrudLabel>
+              <CrudSelect
                 id="settings-default-bill-category"
                 value={preferenceDraft.defaultBillCategory}
                 onChange={(event) =>
@@ -854,12 +855,12 @@ export function SettingsTab({
                 <option value="education">Education</option>
                 <option value="childcare">Childcare</option>
                 <option value="other">Other</option>
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-default-bill-scope">Default bill ownership</label>
-              <select
+              <CrudLabel htmlFor="settings-default-bill-scope">Default bill ownership</CrudLabel>
+              <CrudSelect
                 id="settings-default-bill-scope"
                 value={preferenceDraft.defaultBillScope}
                 onChange={(event) =>
@@ -868,12 +869,12 @@ export function SettingsTab({
               >
                 <option value="shared">Shared / household</option>
                 <option value="personal">Personal</option>
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-default-purchase-ownership">Default purchase ownership</label>
-              <select
+              <CrudLabel htmlFor="settings-default-purchase-ownership">Default purchase ownership</CrudLabel>
+              <CrudSelect
                 id="settings-default-purchase-ownership"
                 value={preferenceDraft.defaultPurchaseOwnership}
                 onChange={(event) =>
@@ -885,12 +886,12 @@ export function SettingsTab({
               >
                 <option value="shared">Shared / household</option>
                 <option value="personal">Personal</option>
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-default-purchase-category">Default purchase category</label>
-              <input
+              <CrudLabel htmlFor="settings-default-purchase-category">Default purchase category</CrudLabel>
+              <CrudInput
                 id="settings-default-purchase-category"
                 value={preferenceDraft.defaultPurchaseCategory}
                 placeholder="Optional"
@@ -901,8 +902,8 @@ export function SettingsTab({
             </div>
 
             <div className="form-field form-field--span2">
-              <label htmlFor="settings-bill-notes-template">Bill notes template</label>
-              <textarea
+              <CrudLabel htmlFor="settings-bill-notes-template">Bill notes template</CrudLabel>
+              <CrudTextarea
                 id="settings-bill-notes-template"
                 rows={3}
                 value={preferenceDraft.billNotesTemplate}
@@ -912,8 +913,8 @@ export function SettingsTab({
             </div>
 
             <div className="form-field form-field--span2">
-              <label htmlFor="settings-purchase-notes-template">Purchase notes template</label>
-              <textarea
+              <CrudLabel htmlFor="settings-purchase-notes-template">Purchase notes template</CrudLabel>
+              <CrudTextarea
                 id="settings-purchase-notes-template"
                 rows={3}
                 value={preferenceDraft.purchaseNotesTemplate}
@@ -929,9 +930,9 @@ export function SettingsTab({
             Bill and Purchase add forms will use these defaults for faster manual entry after you save.
           </p>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Phase 3</p>
@@ -943,8 +944,8 @@ export function SettingsTab({
         <div className="entry-form entry-form--grid">
           <div className="form-grid">
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="settings-monthly-automation-enabled">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="settings-monthly-automation-enabled">
+                <CrudInput
                   id="settings-monthly-automation-enabled"
                   type="checkbox"
                   checked={preferenceDraft.monthlyAutomationEnabled}
@@ -953,12 +954,12 @@ export function SettingsTab({
                   }
                 />
                 Enable monthly automation preferences
-              </label>
+              </CrudLabel>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-monthly-automation-day">Auto-run day (1-31)</label>
-              <input
+              <CrudLabel htmlFor="settings-monthly-automation-day">Auto-run day (1-31)</CrudLabel>
+              <CrudInput
                 id="settings-monthly-automation-day"
                 type="number"
                 min="1"
@@ -972,9 +973,9 @@ export function SettingsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-monthly-automation-time">Auto-run time (HH:MM)</label>
+              <CrudLabel htmlFor="settings-monthly-automation-time">Auto-run time (HH:MM)</CrudLabel>
               <div className="settings-inline-split">
-                <input
+                <CrudInput
                   id="settings-monthly-automation-time"
                   type="number"
                   min="0"
@@ -985,7 +986,7 @@ export function SettingsTab({
                     setPreferenceDraft((prev) => ({ ...prev, monthlyAutomationRunHour: event.target.value }))
                   }
                 />
-                <input
+                <CrudInput
                   aria-label="Auto-run minute"
                   type="number"
                   min="0"
@@ -1000,8 +1001,8 @@ export function SettingsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-monthly-automation-retry">Retry behavior</label>
-              <select
+              <CrudLabel htmlFor="settings-monthly-automation-retry">Retry behavior</CrudLabel>
+              <CrudSelect
                 id="settings-monthly-automation-retry"
                 value={preferenceDraft.monthlyAutomationRetryStrategy}
                 onChange={(event) =>
@@ -1016,12 +1017,12 @@ export function SettingsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-monthly-automation-max-retries">Max retries</label>
-              <input
+              <CrudLabel htmlFor="settings-monthly-automation-max-retries">Max retries</CrudLabel>
+              <CrudInput
                 id="settings-monthly-automation-max-retries"
                 type="number"
                 min="0"
@@ -1035,8 +1036,8 @@ export function SettingsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-alert-failure-streak-threshold">Escalate after failure streak</label>
-              <input
+              <CrudLabel htmlFor="settings-alert-failure-streak-threshold">Escalate after failure streak</CrudLabel>
+              <CrudInput
                 id="settings-alert-failure-streak-threshold"
                 type="number"
                 min="1"
@@ -1053,8 +1054,8 @@ export function SettingsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-alert-failed-steps-threshold">Escalate after failed steps</label>
-              <input
+              <CrudLabel htmlFor="settings-alert-failed-steps-threshold">Escalate after failed steps</CrudLabel>
+              <CrudInput
                 id="settings-alert-failed-steps-threshold"
                 type="number"
                 min="1"
@@ -1071,8 +1072,8 @@ export function SettingsTab({
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-planning-default-version">Planning default version</label>
-              <select
+              <CrudLabel htmlFor="settings-planning-default-version">Planning default version</CrudLabel>
+              <CrudSelect
                 id="settings-planning-default-version"
                 value={preferenceDraft.planningDefaultVersionKey}
                 onChange={(event) =>
@@ -1087,12 +1088,12 @@ export function SettingsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-planning-auto-apply-mode">Planning auto-apply mode</label>
-              <select
+              <CrudLabel htmlFor="settings-planning-auto-apply-mode">Planning auto-apply mode</CrudLabel>
+              <CrudSelect
                 id="settings-planning-auto-apply-mode"
                 value={preferenceDraft.planningAutoApplyMode}
                 onChange={(event) =>
@@ -1107,12 +1108,12 @@ export function SettingsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field form-field--span2">
-              <label htmlFor="settings-planning-negative-fallback">Negative forecast fallback behavior</label>
-              <select
+              <CrudLabel htmlFor="settings-planning-negative-fallback">Negative forecast fallback behavior</CrudLabel>
+              <CrudSelect
                 id="settings-planning-negative-fallback"
                 value={preferenceDraft.planningNegativeForecastFallback}
                 onChange={(event) =>
@@ -1127,7 +1128,7 @@ export function SettingsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
           </div>
 
@@ -1158,9 +1159,9 @@ export function SettingsTab({
             These are power-user defaults for monthly operations and planning behavior. Save settings to persist them.
           </p>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-trust-kpis">
+      <SurfaceCard className="panel panel-trust-kpis">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Phase 3</p>
@@ -1201,15 +1202,15 @@ export function SettingsTab({
                 <strong>{check.label}</strong>
                 <small>{check.detail}</small>
               </div>
-              <span className={check.severity === 'critical' ? 'pill pill--critical' : check.severity === 'warning' ? 'pill pill--warning' : 'pill pill--good'}>
+              <PillBadge className={check.severity === 'critical' ? 'pill pill--critical' : check.severity === 'warning' ? 'pill pill--warning' : 'pill pill--good'}>
                 {check.severity}
-              </span>
+              </PillBadge>
             </div>
           ))}
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Phase 3</p>
@@ -1223,8 +1224,8 @@ export function SettingsTab({
         <div className="entry-form entry-form--grid">
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="settings-profile-name">Profile name</label>
-              <input
+              <CrudLabel htmlFor="settings-profile-name">Profile name</CrudLabel>
+              <CrudInput
                 id="settings-profile-name"
                 placeholder="Debt focus month"
                 value={settingsProfileName}
@@ -1232,8 +1233,8 @@ export function SettingsTab({
               />
             </div>
             <div className="form-field">
-              <label htmlFor="settings-profile-description">Description</label>
-              <input
+              <CrudLabel htmlFor="settings-profile-description">Description</CrudLabel>
+              <CrudInput
                 id="settings-profile-description"
                 placeholder="Optional notes"
                 value={settingsProfileDescription}
@@ -1243,14 +1244,14 @@ export function SettingsTab({
           </div>
 
           <div className="row-actions">
-            <button
+            <CrudButton
               type="button"
               className="btn btn-primary"
               onClick={() => void onSaveSettingsProfile()}
               disabled={isSavingSettingsProfile || settingsProfileName.trim().length < 2}
             >
               {isSavingSettingsProfile ? 'Saving profile...' : 'Save current settings as profile'}
-            </button>
+            </CrudButton>
           </div>
 
           {!settingsProfiles.length ? (
@@ -1276,30 +1277,30 @@ export function SettingsTab({
                       </div>
                     </div>
                     <div className="settings-profile-row__actions">
-                      <span className="pill pill--neutral">{diffCount} changes vs current</span>
-                      <button
+                      <PillBadge className="pill pill--neutral">{diffCount} changes vs current</PillBadge>
+                      <CrudButton
                         type="button"
                         className="btn btn-ghost btn--sm"
                         onClick={() => setSelectedProfileCompareId((prev) => (prev === profile._id ? null : profile._id))}
                       >
                         {selectedProfileCompareId === profile._id ? 'Hide diff' : 'Compare'}
-                      </button>
-                      <button
+                      </CrudButton>
+                      <CrudButton
                         type="button"
                         className="btn btn-secondary btn--sm"
                         onClick={() => void onApplySettingsProfile(profile._id)}
                         disabled={applyingSettingsProfileId === profile._id}
                       >
                         {applyingSettingsProfileId === profile._id ? 'Applying...' : 'Apply'}
-                      </button>
-                      <button
+                      </CrudButton>
+                      <CrudButton
                         type="button"
                         className="btn btn-danger btn--sm"
                         onClick={() => void onDeleteSettingsProfile(profile._id)}
                         disabled={deletingSettingsProfileId === profile._id}
                       >
                         {deletingSettingsProfileId === profile._id ? 'Deleting...' : 'Delete'}
-                      </button>
+                      </CrudButton>
                     </div>
                   </div>
                 )
@@ -1314,13 +1315,13 @@ export function SettingsTab({
                   <p className="panel-kicker">Compare</p>
                   <h3>{selectedProfile.name} vs current draft</h3>
                 </div>
-                <span className="pill pill--neutral">{selectedProfileDiffRows.length} changed fields</span>
+                <PillBadge className="pill pill--neutral">{selectedProfileDiffRows.length} changed fields</PillBadge>
               </div>
               {selectedProfileDiffRows.length === 0 ? (
                 <p className="empty-state">This profile matches the current draft.</p>
               ) : (
                 <div className="table-wrap table-wrap--card">
-                  <table className="data-table data-table--wide">
+                  <DataTable className="data-table data-table--wide">
                     <thead>
                       <tr>
                         <th scope="col">Field</th>
@@ -1337,15 +1338,15 @@ export function SettingsTab({
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </DataTable>
                 </div>
               )}
             </div>
           ) : null}
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Phase 3</p>
@@ -1361,7 +1362,7 @@ export function SettingsTab({
         ) : (
           <>
             <div className="table-wrap table-wrap--card">
-              <table className="data-table data-table--wide" data-testid="settings-history-table">
+              <DataTable className="data-table data-table--wide" data-testid="settings-history-table">
                 <caption className="sr-only">Settings preference history and restore points</caption>
                 <thead>
                   <tr>
@@ -1382,37 +1383,37 @@ export function SettingsTab({
                       <td>{entry.changedFields.length ? entry.changedFields.slice(0, 4).join(', ') : 'n/a'}</td>
                       <td>
                         <div className="row-actions">
-                          <button
+                          <CrudButton
                             type="button"
                             className="btn btn-ghost btn--sm"
                             onClick={() => void onRestoreSettingsHistory(entry._id, 'before')}
                             disabled={!entry.beforeJson || restoringSettingsHistoryId === entry._id}
                           >
                             Restore before
-                          </button>
-                          <button
+                          </CrudButton>
+                          <CrudButton
                             type="button"
                             className="btn btn-secondary btn--sm"
                             onClick={() => void onRestoreSettingsHistory(entry._id, 'after')}
                             disabled={!entry.afterJson || restoringSettingsHistoryId === entry._id}
                           >
                             {restoringSettingsHistoryId === entry._id ? 'Restoring...' : 'Restore after'}
-                          </button>
+                          </CrudButton>
                         </div>
                       </td>
                       <td>
-                        <button
+                        <CrudButton
                           type="button"
                           className="btn btn-ghost btn--sm"
                           onClick={() => setSelectedHistoryCompareId((prev) => (prev === entry._id ? null : entry._id))}
                         >
                           {selectedHistoryCompareId === entry._id ? 'Hide diff' : 'Compare'}
-                        </button>
+                        </CrudButton>
                       </td>
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </DataTable>
             </div>
 
             {selectedHistory ? (
@@ -1422,13 +1423,13 @@ export function SettingsTab({
                     <p className="panel-kicker">Restore point compare</p>
                     <h3>{selectedHistory.action.replaceAll('_', ' ')}</h3>
                   </div>
-                  <span className="pill pill--neutral">{selectedHistoryDiffRows.length} changed fields</span>
+                  <PillBadge className="pill pill--neutral">{selectedHistoryDiffRows.length} changed fields</PillBadge>
                 </div>
                 {selectedHistoryDiffRows.length === 0 ? (
                   <p className="empty-state">No before/after diff is available for this event.</p>
                 ) : (
                   <div className="table-wrap table-wrap--card">
-                    <table className="data-table data-table--wide">
+                    <DataTable className="data-table data-table--wide">
                       <thead>
                         <tr>
                           <th scope="col">Field</th>
@@ -1445,16 +1446,16 @@ export function SettingsTab({
                           </tr>
                         ))}
                       </tbody>
-                    </table>
+                    </DataTable>
                   </div>
                 )}
               </div>
             ) : null}
           </>
         )}
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Phase 1</p>
@@ -1466,8 +1467,8 @@ export function SettingsTab({
         <div className="entry-form entry-form--grid">
           <div className="form-grid">
             <div className="form-field">
-              <label htmlFor="settings-ui-density">Density</label>
-              <select
+              <CrudLabel htmlFor="settings-ui-density">Density</CrudLabel>
+              <CrudSelect
                 id="settings-ui-density"
                 value={preferenceDraft.uiDensity}
                 onChange={(event) => setPreferenceDraft((prev) => ({ ...prev, uiDensity: event.target.value as UiDensity }))}
@@ -1477,12 +1478,12 @@ export function SettingsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field">
-              <label htmlFor="settings-default-landing-tab">Default landing tab</label>
-              <select
+              <CrudLabel htmlFor="settings-default-landing-tab">Default landing tab</CrudLabel>
+              <CrudSelect
                 id="settings-default-landing-tab"
                 value={preferenceDraft.defaultLandingTab}
                 onChange={(event) =>
@@ -1497,11 +1498,11 @@ export function SettingsTab({
                     {option.label}
                   </option>
                 ))}
-              </select>
+              </CrudSelect>
             </div>
 
             <div className="form-field form-field--span2">
-              <label>Dashboard card order</label>
+              <CrudLabel>Dashboard card order</CrudLabel>
               <div className="settings-order-list" role="list" aria-label="Dashboard card order">
                 {preferenceDraft.dashboardCardOrder.map((cardId, index) => (
                   <div key={cardId} className="settings-order-row" role="listitem">
@@ -1513,22 +1514,22 @@ export function SettingsTab({
                       </div>
                     </div>
                     <div className="row-actions">
-                      <button
+                      <CrudButton
                         type="button"
                         className="btn btn-ghost btn--sm"
                         onClick={() => moveDashboardCard(cardId, -1)}
                         disabled={index === 0}
                       >
                         Up
-                      </button>
-                      <button
+                      </CrudButton>
+                      <CrudButton
                         type="button"
                         className="btn btn-ghost btn--sm"
                         onClick={() => moveDashboardCard(cardId, 1)}
                         disabled={index === preferenceDraft.dashboardCardOrder.length - 1}
                       >
                         Down
-                      </button>
+                      </CrudButton>
                     </div>
                   </div>
                 ))}
@@ -1537,27 +1538,27 @@ export function SettingsTab({
           </div>
 
           <div className="row-actions">
-            <button
+            <CrudButton
               type="button"
               className="btn btn-primary"
               onClick={() => void onSavePreferences()}
               disabled={isSavingPreferences || !hasUnsavedPreferences}
             >
               {isSavingPreferences ? 'Saving settings...' : 'Save core settings'}
-            </button>
-            <button
+            </CrudButton>
+            <CrudButton
               type="button"
               className="btn btn-ghost"
               onClick={onResetPreferencesDraft}
               disabled={isSavingPreferences || !hasUnsavedPreferences}
             >
               Reset changes
-            </button>
+            </CrudButton>
           </div>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Phase 2</p>
@@ -1568,22 +1569,22 @@ export function SettingsTab({
             </p>
           </div>
           <div className="panel-actions">
-            <button
+            <CrudButton
               type="button"
               className="btn btn-ghost btn--sm"
               onClick={() => void onRefreshSecuritySessions()}
               disabled={isLoadingSecuritySessions || isRefreshingSecuritySessions || isRevokingAllSessions}
             >
               {isLoadingSecuritySessions || isRefreshingSecuritySessions ? 'Refreshing...' : 'Refresh sessions'}
-            </button>
-            <button
+            </CrudButton>
+            <CrudButton
               type="button"
               className="btn btn-danger btn--sm"
               onClick={() => void onSignOutAllSessions()}
               disabled={isRevokingAllSessions || (hasLoadedSecuritySessions && securitySessions.length === 0)}
             >
               {isRevokingAllSessions ? 'Signing out...' : 'Sign out all sessions'}
-            </button>
+            </CrudButton>
           </div>
         </header>
 
@@ -1599,7 +1600,7 @@ export function SettingsTab({
         ) : (
           <>
             <div className="table-wrap table-wrap--card">
-              <table className="data-table data-table--wide" data-testid="settings-security-sessions-table">
+              <DataTable className="data-table data-table--wide" data-testid="settings-security-sessions-table">
                 <caption className="sr-only">Active sessions and devices</caption>
                 <thead>
                   <tr>
@@ -1631,19 +1632,19 @@ export function SettingsTab({
                         <small className="subnote">{session.ipAddress ?? 'No IP metadata'}</small>
                       </td>
                       <td>
-                        <button
+                        <CrudButton
                           type="button"
                           className="btn btn-ghost btn--sm"
                           onClick={() => void onRevokeSecuritySession(session.sessionId)}
                           disabled={isRevokingAllSessions || revokingSecuritySessionId === session.sessionId}
                         >
                           {revokingSecuritySessionId === session.sessionId ? 'Revoking...' : 'Revoke'}
-                        </button>
+                        </CrudButton>
                       </td>
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </DataTable>
             </div>
 
             <div className="bulk-summary" aria-label="Recent sign-in activity">
@@ -1671,9 +1672,9 @@ export function SettingsTab({
             </div>
           </>
         )}
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-trust-kpis">
+      <SurfaceCard className="panel panel-trust-kpis">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Settings</p>
@@ -1716,9 +1717,9 @@ export function SettingsTab({
             <small>{retentionForeverCount} set to forever</small>
           </div>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-launch">
+      <SurfaceCard className="panel panel-launch">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Quick actions</p>
@@ -1728,25 +1729,25 @@ export function SettingsTab({
 
         <div className="entry-form entry-form--grid">
           <div className="row-actions">
-            <button type="button" className="btn btn-primary" onClick={() => void onGenerateExport()} disabled={isExporting}>
+            <CrudButton type="button" className="btn btn-primary" onClick={() => void onGenerateExport()} disabled={isExporting}>
               {isExporting ? 'Generating export...' : 'Generate export (ZIP)'}
-            </button>
-            <button
+            </CrudButton>
+            <CrudButton
               type="button"
               className="btn btn-secondary"
               onClick={() => void onDownloadLatestExport()}
               disabled={!latestExport || latestExport.status !== 'ready'}
             >
               Download latest export
-            </button>
-            <button
+            </CrudButton>
+            <CrudButton
               type="button"
               className="btn btn-ghost"
               onClick={() => void onRunRetentionNow()}
               disabled={isApplyingRetention}
             >
               {isApplyingRetention ? 'Applying retention...' : 'Run retention now'}
-            </button>
+            </CrudButton>
           </div>
 
           {latestExport ? (
@@ -1778,9 +1779,9 @@ export function SettingsTab({
             <p className="subnote">No deletion jobs recorded.</p>
           )}
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Data portability</p>
@@ -1795,7 +1796,7 @@ export function SettingsTab({
           <p className="empty-state">No export jobs yet. Generate a ZIP export to create your first record.</p>
         ) : (
           <div className="table-wrap table-wrap--card">
-            <table className="data-table data-table--wide" data-testid="settings-export-history-table">
+            <DataTable className="data-table data-table--wide" data-testid="settings-export-history-table">
               <caption className="sr-only">Export history</caption>
               <thead>
                 <tr>
@@ -1818,24 +1819,24 @@ export function SettingsTab({
                     <td>{entry.byteSize ? `${Math.max(1, Math.round(entry.byteSize / 1024))} KB` : 'n/a'}</td>
                     <td>{cycleDateLabel.format(new Date(entry.expiresAt))}</td>
                     <td>
-                      <button
+                      <CrudButton
                         type="button"
                         className="btn btn-ghost btn--sm"
                         onClick={() => void onDownloadExportById(String(entry._id))}
                         disabled={entry.status !== 'ready'}
                       >
                         Download
-                      </button>
+                      </CrudButton>
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </DataTable>
           </div>
         )}
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Data portability</p>
@@ -1850,7 +1851,7 @@ export function SettingsTab({
           <p className="empty-state">No export downloads recorded yet.</p>
         ) : (
           <div className="table-wrap table-wrap--card">
-            <table className="data-table data-table--wide" data-testid="settings-export-download-audit-table">
+            <DataTable className="data-table data-table--wide" data-testid="settings-export-download-audit-table">
               <caption className="sr-only">Export download audit trail</caption>
               <thead>
                 <tr>
@@ -1874,12 +1875,12 @@ export function SettingsTab({
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </DataTable>
           </div>
         )}
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Privacy</p>
@@ -1891,27 +1892,27 @@ export function SettingsTab({
         <div className="entry-form entry-form--grid">
           <div className="form-grid">
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="diagnostics-toggle">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="diagnostics-toggle">
+                <CrudInput
                   id="diagnostics-toggle"
                   type="checkbox"
                   checked={consentSettings.diagnosticsEnabled}
                   onChange={(event) => void onToggleConsent('diagnostics', event.target.checked)}
                 />
                 Diagnostics (Sentry) opt-in
-              </label>
+              </CrudLabel>
             </div>
 
             <div className="form-field form-field--span2">
-              <label className="checkbox-row" htmlFor="analytics-toggle">
-                <input
+              <CrudLabel className="checkbox-row" htmlFor="analytics-toggle">
+                <CrudInput
                   id="analytics-toggle"
                   type="checkbox"
                   checked={consentSettings.analyticsEnabled}
                   onChange={(event) => void onToggleConsent('analytics', event.target.checked)}
                 />
                 Product analytics opt-in (placeholder)
-              </label>
+              </CrudLabel>
             </div>
           </div>
 
@@ -1937,9 +1938,9 @@ export function SettingsTab({
             </div>
           </div>
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-list">
+      <SurfaceCard className="panel panel-list">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Audit</p>
@@ -1947,13 +1948,13 @@ export function SettingsTab({
             <p className="panel-value">{visibleConsentLogs.length} in view</p>
           </div>
           <div className="panel-actions">
-            <input
+            <CrudInput
               aria-label="Search consent history"
               placeholder="Search type, version, state…"
               value={consentSearch}
               onChange={(event) => setConsentSearch(event.target.value)}
             />
-            <select
+            <CrudSelect
               aria-label="Filter consent type"
               value={consentFilter}
               onChange={(event) => setConsentFilter(event.target.value as ConsentFilter)}
@@ -1961,16 +1962,16 @@ export function SettingsTab({
               <option value="all">All types</option>
               <option value="diagnostics">Diagnostics</option>
               <option value="analytics">Analytics</option>
-            </select>
-            <select
+            </CrudSelect>
+            <CrudSelect
               aria-label="Sort consent history"
               value={consentSort}
               onChange={(event) => setConsentSort(event.target.value as ConsentSortKey)}
             >
               <option value="newest">Newest first</option>
               <option value="oldest">Oldest first</option>
-            </select>
-            <button
+            </CrudSelect>
+            <CrudButton
               type="button"
               className="btn btn-ghost btn--sm"
               onClick={() => {
@@ -1981,7 +1982,7 @@ export function SettingsTab({
               disabled={!hasConsentFilters}
             >
               Clear
-            </button>
+            </CrudButton>
           </div>
         </header>
 
@@ -1995,7 +1996,7 @@ export function SettingsTab({
               Showing {visibleConsentLogs.length} of {consentLogs.length} consent event{consentLogs.length === 1 ? '' : 's'}.
             </p>
             <div className="table-wrap table-wrap--card">
-              <table className="data-table" data-testid="settings-consent-history-table">
+              <DataTable className="data-table" data-testid="settings-consent-history-table">
                 <caption className="sr-only">Consent history</caption>
                 <thead>
                   <tr>
@@ -2012,22 +2013,22 @@ export function SettingsTab({
                         <span className={consentTypePill(entry.consentType)}>{entry.consentType}</span>
                       </td>
                       <td>
-                        <span className={entry.enabled ? 'pill pill--good' : 'pill pill--neutral'}>
+                        <PillBadge className={entry.enabled ? 'pill pill--good' : 'pill pill--neutral'}>
                           {entry.enabled ? 'enabled' : 'disabled'}
-                        </span>
+                        </PillBadge>
                       </td>
                       <td>{entry.version}</td>
                       <td>{cycleDateLabel.format(new Date(entry.createdAt))}</td>
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </DataTable>
             </div>
           </>
         )}
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-form">
+      <SurfaceCard className="panel panel-form">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Danger zone</p>
@@ -2039,8 +2040,8 @@ export function SettingsTab({
         <div className="entry-form entry-form--grid">
           <div className="form-grid">
             <div className="form-field form-field--span2">
-              <label htmlFor="delete-confirm">Type DELETE to confirm</label>
-              <input
+              <CrudLabel htmlFor="delete-confirm">Type DELETE to confirm</CrudLabel>
+              <CrudInput
                 id="delete-confirm"
                 value={deleteConfirmText}
                 onChange={(event) => setDeleteConfirmText(event.target.value)}
@@ -2050,22 +2051,22 @@ export function SettingsTab({
           </div>
 
           <div className="row-actions">
-            <button
+            <CrudButton
               type="button"
               className="btn btn-danger"
               onClick={() => void onRequestDeletion()}
               disabled={isDeleting || !deleteReady}
             >
               {isDeleting ? 'Deleting...' : 'Delete my data'}
-            </button>
-            <button
+            </CrudButton>
+            <CrudButton
               type="button"
               className="btn btn-ghost btn--sm"
               onClick={() => setDeleteConfirmText('')}
               disabled={deleteConfirmText.length === 0 || isDeleting}
             >
               Clear
-            </button>
+            </CrudButton>
           </div>
 
           <p className="form-hint">
@@ -2080,9 +2081,9 @@ export function SettingsTab({
             </p>
           ) : null}
         </div>
-      </article>
+      </SurfaceCard>
 
-      <article className="panel panel-audit-events">
+      <SurfaceCard className="panel panel-audit-events">
         <header className="panel-header">
           <div>
             <p className="panel-kicker">Operations</p>
@@ -2092,13 +2093,13 @@ export function SettingsTab({
             </p>
           </div>
           <div className="panel-actions">
-            <input
+            <CrudInput
               aria-label="Search retention policies"
               placeholder="Search policies…"
               value={retentionSearch}
               onChange={(event) => setRetentionSearch(event.target.value)}
             />
-            <select
+            <CrudSelect
               aria-label="Sort retention policies"
               value={retentionSort}
               onChange={(event) => setRetentionSort(event.target.value as RetentionSortKey)}
@@ -2106,16 +2107,16 @@ export function SettingsTab({
               <option value="policy_asc">Policy (A-Z)</option>
               <option value="retention_desc">Retention (high-low)</option>
               <option value="enabled_first">Enabled first</option>
-            </select>
-            <button
+            </CrudSelect>
+            <CrudButton
               type="button"
               className="btn btn-secondary btn--sm"
               onClick={() => void onRunRetentionNow()}
               disabled={isApplyingRetention}
             >
               {isApplyingRetention ? 'Applying...' : 'Run retention now'}
-            </button>
-            <button
+            </CrudButton>
+            <CrudButton
               type="button"
               className="btn btn-ghost btn--sm"
               onClick={() => {
@@ -2125,7 +2126,7 @@ export function SettingsTab({
               disabled={!hasRetentionFilters}
             >
               Clear
-            </button>
+            </CrudButton>
           </div>
         </header>
 
@@ -2135,7 +2136,7 @@ export function SettingsTab({
           <p className="empty-state">No retention policies match this filter.</p>
         ) : (
           <div className="table-wrap table-wrap--card">
-            <table className="data-table data-table--wide" data-testid="settings-retention-table">
+            <DataTable className="data-table data-table--wide" data-testid="settings-retention-table">
               <caption className="sr-only">Retention policies</caption>
               <thead>
                 <tr>
@@ -2150,14 +2151,14 @@ export function SettingsTab({
                   <tr key={policy.policyKey}>
                     <td>{policyLabel(policy.policyKey)}</td>
                     <td>
-                      <span className={policy.enabled ? 'pill pill--good' : 'pill pill--neutral'}>
+                      <PillBadge className={policy.enabled ? 'pill pill--good' : 'pill pill--neutral'}>
                         {policy.enabled ? 'enabled' : 'disabled'}
-                      </span>
+                      </PillBadge>
                     </td>
                     <td>{policy.retentionDays === 0 ? 'Forever' : `${policy.retentionDays} days`}</td>
                     <td>
                       <div className="inline-cadence-controls">
-                        <select
+                        <CrudSelect
                           aria-label={`Retention days for ${policyLabel(policy.policyKey)}`}
                           value={policy.retentionDays}
                           onChange={(event) =>
@@ -2169,8 +2170,8 @@ export function SettingsTab({
                               {option.label}
                             </option>
                           ))}
-                        </select>
-                        <select
+                        </CrudSelect>
+                        <CrudSelect
                           aria-label={`Retention enabled state for ${policyLabel(policy.policyKey)}`}
                           value={policy.enabled ? 'enabled' : 'disabled'}
                           onChange={(event) =>
@@ -2183,16 +2184,16 @@ export function SettingsTab({
                         >
                           <option value="disabled">Disabled</option>
                           <option value="enabled">Enabled</option>
-                        </select>
+                        </CrudSelect>
                       </div>
                     </td>
                   </tr>
                 ))}
               </tbody>
-            </table>
+            </DataTable>
           </div>
         )}
-      </article>
+      </SurfaceCard>
     </section>
   )
 }

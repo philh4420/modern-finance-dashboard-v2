@@ -1,4 +1,19 @@
 import { useMemo, useState, type Dispatch, type SetStateAction } from 'react'
+import {
+  CrudButton,
+  CrudInput,
+  CrudLabel,
+  CrudSelect,
+  DataTable,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  PillBadge,
+  SurfaceCard,
+} from '@/components/ui'
 import { useMutation, useQuery } from 'convex/react'
 import { api } from '../../convex/_generated/api'
 import type {
@@ -587,7 +602,7 @@ export function ReconcileTab({
   return (
     <>
       <section className="editor-grid reconcile-tab-shell" aria-label="Reconciliation workspace">
-        <article className="panel panel-reconcile-strip">
+        <SurfaceCard className="panel panel-reconcile-strip">
           <header className="panel-header">
             <div>
               <p className="panel-kicker">Reconciliation</p>
@@ -602,37 +617,37 @@ export function ReconcileTab({
           </header>
 
           <div className="reconcile-summary-strip">
-            <article className="reconcile-summary-card">
+            <SurfaceCard className="reconcile-summary-card">
               <p>Pending value</p>
               <strong>{formatMoney(summary.pendingValue)}</strong>
               <small>{summary.pendingCount} transactions still pending</small>
-            </article>
-            <article className="reconcile-summary-card">
+            </SurfaceCard>
+            <SurfaceCard className="reconcile-summary-card">
               <p>Matched today</p>
               <strong>{summary.matchedTodayCount}</strong>
               <small>Posted or reconciled today</small>
-            </article>
-            <article className="reconcile-summary-card">
+            </SurfaceCard>
+            <SurfaceCard className="reconcile-summary-card">
               <p>Unresolved delta</p>
               <strong>{formatMoney(summary.unresolvedDelta)}</strong>
               <small>Open amount not reconciled</small>
-            </article>
-            <article className="reconcile-summary-card">
+            </SurfaceCard>
+            <SurfaceCard className="reconcile-summary-card">
               <p>Completion</p>
               <strong>{summary.completionPercent.toFixed(0)}%</strong>
               <small>
                 {summary.reconciledCount} of {summary.totalCount} reconciled
               </small>
-            </article>
-            <article className="reconcile-summary-card">
+            </SurfaceCard>
+            <SurfaceCard className="reconcile-summary-card">
               <p>Needs attention</p>
               <strong>{summary.needsAttentionCount}</strong>
               <small>Pending, anomalies, or low-signal rows</small>
-            </article>
+            </SurfaceCard>
           </div>
-        </article>
+        </SurfaceCard>
 
-        <article className="panel panel-reconcile-queue">
+        <SurfaceCard className="panel panel-reconcile-queue">
           <header className="panel-header">
             <div>
               <p className="panel-kicker">Queue</p>
@@ -643,18 +658,18 @@ export function ReconcileTab({
               <p className="subnote">Retry, discard, and flush queued reconciliation updates.</p>
             </div>
             <div className="panel-actions">
-              <button
+              <CrudButton
                 type="button"
                 className="btn btn-secondary btn--sm"
                 onClick={() => void queue.flushQueue()}
                 disabled={queue.isFlushing || queue.pendingCount === 0}
               >
                 {queue.isFlushing ? 'Flushing...' : `Flush (${queue.pendingCount})`}
-              </button>
+              </CrudButton>
               {queue.conflictCount > 0 ? (
-                <button type="button" className="btn btn-ghost btn--sm" onClick={queue.clearConflicts}>
+                <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={queue.clearConflicts}>
                   Clear conflicts
-                </button>
+                </CrudButton>
               ) : null}
             </div>
           </header>
@@ -672,12 +687,12 @@ export function ReconcileTab({
                     </small>
                   </div>
                   <div className="row-actions">
-                    <button type="button" className="btn btn-secondary btn--sm" onClick={() => void queue.retryEntry(entry.id)}>
+                    <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void queue.retryEntry(entry.id)}>
                       Retry
-                    </button>
-                    <button type="button" className="btn btn-ghost btn--sm" onClick={() => queue.discardEntry(entry.id)}>
+                    </CrudButton>
+                    <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => queue.discardEntry(entry.id)}>
                       Discard
-                    </button>
+                    </CrudButton>
                   </div>
                 </li>
               ))}
@@ -689,16 +704,16 @@ export function ReconcileTab({
           <section className="reconcile-anomaly-overview" aria-label="Anomaly overview">
             <div className="reconcile-anomaly-overview-head">
               <h3>Anomaly flags</h3>
-              <span className={anomalySummary.critical > 0 ? 'pill pill--critical' : 'pill pill--neutral'}>
+              <PillBadge className={anomalySummary.critical > 0 ? 'pill pill--critical' : 'pill pill--neutral'}>
                 {anomalySignals.length} total
-              </span>
+              </PillBadge>
             </div>
             <p className="subnote">Flags for unusual amount, category gaps, stale pending rows, and source mapping drift.</p>
             <div className="reconcile-anomaly-kpis">
-              <span className="pill pill--warning">Unusual {anomalySummary.unusual_amount}</span>
-              <span className="pill pill--warning">Missing category {anomalySummary.missing_category}</span>
-              <span className="pill pill--warning">Stale pending {anomalySummary.stale_pending}</span>
-              <span className="pill pill--warning">Source drift {anomalySummary.inconsistent_account_mapping}</span>
+              <PillBadge className="pill pill--warning">Unusual {anomalySummary.unusual_amount}</PillBadge>
+              <PillBadge className="pill pill--warning">Missing category {anomalySummary.missing_category}</PillBadge>
+              <PillBadge className="pill pill--warning">Stale pending {anomalySummary.stale_pending}</PillBadge>
+              <PillBadge className="pill pill--warning">Source drift {anomalySummary.inconsistent_account_mapping}</PillBadge>
             </div>
             {anomalySignals.length > 0 ? (
               <ul className="reconcile-anomaly-list">
@@ -719,9 +734,9 @@ export function ReconcileTab({
               <p className="form-hint">No anomaly flags in current scope.</p>
             )}
           </section>
-        </article>
+        </SurfaceCard>
 
-        <article className="panel panel-reconcile-workspace">
+        <SurfaceCard className="panel panel-reconcile-workspace">
           <header className="panel-header">
             <div>
               <p className="panel-kicker">Match Workspace</p>
@@ -732,24 +747,24 @@ export function ReconcileTab({
               <p className="subnote">Smart suggestions, quick actions, and anomaly context to reduce manual checks.</p>
             </div>
             <div className="panel-actions">
-              <button type="button" className="btn btn-secondary btn--sm" onClick={toggleSelectVisible} disabled={filteredPurchases.length === 0}>
+              <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={toggleSelectVisible} disabled={filteredPurchases.length === 0}>
                 {allVisibleSelected ? 'Deselect view' : 'Select view'}
-              </button>
-              <button type="button" className="btn btn-ghost btn--sm" onClick={clearSelection} disabled={!hasSelection}>
+              </CrudButton>
+              <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={clearSelection} disabled={!hasSelection}>
                 Clear selection
-              </button>
-              <button type="button" className="btn btn-ghost btn--sm" onClick={clearFilters} disabled={!hasActiveFilter}>
+              </CrudButton>
+              <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={clearFilters} disabled={!hasActiveFilter}>
                 Reset
-              </button>
+              </CrudButton>
             </div>
           </header>
 
           {ruleFeedback ? (
             <div className="reconcile-rule-feedback" role="status" aria-live="polite">
               <p>{ruleFeedback}</p>
-              <button type="button" className="btn btn-ghost btn--sm" onClick={dismissRuleFeedback}>
+              <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={dismissRuleFeedback}>
                 Dismiss
-              </button>
+              </CrudButton>
             </div>
           ) : null}
 
@@ -759,9 +774,9 @@ export function ReconcileTab({
                 <h3>Smart match suggestions</h3>
                 <p className="subnote">Confidence combines amount/date/merchant heuristics and rule coverage.</p>
               </div>
-              <span className={matchSuggestions.length > 0 ? 'pill pill--good' : 'pill pill--neutral'}>
+              <PillBadge className={matchSuggestions.length > 0 ? 'pill pill--good' : 'pill pill--neutral'}>
                 {matchSuggestions.length} suggestions
-              </span>
+              </PillBadge>
             </div>
 
             {matchSuggestions.length > 0 ? (
@@ -782,22 +797,22 @@ export function ReconcileTab({
                         </small>
                       </div>
                       <div className="row-actions">
-                        <button
+                        <CrudButton
                           type="button"
                           className="btn btn-secondary btn--sm"
                           onClick={() => void runSuggestionApply(suggestion.id)}
                           disabled={isApplying}
                         >
                           {isApplying ? 'Applying...' : 'Apply'}
-                        </button>
-                        <button
+                        </CrudButton>
+                        <CrudButton
                           type="button"
                           className="btn btn-ghost btn--sm"
                           onClick={() => void runSuggestionRule(suggestion.id)}
                           disabled={isLearning}
                         >
                           {isLearning ? 'Saving...' : 'Save rule'}
-                        </button>
+                        </CrudButton>
                       </div>
                     </li>
                   )
@@ -811,8 +826,8 @@ export function ReconcileTab({
           <div className="entry-form entry-form--grid">
             <div className="form-grid reconcile-filter-grid">
               <div className="form-field">
-                <label htmlFor="reconcile-query">Merchant/category</label>
-                <input
+                <CrudLabel htmlFor="reconcile-query">Merchant/category</CrudLabel>
+                <CrudInput
                   id="reconcile-query"
                   type="search"
                   placeholder="Search item, category, notes"
@@ -822,8 +837,8 @@ export function ReconcileTab({
               </div>
 
               <div className="form-field">
-                <label htmlFor="reconcile-account">Source</label>
-                <select
+                <CrudLabel htmlFor="reconcile-account">Source</CrudLabel>
+                <CrudSelect
                   id="reconcile-account"
                   value={filter.account}
                   onChange={(event) => setFilter((previous) => ({ ...previous, account: event.target.value }))}
@@ -833,12 +848,12 @@ export function ReconcileTab({
                       {option.label}
                     </option>
                   ))}
-                </select>
+                </CrudSelect>
               </div>
 
               <div className="form-field">
-                <label htmlFor="reconcile-status">Status</label>
-                <select
+                <CrudLabel htmlFor="reconcile-status">Status</CrudLabel>
+                <CrudSelect
                   id="reconcile-status"
                   value={filter.status}
                   onChange={(event) =>
@@ -849,12 +864,12 @@ export function ReconcileTab({
                   <option value="pending">Pending</option>
                   <option value="posted">Posted</option>
                   <option value="reconciled">Reconciled</option>
-                </select>
+                </CrudSelect>
               </div>
 
               <div className="form-field">
-                <label htmlFor="reconcile-amount-band">Amount band</label>
-                <select
+                <CrudLabel htmlFor="reconcile-amount-band">Amount band</CrudLabel>
+                <CrudSelect
                   id="reconcile-amount-band"
                   value={filter.amountBand}
                   onChange={(event) =>
@@ -867,12 +882,12 @@ export function ReconcileTab({
                   <option value="100_250">100 to 250</option>
                   <option value="250_500">250 to 500</option>
                   <option value="500_plus">500+</option>
-                </select>
+                </CrudSelect>
               </div>
 
               <div className="form-field">
-                <label htmlFor="reconcile-date-start">From date</label>
-                <input
+                <CrudLabel htmlFor="reconcile-date-start">From date</CrudLabel>
+                <CrudInput
                   id="reconcile-date-start"
                   type="date"
                   value={filter.startDate}
@@ -881,8 +896,8 @@ export function ReconcileTab({
               </div>
 
               <div className="form-field">
-                <label htmlFor="reconcile-date-end">To date</label>
-                <input
+                <CrudLabel htmlFor="reconcile-date-end">To date</CrudLabel>
+                <CrudInput
                   id="reconcile-date-end"
                   type="date"
                   value={filter.endDate}
@@ -891,8 +906,8 @@ export function ReconcileTab({
               </div>
 
               <div className="form-field">
-                <label htmlFor="reconcile-month">Statement month</label>
-                <input
+                <CrudLabel htmlFor="reconcile-month">Statement month</CrudLabel>
+                <CrudInput
                   id="reconcile-month"
                   type="month"
                   value={filter.month}
@@ -901,8 +916,8 @@ export function ReconcileTab({
               </div>
 
               <div className="form-field">
-                <label htmlFor="reconcile-category">Category</label>
-                <select
+                <CrudLabel htmlFor="reconcile-category">Category</CrudLabel>
+                <CrudSelect
                   id="reconcile-category"
                   value={filter.category}
                   onChange={(event) => setFilter((previous) => ({ ...previous, category: event.target.value }))}
@@ -913,12 +928,12 @@ export function ReconcileTab({
                       {category}
                     </option>
                   ))}
-                </select>
+                </CrudSelect>
               </div>
 
               <div className="form-field">
-                <label htmlFor="reconcile-sort">Sort</label>
-                <select
+                <CrudLabel htmlFor="reconcile-sort">Sort</CrudLabel>
+                <CrudSelect
                   id="reconcile-sort"
                   value={filter.sortBy}
                   onChange={(event) =>
@@ -929,12 +944,12 @@ export function ReconcileTab({
                   <option value="amount">Amount</option>
                   <option value="item">Item</option>
                   <option value="status">Status</option>
-                </select>
+                </CrudSelect>
               </div>
 
               <div className="form-field">
-                <label htmlFor="reconcile-sort-dir">Direction</label>
-                <select
+                <CrudLabel htmlFor="reconcile-sort-dir">Direction</CrudLabel>
+                <CrudSelect
                   id="reconcile-sort-dir"
                   value={filter.sortDir}
                   onChange={(event) =>
@@ -943,19 +958,19 @@ export function ReconcileTab({
                 >
                   <option value="desc">Desc</option>
                   <option value="asc">Asc</option>
-                </select>
+                </CrudSelect>
               </div>
 
               <div className="form-field reconcile-filter-toggle">
-                <label className="cards-override-toggle cards-override-toggle--inline" htmlFor="reconcile-needs-attention">
-                  <input
+                <CrudLabel className="cards-override-toggle cards-override-toggle--inline" htmlFor="reconcile-needs-attention">
+                  <CrudInput
                     id="reconcile-needs-attention"
                     type="checkbox"
                     checked={filter.needsAttentionOnly}
                     onChange={(event) => setFilter((previous) => ({ ...previous, needsAttentionOnly: event.target.checked }))}
                   />
                   <span>Needs attention only</span>
-                </label>
+                </CrudLabel>
               </div>
             </div>
 
@@ -964,7 +979,7 @@ export function ReconcileTab({
             ) : (
               <>
                 <div className="table-wrap table-wrap--card reconcile-table-wrap">
-                  <table className="data-table data-table--reconcile" data-testid="reconcile-table">
+                  <DataTable className="data-table data-table--reconcile" data-testid="reconcile-table">
                     <caption className="sr-only">Reconciliation entries</caption>
                     <thead>
                       <tr>
@@ -990,7 +1005,7 @@ export function ReconcileTab({
                         return (
                           <tr key={purchase._id} className={isSelected ? 'table-row--selected' : undefined}>
                             <td>
-                              <input
+                              <CrudInput
                                 aria-label={`Select ${purchase.item}`}
                                 type="checkbox"
                                 checked={isSelected}
@@ -1008,7 +1023,7 @@ export function ReconcileTab({
                                   <small className="amount-positive">Ready</small>
                                 )}
                                 <div className="reconcile-inline-pills">
-                                  {suggestion ? <span className="pill pill--good">Hint {confidenceLabel(suggestion.confidence)}</span> : null}
+                                  {suggestion ? <PillBadge className="pill pill--good">Hint {confidenceLabel(suggestion.confidence)}</PillBadge> : null}
                                   {anomalies.slice(0, 2).map((signal) => (
                                     <span key={signal.id} className={anomalyPillClass(signal.severity)}>
                                       {signal.label}
@@ -1019,10 +1034,10 @@ export function ReconcileTab({
                             </td>
                             <td>{dateLabel.format(new Date(`${purchase.purchaseDate}T00:00:00`))}</td>
                             <td>
-                              <span className="pill pill--neutral">{resolveSourceLabel(purchase)}</span>
+                              <PillBadge className="pill pill--neutral">{resolveSourceLabel(purchase)}</PillBadge>
                             </td>
                             <td>
-                              <span className="pill pill--neutral">{purchase.category}</span>
+                              <PillBadge className="pill pill--neutral">{purchase.category}</PillBadge>
                               {suggestion && suggestion.suggestedCategory !== purchase.category ? (
                                 <small className="subnote">→ {suggestion.suggestedCategory}</small>
                               ) : null}
@@ -1036,46 +1051,46 @@ export function ReconcileTab({
                             <td className="table-amount amount-negative">{formatMoney(purchase.amount)}</td>
                             <td>
                               <div className="row-actions row-actions--reconcile">
-                                <button
+                                <CrudButton
                                   type="button"
                                   className="btn btn-secondary btn--sm"
                                   onClick={() => void runSmartMatch(purchase._id)}
                                   disabled={isApplyingSuggestion}
                                 >
                                   {isApplyingSuggestion ? 'Applying...' : suggestion ? 'Apply hint' : 'Match'}
-                                </button>
-                                <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runQuickSplit(purchase._id)}>
+                                </CrudButton>
+                                <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runQuickSplit(purchase._id)}>
                                   Split
-                                </button>
-                                <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runQuickMarkReviewed(purchase._id)}>
+                                </CrudButton>
+                                <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runQuickMarkReviewed(purchase._id)}>
                                   Review
-                                </button>
-                                <button type="button" className="btn btn-ghost btn--sm" onClick={() => void runQuickExclude(purchase._id)}>
+                                </CrudButton>
+                                <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => void runQuickExclude(purchase._id)}>
                                   Exclude
-                                </button>
-                                <button
+                                </CrudButton>
+                                <CrudButton
                                   type="button"
                                   className="btn btn-ghost btn--sm"
                                   onClick={() => void runQuickUndo(purchase._id)}
                                   disabled={!canUndo}
                                 >
                                   Undo
-                                </button>
-                                <button
+                                </CrudButton>
+                                <CrudButton
                                   type="button"
                                   className="btn btn-ghost btn--sm"
                                   onClick={() => void runRowRule(purchase._id)}
                                   disabled={isSavingRule}
                                 >
                                   {isSavingRule ? 'Saving...' : 'Save rule'}
-                                </button>
+                                </CrudButton>
                               </div>
                             </td>
                           </tr>
                         )
                       })}
                     </tbody>
-                  </table>
+                  </DataTable>
                 </div>
 
                 <div className="reconcile-mobile-list" aria-label="Reconciliation entries mobile">
@@ -1119,51 +1134,51 @@ export function ReconcileTab({
                             </div>
                           </div>
                           <div className="reconcile-inline-pills">
-                            {suggestion ? <span className="pill pill--good">Hint {confidenceLabel(suggestion.confidence)}</span> : null}
+                            {suggestion ? <PillBadge className="pill pill--good">Hint {confidenceLabel(suggestion.confidence)}</PillBadge> : null}
                             {anomalies.map((signal) => (
                               <span key={signal.id} className={anomalyPillClass(signal.severity)}>
                                 {signal.label}
                               </span>
                             ))}
                           </div>
-                          <label className="cards-override-toggle">
-                            <input type="checkbox" checked={isSelected} onChange={() => toggleSelected(purchase._id)} />
+                          <CrudLabel className="cards-override-toggle">
+                            <CrudInput type="checkbox" checked={isSelected} onChange={() => toggleSelected(purchase._id)} />
                             <span>Select row</span>
-                          </label>
+                          </CrudLabel>
                           <div className="row-actions row-actions--reconcile-mobile">
-                            <button
+                            <CrudButton
                               type="button"
                               className="btn btn-secondary btn--sm"
                               onClick={() => void runSmartMatch(purchase._id)}
                               disabled={isApplyingSuggestion}
                             >
                               {isApplyingSuggestion ? 'Applying...' : suggestion ? 'Apply hint' : 'Match'}
-                            </button>
-                            <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runQuickSplit(purchase._id)}>
+                            </CrudButton>
+                            <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runQuickSplit(purchase._id)}>
                               Split
-                            </button>
-                            <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runQuickMarkReviewed(purchase._id)}>
+                            </CrudButton>
+                            <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runQuickMarkReviewed(purchase._id)}>
                               Review
-                            </button>
-                            <button type="button" className="btn btn-ghost btn--sm" onClick={() => void runQuickExclude(purchase._id)}>
+                            </CrudButton>
+                            <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => void runQuickExclude(purchase._id)}>
                               Exclude
-                            </button>
-                            <button
+                            </CrudButton>
+                            <CrudButton
                               type="button"
                               className="btn btn-ghost btn--sm"
                               onClick={() => void runQuickUndo(purchase._id)}
                               disabled={!canUndo}
                             >
                               Undo
-                            </button>
-                            <button
+                            </CrudButton>
+                            <CrudButton
                               type="button"
                               className="btn btn-ghost btn--sm"
                               onClick={() => void runRowRule(purchase._id)}
                               disabled={isSavingRule}
                             >
                               {isSavingRule ? 'Saving...' : 'Save rule'}
-                            </button>
+                            </CrudButton>
                           </div>
                         </div>
                       </details>
@@ -1173,9 +1188,9 @@ export function ReconcileTab({
               </>
             )}
           </div>
-        </article>
+        </SurfaceCard>
 
-        <article className="panel panel-reconcile-summary">
+        <SurfaceCard className="panel panel-reconcile-summary">
           <header className="panel-header">
             <div>
               <p className="panel-kicker">Reconciliation Summary</p>
@@ -1203,28 +1218,28 @@ export function ReconcileTab({
           </div>
 
           <div className="row-actions">
-            <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkMatch()} disabled={!hasSelection}>
+            <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkMatch()} disabled={!hasSelection}>
               Bulk match
-            </button>
-            <button
+            </CrudButton>
+            <CrudButton
               type="button"
               className="btn btn-secondary btn--sm"
               onClick={() => void runBulkMarkReconciled()}
               disabled={!hasSelection}
             >
               Bulk reconciled
-            </button>
-            <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkStatus('pending')} disabled={!hasSelection}>
+            </CrudButton>
+            <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkStatus('pending')} disabled={!hasSelection}>
               Bulk pending
-            </button>
-            <button type="button" className="btn btn-ghost btn--sm" onClick={() => void runBulkExclude()} disabled={!hasSelection}>
+            </CrudButton>
+            <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => void runBulkExclude()} disabled={!hasSelection}>
               Bulk exclude
-            </button>
+            </CrudButton>
           </div>
 
-          <label htmlFor="bulk-category">Bulk recategorize</label>
+          <CrudLabel htmlFor="bulk-category">Bulk recategorize</CrudLabel>
           <div className="goal-actions">
-            <input
+            <CrudInput
               id="bulk-category"
               list="bulk-category-list"
               value={bulkCategory}
@@ -1236,17 +1251,17 @@ export function ReconcileTab({
                 <option key={category} value={category} />
               ))}
             </datalist>
-            <button type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkCategory()} disabled={!canBulkCategory}>
+            <CrudButton type="button" className="btn btn-secondary btn--sm" onClick={() => void runBulkCategory()} disabled={!canBulkCategory}>
               Apply
-            </button>
-            <button type="button" className="btn btn-ghost btn--sm" onClick={() => setBulkCategory('')} disabled={bulkCategory.length === 0}>
+            </CrudButton>
+            <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={() => setBulkCategory('')} disabled={bulkCategory.length === 0}>
               Clear
-            </button>
+            </CrudButton>
           </div>
 
-          <button type="button" className="btn btn-danger" onClick={() => void runBulkDelete()} disabled={!hasSelection}>
+          <CrudButton type="button" className="btn btn-danger" onClick={() => void runBulkDelete()} disabled={!hasSelection}>
             Remove selected
-          </button>
+          </CrudButton>
 
           {Object.keys(undoByPurchaseId).length > 0 ? (
             <p className="form-hint">
@@ -1259,36 +1274,36 @@ export function ReconcileTab({
           <section className="reconcile-kpi-panel" aria-label="Reconciliation KPI block">
             <div className="reconcile-kpi-head">
               <h3>Trust KPI block</h3>
-              <span className={reconciliationKpis.pendingCount > 0 ? 'pill pill--warning' : 'pill pill--good'}>
+              <PillBadge className={reconciliationKpis.pendingCount > 0 ? 'pill pill--warning' : 'pill pill--good'}>
                 {reconciliationKpis.purchaseCount} in close month
-              </span>
+              </PillBadge>
             </div>
             <div className="reconcile-kpi-grid">
-              <article>
+              <SurfaceCard>
                 <p>Reconciliation completion</p>
                 <strong>{formatRate(reconciliationKpis.completionRate)}</strong>
                 <small>reconciled over posted+reconciled</small>
-              </article>
-              <article>
+              </SurfaceCard>
+              <SurfaceCard>
                 <p>Match accuracy</p>
                 <strong>{formatRate(reconciliationKpis.matchAccuracyRate)}</strong>
                 <small>quality-weighted from pending/duplicate/anomaly signals</small>
-              </article>
-              <article>
+              </SurfaceCard>
+              <SurfaceCard>
                 <p>Duplicate rate</p>
                 <strong>{formatRate(reconciliationKpis.duplicateRate)}</strong>
                 <small>duplicate groups relative to month volume</small>
-              </article>
-              <article>
+              </SurfaceCard>
+              <SurfaceCard>
                 <p>Anomaly rate</p>
                 <strong>{formatRate(reconciliationKpis.anomalyRate)}</strong>
                 <small>outlier rows relative to month volume</small>
-              </article>
-              <article>
+              </SurfaceCard>
+              <SurfaceCard>
                 <p>Close success rate</p>
                 <strong>{formatRate(reconciliationKpis.closeSuccessRate)}</strong>
                 <small>{closeRunSummary.completed} completed · {closeRunSummary.failed} failed recent runs</small>
-              </article>
+              </SurfaceCard>
             </div>
           </section>
 
@@ -1298,38 +1313,38 @@ export function ReconcileTab({
                 <h3>Month close flow</h3>
                 <p className="subnote">Pre-checks, blocker list, confirmation, idempotent close and retry-safe recalculation.</p>
               </div>
-              <label className="form-field reconcile-close-month">
+              <CrudLabel className="form-field reconcile-close-month">
                 <span>Close month</span>
-                <input
+                <CrudInput
                   type="month"
                   value={closeMonth}
                   onChange={(event) => setCloseMonth(event.target.value)}
                 />
-              </label>
+              </CrudLabel>
             </div>
 
             {closePrecheck?.summary ? (
               <div className="reconcile-close-summary">
-                <article>
+                <SurfaceCard>
                   <p>Transactions</p>
                   <strong>{closePrecheck.summary.purchaseCount}</strong>
                   <small>{formatMoney(closePrecheck.summary.totalAmount)} cleared value</small>
-                </article>
-                <article>
+                </SurfaceCard>
+                <SurfaceCard>
                   <p>Pending</p>
                   <strong>{closePrecheck.summary.pendingCount}</strong>
                   <small>{formatMoney(closePrecheck.summary.pendingAmount)} unresolved value</small>
-                </article>
-                <article>
+                </SurfaceCard>
+                <SurfaceCard>
                   <p>Data quality alerts</p>
                   <strong>{closePrecheck.summary.duplicateCount + closePrecheck.summary.anomalyCount}</strong>
                   <small>{closePrecheck.summary.duplicateCount} duplicates · {closePrecheck.summary.anomalyCount} anomalies</small>
-                </article>
-                <article>
+                </SurfaceCard>
+                <SurfaceCard>
                   <p>Category warnings</p>
                   <strong>{closePrecheck.summary.missingCategoryCount}</strong>
                   <small>non-blocking warning count</small>
-                </article>
+                </SurfaceCard>
               </div>
             ) : (
               <p className="form-hint">Loading pre-close checks…</p>
@@ -1378,22 +1393,22 @@ export function ReconcileTab({
             ) : null}
 
             <div className="reconcile-close-actions">
-              <button
+              <CrudButton
                 type="button"
                 className="btn btn-secondary btn--sm"
                 onClick={() => requestMonthClose('close')}
                 disabled={!canRequestMonthClose || hasCloseBlockers}
               >
                 {isRunningMonthClose ? 'Running close…' : 'Close month'}
-              </button>
-              <button
+              </CrudButton>
+              <CrudButton
                 type="button"
                 className="btn btn-ghost btn--sm"
                 onClick={() => requestMonthClose('retry')}
                 disabled={!canRequestMonthClose}
               >
                 Retry recalculation
-              </button>
+              </CrudButton>
             </div>
             {hasCloseBlockers ? <p className="form-hint">Resolve blockers before close. Retry is available for recalculation checks.</p> : null}
             {monthCloseFeedback ? <p className="form-hint">{monthCloseFeedback}</p> : null}
@@ -1412,9 +1427,9 @@ export function ReconcileTab({
                           {run.source} · {run.idempotencyKey ?? 'no key'} · {run.totalPurchases} rows · {formatMoney(run.totalAmount)}
                         </small>
                       </div>
-                      <span className={run.status === 'failed' ? 'pill pill--critical' : 'pill pill--good'}>
+                      <PillBadge className={run.status === 'failed' ? 'pill pill--critical' : 'pill pill--good'}>
                         {dateLabel.format(new Date(run.ranAt))}
-                      </span>
+                      </PillBadge>
                     </li>
                   ))}
                 </ul>
@@ -1428,17 +1443,17 @@ export function ReconcileTab({
                 <h3>Action audit trail</h3>
                 <p className="subnote">Before/after snapshots, actor, timestamp, and source for reconciliation actions.</p>
               </div>
-              <label className="form-field">
+              <CrudLabel className="form-field">
                 <span>Rows</span>
-                <select
+                <CrudSelect
                   value={auditLimit}
                   onChange={(event) => setAuditLimit(Number(event.target.value) as 25 | 50 | 100)}
                 >
                   <option value={25}>25</option>
                   <option value={50}>50</option>
                   <option value={100}>100</option>
-                </select>
-              </label>
+                </CrudSelect>
+              </CrudLabel>
             </div>
 
             {auditTrailRows.length === 0 ? (
@@ -1452,7 +1467,7 @@ export function ReconcileTab({
                       <small>{row.transition}</small>
                       <small>{row.actor} · {row.source}</small>
                     </div>
-                    <span className="pill pill--neutral">{dateLabel.format(new Date(row.createdAt))}</span>
+                    <PillBadge className="pill pill--neutral">{dateLabel.format(new Date(row.createdAt))}</PillBadge>
                   </li>
                 ))}
               </ul>
@@ -1462,9 +1477,9 @@ export function ReconcileTab({
           <section className="reconcile-duplicate-panel" aria-label="Duplicate and overlap detection">
             <div className="reconcile-duplicate-head">
               <h3>Duplicate + overlap detection</h3>
-              <span className={duplicateMatches.length > 0 ? 'pill pill--warning' : 'pill pill--neutral'}>
+              <PillBadge className={duplicateMatches.length > 0 ? 'pill pill--warning' : 'pill pill--neutral'}>
                 {duplicateMatches.length} flagged
-              </span>
+              </PillBadge>
             </div>
             {duplicateMatches.length > 0 ? (
               <ul className="reconcile-duplicate-list">
@@ -1477,41 +1492,41 @@ export function ReconcileTab({
                       <small>{match.reason}</small>
                     </div>
                     <div className="reconcile-duplicate-grid">
-                      <article>
+                      <SurfaceCard>
                         <strong>{match.primaryItem}</strong>
                         <small>
                           {dateLabel.format(new Date(`${match.primaryDate}T00:00:00`))} · {formatMoney(match.primaryAmount)}
                         </small>
-                      </article>
-                      <article>
+                      </SurfaceCard>
+                      <SurfaceCard>
                         <strong>{match.secondaryItem}</strong>
                         <small>
                           {dateLabel.format(new Date(`${match.secondaryDate}T00:00:00`))} · {formatMoney(match.secondaryAmount)}
                         </small>
-                      </article>
+                      </SurfaceCard>
                     </div>
                     <div className="row-actions">
-                      <button
+                      <CrudButton
                         type="button"
                         className="btn btn-secondary btn--sm"
                         onClick={() => requestDuplicateResolution(match, 'merge')}
                       >
                         Merge
-                      </button>
-                      <button
+                      </CrudButton>
+                      <CrudButton
                         type="button"
                         className="btn btn-ghost btn--sm"
                         onClick={() => requestDuplicateResolution(match, 'archive_duplicate')}
                       >
                         Archive duplicate
-                      </button>
-                      <button
+                      </CrudButton>
+                      <CrudButton
                         type="button"
                         className="btn btn-ghost btn--sm"
                         onClick={() => requestDuplicateResolution(match, 'mark_intentional')}
                       >
                         Mark intentional
-                      </button>
+                      </CrudButton>
                     </div>
                   </li>
                 ))}
@@ -1520,47 +1535,49 @@ export function ReconcileTab({
               <p className="form-hint">No duplicate or overlap candidates in this filter scope.</p>
             )}
           </section>
-        </article>
+        </SurfaceCard>
       </section>
 
       {duplicateConfirmation && duplicateConfirmationCopy ? (
-        <div className="modal-backdrop" role="presentation" onMouseDown={closeDuplicateConfirmation}>
-          <section
-            className="modal reconcile-duplicate-confirm-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="reconcile-duplicate-confirm-title"
-            onMouseDown={(event) => event.stopPropagation()}
+        <Dialog open onOpenChange={(open) => (!open ? closeDuplicateConfirmation() : undefined)}>
+          <DialogContent
+            showCloseButton={false}
+            className="modal reconcile-duplicate-confirm-modal max-w-[min(94vw,52rem)] gap-0 p-0"
           >
-            <header className="modal__header reconcile-duplicate-confirm-modal__header">
+            <DialogHeader className="modal__header reconcile-duplicate-confirm-modal__header">
               <div>
                 <p className="panel-kicker">Reconcile</p>
-                <h2 id="reconcile-duplicate-confirm-title">{duplicateConfirmationCopy.title}</h2>
-                <p className="subnote">{duplicateConfirmationCopy.description}</p>
+                <DialogTitle id="reconcile-duplicate-confirm-title">{duplicateConfirmationCopy.title}</DialogTitle>
+                <DialogDescription className="subnote text-inherit">{duplicateConfirmationCopy.description}</DialogDescription>
               </div>
-              <button type="button" className="btn btn-ghost" onClick={closeDuplicateConfirmation} disabled={isApplyingDuplicateAction}>
+              <CrudButton
+                type="button"
+                className="btn btn-ghost"
+                onClick={closeDuplicateConfirmation}
+                disabled={isApplyingDuplicateAction}
+              >
                 Close
-              </button>
-            </header>
+              </CrudButton>
+            </DialogHeader>
 
             <div className="modal__body reconcile-duplicate-confirm-modal__body">
               <div className="reconcile-duplicate-confirm-grid">
-                <article className="reconcile-duplicate-confirm-card">
+                <SurfaceCard className="reconcile-duplicate-confirm-card">
                   <span>Primary (kept)</span>
                   <strong>{duplicateConfirmation.match.primaryItem}</strong>
                   <small>
                     {dateLabel.format(new Date(`${duplicateConfirmation.match.primaryDate}T00:00:00`))} ·{' '}
                     {formatMoney(duplicateConfirmation.match.primaryAmount)}
                   </small>
-                </article>
-                <article className="reconcile-duplicate-confirm-card reconcile-duplicate-confirm-card--change">
+                </SurfaceCard>
+                <SurfaceCard className="reconcile-duplicate-confirm-card reconcile-duplicate-confirm-card--change">
                   <span>Secondary (changed)</span>
                   <strong>{duplicateConfirmation.match.secondaryItem}</strong>
                   <small>
                     {dateLabel.format(new Date(`${duplicateConfirmation.match.secondaryDate}T00:00:00`))} ·{' '}
                     {formatMoney(duplicateConfirmation.match.secondaryAmount)}
                   </small>
-                </article>
+                </SurfaceCard>
               </div>
               <p className="subnote">
                 Similarity {Math.round(duplicateConfirmation.match.nameSimilarity * 100)}% · amount delta{' '}
@@ -1568,66 +1585,68 @@ export function ReconcileTab({
               </p>
             </div>
 
-            <footer className="modal__footer">
-              <button
+            <DialogFooter className="modal__footer">
+              <CrudButton
                 type="button"
                 className="btn btn-ghost"
                 onClick={closeDuplicateConfirmation}
                 disabled={isApplyingDuplicateAction}
               >
                 Cancel
-              </button>
-              <button
+              </CrudButton>
+              <CrudButton
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => void confirmDuplicateResolution()}
                 disabled={isApplyingDuplicateAction}
               >
                 {isApplyingDuplicateAction ? 'Applying...' : duplicateConfirmationCopy.confirmLabel}
-              </button>
-            </footer>
-          </section>
-        </div>
+              </CrudButton>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       ) : null}
 
       {monthCloseConfirmMode ? (
-        <div className="modal-backdrop" role="presentation" onMouseDown={closeMonthCloseConfirm}>
-          <section
-            className="modal reconcile-close-confirm-modal"
-            role="dialog"
-            aria-modal="true"
-            aria-labelledby="reconcile-close-confirm-title"
-            onMouseDown={(event) => event.stopPropagation()}
+        <Dialog open onOpenChange={(open) => (!open ? closeMonthCloseConfirm() : undefined)}>
+          <DialogContent
+            showCloseButton={false}
+            className="modal reconcile-close-confirm-modal max-w-[min(94vw,56rem)] gap-0 p-0"
           >
-            <header className="modal__header reconcile-close-confirm-modal__header">
+            <DialogHeader className="modal__header reconcile-close-confirm-modal__header">
               <div>
                 <p className="panel-kicker">Reconcile</p>
-                <h2 id="reconcile-close-confirm-title">
+                <DialogTitle id="reconcile-close-confirm-title">
                   {monthCloseConfirmMode === 'retry' ? 'Confirm Retry Recalculation' : 'Confirm Month Close'}
-                </h2>
-                <p className="subnote">
+                </DialogTitle>
+                <DialogDescription className="subnote text-inherit">
                   {monthCloseConfirmMode === 'retry'
                     ? 'Runs a new recalculation with a fresh idempotency key and appends a new close audit entry.'
                     : 'Finalizes this month checkpoint using idempotent close logic and writes a close audit entry.'}
-                </p>
+                </DialogDescription>
               </div>
-              <button type="button" className="btn btn-ghost" onClick={closeMonthCloseConfirm} disabled={isRunningMonthClose}>
+              <CrudButton
+                type="button"
+                className="btn btn-ghost"
+                onClick={closeMonthCloseConfirm}
+                disabled={isRunningMonthClose}
+              >
                 Close
-              </button>
-            </header>
+              </CrudButton>
+            </DialogHeader>
 
             <div className="modal__body reconcile-close-confirm-modal__body">
               <div className="reconcile-close-confirm-grid">
-                <article>
+                <SurfaceCard>
                   <span>Target month</span>
                   <strong>{closeMonth}</strong>
                   <small>{closePrecheck?.summary ? `${closePrecheck.summary.purchaseCount} rows in month` : 'Loading summary'}</small>
-                </article>
-                <article>
+                </SurfaceCard>
+                <SurfaceCard>
                   <span>Open blockers</span>
                   <strong>{monthCloseChecks.filter((check) => check.status === 'blocker').length}</strong>
                   <small>{monthCloseConfirmMode === 'retry' ? 'Retry allowed with blockers' : 'Close requires zero blockers'}</small>
-                </article>
+                </SurfaceCard>
               </div>
               {monthCloseChecks.length > 0 ? (
                 <ul className="reconcile-close-checks">
@@ -1637,20 +1656,20 @@ export function ReconcileTab({
                         <p>{check.label}</p>
                         <small>{check.detail}</small>
                       </div>
-                      <span className={closeCheckPillClass(check.status)}>
+                      <PillBadge className={closeCheckPillClass(check.status)}>
                         {check.status === 'pass' ? 'pass' : check.status}
-                      </span>
+                      </PillBadge>
                     </li>
                   ))}
                 </ul>
               ) : null}
             </div>
 
-            <footer className="modal__footer">
-              <button type="button" className="btn btn-ghost" onClick={closeMonthCloseConfirm} disabled={isRunningMonthClose}>
+            <DialogFooter className="modal__footer">
+              <CrudButton type="button" className="btn btn-ghost" onClick={closeMonthCloseConfirm} disabled={isRunningMonthClose}>
                 Cancel
-              </button>
-              <button
+              </CrudButton>
+              <CrudButton
                 type="button"
                 className="btn btn-secondary"
                 onClick={() => void confirmMonthClose()}
@@ -1661,10 +1680,10 @@ export function ReconcileTab({
                   : monthCloseConfirmMode === 'retry'
                     ? 'Confirm retry'
                     : 'Confirm close'}
-              </button>
-            </footer>
-          </section>
-        </div>
+              </CrudButton>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
       ) : null}
     </>
   )

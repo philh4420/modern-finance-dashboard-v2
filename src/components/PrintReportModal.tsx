@@ -1,4 +1,17 @@
-import { useEffect, useMemo, useState, type ChangeEvent } from 'react'
+import { useMemo, useState, type ChangeEvent } from 'react'
+import {
+  CrudButton,
+  CrudInput,
+  CrudLabel,
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  PillBadge,
+  ScrollArea,
+} from '@/components/ui'
 import type { DefaultMonthPreset } from './financeTypes'
 
 type PrintReportConfig = {
@@ -111,21 +124,6 @@ export function PrintReportModal({
     return new Intl.DateTimeFormat(resolved, { month: 'short', year: 'numeric' })
   }, [locale])
 
-  useEffect(() => {
-    if (!open) return
-
-    const onKeyDown = (event: KeyboardEvent) => {
-      if (event.key === 'Escape') {
-        onClose()
-      }
-    }
-
-    window.addEventListener('keydown', onKeyDown)
-    return () => {
-      window.removeEventListener('keydown', onKeyDown)
-    }
-  }, [defaults.endMonth, defaults.startMonth, onClose, open])
-
   if (!open) {
     return null
   }
@@ -201,277 +199,218 @@ export function PrintReportModal({
   }
 
   return (
-    <div className="modal-backdrop" role="presentation" onMouseDown={onClose}>
-      <div
-        className="modal modal--report"
-        role="dialog"
-        aria-modal="true"
-        aria-labelledby="print-report-title"
-        onMouseDown={(event) => event.stopPropagation()}
+    <Dialog open={open} onOpenChange={(nextOpen) => (!nextOpen ? onClose() : undefined)}>
+      <DialogContent
+        showCloseButton={false}
+        className="modal modal--report max-w-[min(96vw,56rem)] gap-0 p-0 print:hidden"
       >
-        <header className="modal__header modal__header--report">
+        <DialogHeader className="modal__header modal__header--report">
           <div>
             <p className="panel-kicker">Report</p>
-            <h2 id="print-report-title">Print Report</h2>
-            <p className="subnote">Choose month range and sections to include in the print view.</p>
+            <DialogTitle id="print-report-title">Print Report</DialogTitle>
+            <DialogDescription className="subnote text-inherit">
+              Choose month range and sections to include in the print view.
+            </DialogDescription>
           </div>
-          <button type="button" className="btn btn-ghost btn--sm" onClick={onClose}>
+          <CrudButton type="button" className="btn btn-ghost btn--sm" onClick={onClose}>
             Close
-          </button>
-        </header>
+          </CrudButton>
+        </DialogHeader>
 
-        <div className="modal__body modal__body--report">
-          <div className="modal-grid modal-grid--report">
-            <label className="modal-field-card" htmlFor="print-start-month">
-              <span>Start month</span>
-              <input
-                id="print-start-month"
-                type="month"
-                value={startMonthValue}
-                onChange={(event) => {
-                  setStartMonthValue(event.target.value)
-                  clearErrorIfPresent()
-                }}
-              />
-              <small className="subnote">Selected: {formatMonth(startMonthValue)}</small>
-            </label>
+        <ScrollArea className="max-h-[72vh]">
+          <div className="modal__body modal__body--report">
+            <div className="modal-grid modal-grid--report">
+              <CrudLabel className="modal-field-card" htmlFor="print-start-month">
+                <span>Start month</span>
+                <CrudInput
+                  id="print-start-month"
+                  type="month"
+                  value={startMonthValue}
+                  onChange={(event) => {
+                    setStartMonthValue(event.target.value)
+                    clearErrorIfPresent()
+                  }}
+                />
+                <small className="subnote">Selected: {formatMonth(startMonthValue)}</small>
+              </CrudLabel>
 
-            <label className="modal-field-card" htmlFor="print-end-month">
-              <span>End month</span>
-              <input
-                id="print-end-month"
-                type="month"
-                value={endMonthValue}
-                onChange={(event) => {
-                  setEndMonthValue(event.target.value)
-                  clearErrorIfPresent()
-                }}
-              />
-              <small className="subnote">Selected: {formatMonth(endMonthValue)}</small>
-            </label>
-          </div>
-
-          <div className="modal-range-summary" aria-label="Current selected range">
-            <span className="pill pill--neutral">{formatMonth(startMonthValue)}</span>
-            <span className="pill pill--neutral">to</span>
-            <span className="pill pill--neutral">{formatMonth(endMonthValue)}</span>
-          </div>
-
-          <fieldset className="modal-options" aria-label="Report sections">
-            <legend className="sr-only">Report sections</legend>
-            <div className="modal-option-toolbar">
-              <button
-                type="button"
-                className="btn btn-ghost btn--sm"
-                onClick={() => {
-                  setIncludeDashboard(true)
-                  setIncludeIncome(true)
-                  setIncludeBills(true)
-                  setIncludeCards(true)
-                  setIncludeLoans(true)
-                  setIncludeAccounts(true)
-                  setIncludeGoals(true)
-                  setIncludePlanning(true)
-                  setIncludeReconcile(true)
-                  setIncludePurchases(true)
-                  setIncludeAuditLogs(true)
-                  clearErrorIfPresent()
-                }}
-              >
-                Select all sections
-              </button>
-              <button
-                type="button"
-                className="btn btn-ghost btn--sm"
-                onClick={() => {
-                  setIncludeDashboard(true)
-                  setIncludeIncome(false)
-                  setIncludeBills(false)
-                  setIncludeCards(false)
-                  setIncludeLoans(false)
-                  setIncludeAccounts(false)
-                  setIncludeGoals(false)
-                  setIncludePlanning(false)
-                  setIncludeReconcile(false)
-                  setIncludePurchases(false)
-                  setIncludeAuditLogs(false)
-                  clearErrorIfPresent()
-                }}
-              >
-                Dashboard only
-              </button>
+              <CrudLabel className="modal-field-card" htmlFor="print-end-month">
+                <span>End month</span>
+                <CrudInput
+                  id="print-end-month"
+                  type="month"
+                  value={endMonthValue}
+                  onChange={(event) => {
+                    setEndMonthValue(event.target.value)
+                    clearErrorIfPresent()
+                  }}
+                />
+                <small className="subnote">Selected: {formatMonth(endMonthValue)}</small>
+              </CrudLabel>
             </div>
 
-            <label className={`modal-option-row ${includeDashboard ? 'modal-option-row--active' : ''}`} htmlFor="print-dashboard">
-              <input
-                id="print-dashboard"
-                type="checkbox"
-                checked={includeDashboard}
-                onChange={handleToggle(setIncludeDashboard)}
-              />
-              <div>
-                <strong>Include dashboard</strong>
-                <small>Summary metrics, trust KPIs, and month-close snapshots.</small>
+            <div className="modal-range-summary" aria-label="Current selected range">
+              <PillBadge className="pill pill--neutral">{formatMonth(startMonthValue)}</PillBadge>
+              <PillBadge className="pill pill--neutral">to</PillBadge>
+              <PillBadge className="pill pill--neutral">{formatMonth(endMonthValue)}</PillBadge>
+            </div>
+
+            <fieldset className="modal-options" aria-label="Report sections">
+              <legend className="sr-only">Report sections</legend>
+              <div className="modal-option-toolbar">
+                <CrudButton
+                  type="button"
+                  className="btn btn-ghost btn--sm"
+                  onClick={() => {
+                    setIncludeDashboard(true)
+                    setIncludeIncome(true)
+                    setIncludeBills(true)
+                    setIncludeCards(true)
+                    setIncludeLoans(true)
+                    setIncludeAccounts(true)
+                    setIncludeGoals(true)
+                    setIncludePlanning(true)
+                    setIncludeReconcile(true)
+                    setIncludePurchases(true)
+                    setIncludeAuditLogs(true)
+                    clearErrorIfPresent()
+                  }}
+                >
+                  Select all sections
+                </CrudButton>
+                <CrudButton
+                  type="button"
+                  className="btn btn-ghost btn--sm"
+                  onClick={() => {
+                    setIncludeDashboard(true)
+                    setIncludeIncome(false)
+                    setIncludeBills(false)
+                    setIncludeCards(false)
+                    setIncludeLoans(false)
+                    setIncludeAccounts(false)
+                    setIncludeGoals(false)
+                    setIncludePlanning(false)
+                    setIncludeReconcile(false)
+                    setIncludePurchases(false)
+                    setIncludeAuditLogs(false)
+                    clearErrorIfPresent()
+                  }}
+                >
+                  Dashboard only
+                </CrudButton>
               </div>
-            </label>
 
-            <label className={`modal-option-row ${includeIncome ? 'modal-option-row--active' : ''}`} htmlFor="print-income">
-              <input
-                id="print-income"
-                type="checkbox"
-                checked={includeIncome}
-                onChange={handleToggle(setIncludeIncome)}
-              />
-              <div>
-                <strong>Include income</strong>
-                <small>All income rows and cadence details.</small>
-              </div>
-            </label>
+              <CrudLabel className={`modal-option-row ${includeDashboard ? 'modal-option-row--active' : ''}`} htmlFor="print-dashboard">
+                <CrudInput id="print-dashboard" type="checkbox" checked={includeDashboard} onChange={handleToggle(setIncludeDashboard)} />
+                <div>
+                  <strong>Include dashboard</strong>
+                  <small>Summary metrics, trust KPIs, and month-close snapshots.</small>
+                </div>
+              </CrudLabel>
 
-            <label className={`modal-option-row ${includeBills ? 'modal-option-row--active' : ''}`} htmlFor="print-bills">
-              <input
-                id="print-bills"
-                type="checkbox"
-                checked={includeBills}
-                onChange={handleToggle(setIncludeBills)}
-              />
-              <div>
-                <strong>Include bills</strong>
-                <small>Bill obligations and due schedule.</small>
-              </div>
-            </label>
+              <CrudLabel className={`modal-option-row ${includeIncome ? 'modal-option-row--active' : ''}`} htmlFor="print-income">
+                <CrudInput id="print-income" type="checkbox" checked={includeIncome} onChange={handleToggle(setIncludeIncome)} />
+                <div>
+                  <strong>Include income</strong>
+                  <small>All income rows and cadence details.</small>
+                </div>
+              </CrudLabel>
 
-            <label className={`modal-option-row ${includeCards ? 'modal-option-row--active' : ''}`} htmlFor="print-cards">
-              <input
-                id="print-cards"
-                type="checkbox"
-                checked={includeCards}
-                onChange={handleToggle(setIncludeCards)}
-              />
-              <div>
-                <strong>Include cards</strong>
-                <small>Card portfolio, risk/payoff analysis, and 12-month projections.</small>
-              </div>
-            </label>
+              <CrudLabel className={`modal-option-row ${includeBills ? 'modal-option-row--active' : ''}`} htmlFor="print-bills">
+                <CrudInput id="print-bills" type="checkbox" checked={includeBills} onChange={handleToggle(setIncludeBills)} />
+                <div>
+                  <strong>Include bills</strong>
+                  <small>Bill obligations and due schedule.</small>
+                </div>
+              </CrudLabel>
 
-            <label className={`modal-option-row ${includeLoans ? 'modal-option-row--active' : ''}`} htmlFor="print-loans">
-              <input
-                id="print-loans"
-                type="checkbox"
-                checked={includeLoans}
-                onChange={handleToggle(setIncludeLoans)}
-              />
-              <div>
-                <strong>Include loans</strong>
-                <small>Loan balances, payment profiles, and cadence.</small>
-              </div>
-            </label>
+              <CrudLabel className={`modal-option-row ${includeCards ? 'modal-option-row--active' : ''}`} htmlFor="print-cards">
+                <CrudInput id="print-cards" type="checkbox" checked={includeCards} onChange={handleToggle(setIncludeCards)} />
+                <div>
+                  <strong>Include cards</strong>
+                  <small>Card portfolio, risk/payoff analysis, and 12-month projections.</small>
+                </div>
+              </CrudLabel>
 
-            <label className={`modal-option-row ${includePlanning ? 'modal-option-row--active' : ''}`} htmlFor="print-planning">
-              <input
-                id="print-planning"
-                type="checkbox"
-                checked={includePlanning}
-                onChange={handleToggle(setIncludePlanning)}
-              />
-              <div>
-                <strong>Include planning</strong>
-                <small>Planning/rule context from budget intelligence summary.</small>
-              </div>
-            </label>
+              <CrudLabel className={`modal-option-row ${includeLoans ? 'modal-option-row--active' : ''}`} htmlFor="print-loans">
+                <CrudInput id="print-loans" type="checkbox" checked={includeLoans} onChange={handleToggle(setIncludeLoans)} />
+                <div>
+                  <strong>Include loans</strong>
+                  <small>Loan balances, payment profiles, and cadence.</small>
+                </div>
+              </CrudLabel>
 
-            <label className={`modal-option-row ${includeReconcile ? 'modal-option-row--active' : ''}`} htmlFor="print-reconcile">
-              <input
-                id="print-reconcile"
-                type="checkbox"
-                checked={includeReconcile}
-                onChange={handleToggle(setIncludeReconcile)}
-              />
-              <div>
-                <strong>Include reconcile</strong>
-                <small>Reconciliation quality and status overview for the selected range.</small>
-              </div>
-            </label>
+              <CrudLabel className={`modal-option-row ${includePlanning ? 'modal-option-row--active' : ''}`} htmlFor="print-planning">
+                <CrudInput id="print-planning" type="checkbox" checked={includePlanning} onChange={handleToggle(setIncludePlanning)} />
+                <div>
+                  <strong>Include planning</strong>
+                  <small>Planning/rule context from budget intelligence summary.</small>
+                </div>
+              </CrudLabel>
 
-            <label className={`modal-option-row ${includePurchases ? 'modal-option-row--active' : ''}`} htmlFor="print-purchases">
-              <input
-                id="print-purchases"
-                type="checkbox"
-                checked={includePurchases}
-                onChange={handleToggle(setIncludePurchases)}
-              />
-              <div>
-                <strong>Include purchases</strong>
-                <small>Recommended for complete spending totals.</small>
-              </div>
-            </label>
+              <CrudLabel className={`modal-option-row ${includeReconcile ? 'modal-option-row--active' : ''}`} htmlFor="print-reconcile">
+                <CrudInput id="print-reconcile" type="checkbox" checked={includeReconcile} onChange={handleToggle(setIncludeReconcile)} />
+                <div>
+                  <strong>Include reconcile</strong>
+                  <small>Reconciliation quality and status overview for the selected range.</small>
+                </div>
+              </CrudLabel>
 
-            <label className={`modal-option-row ${includeAccounts ? 'modal-option-row--active' : ''}`} htmlFor="print-accounts">
-              <input
-                id="print-accounts"
-                type="checkbox"
-                checked={includeAccounts}
-                onChange={handleToggle(setIncludeAccounts)}
-              />
-              <div>
-                <strong>Include accounts</strong>
-                <small>All cash/debt/investment balances.</small>
-              </div>
-            </label>
+              <CrudLabel className={`modal-option-row ${includePurchases ? 'modal-option-row--active' : ''}`} htmlFor="print-purchases">
+                <CrudInput id="print-purchases" type="checkbox" checked={includePurchases} onChange={handleToggle(setIncludePurchases)} />
+                <div>
+                  <strong>Include purchases</strong>
+                  <small>Recommended for complete spending totals.</small>
+                </div>
+              </CrudLabel>
 
-            <label className={`modal-option-row ${includeGoals ? 'modal-option-row--active' : ''}`} htmlFor="print-goals">
-              <input
-                id="print-goals"
-                type="checkbox"
-                checked={includeGoals}
-                onChange={handleToggle(setIncludeGoals)}
-              />
-              <div>
-                <strong>Include goals</strong>
-                <small>Goal targets, current amounts, and priority.</small>
-              </div>
-            </label>
+              <CrudLabel className={`modal-option-row ${includeAccounts ? 'modal-option-row--active' : ''}`} htmlFor="print-accounts">
+                <CrudInput id="print-accounts" type="checkbox" checked={includeAccounts} onChange={handleToggle(setIncludeAccounts)} />
+                <div>
+                  <strong>Include accounts</strong>
+                  <small>All cash/debt/investment balances.</small>
+                </div>
+              </CrudLabel>
 
-            <label className={`modal-option-row ${includeNotes ? 'modal-option-row--active' : ''}`} htmlFor="print-notes">
-              <input
-                id="print-notes"
-                type="checkbox"
-                checked={includeNotes}
-                onChange={handleToggle(setIncludeNotes)}
-              />
-              <div>
-                <strong>Include notes</strong>
-                <small>Add free-text context from records.</small>
-              </div>
-            </label>
+              <CrudLabel className={`modal-option-row ${includeGoals ? 'modal-option-row--active' : ''}`} htmlFor="print-goals">
+                <CrudInput id="print-goals" type="checkbox" checked={includeGoals} onChange={handleToggle(setIncludeGoals)} />
+                <div>
+                  <strong>Include goals</strong>
+                  <small>Goal targets, current amounts, and priority.</small>
+                </div>
+              </CrudLabel>
 
-            <label className={`modal-option-row ${includeAuditLogs ? 'modal-option-row--active' : ''}`} htmlFor="print-audit">
-              <input
-                id="print-audit"
-                type="checkbox"
-                checked={includeAuditLogs}
-                onChange={handleToggle(setIncludeAuditLogs)}
-              />
-              <div>
-                <strong>Include audit logs</strong>
-                <small>Add cycle and audit trail activity for the range.</small>
-              </div>
-            </label>
-          </fieldset>
+              <CrudLabel className={`modal-option-row ${includeNotes ? 'modal-option-row--active' : ''}`} htmlFor="print-notes">
+                <CrudInput id="print-notes" type="checkbox" checked={includeNotes} onChange={handleToggle(setIncludeNotes)} />
+                <div>
+                  <strong>Include notes</strong>
+                  <small>Add free-text context from records.</small>
+                </div>
+              </CrudLabel>
 
-          {error ? <p className="error-banner">{error}</p> : null}
-        </div>
+              <CrudLabel className={`modal-option-row ${includeAuditLogs ? 'modal-option-row--active' : ''}`} htmlFor="print-audit">
+                <CrudInput id="print-audit" type="checkbox" checked={includeAuditLogs} onChange={handleToggle(setIncludeAuditLogs)} />
+                <div>
+                  <strong>Include audit logs</strong>
+                  <small>Add cycle and audit trail activity for the range.</small>
+                </div>
+              </CrudLabel>
+            </fieldset>
 
-        <footer className="modal__footer modal__footer--report">
-          <button type="button" className="btn btn-secondary" onClick={onClose}>
+            {error ? <p className="error-banner" role="alert">{error}</p> : null}
+          </div>
+        </ScrollArea>
+
+        <DialogFooter className="modal__footer modal__footer--report">
+          <CrudButton type="button" className="btn btn-secondary" onClick={onClose}>
             Cancel
-          </button>
-          <button type="button" className="btn btn-primary" onClick={startPrint}>
+          </CrudButton>
+          <CrudButton type="button" className="btn btn-primary" onClick={startPrint}>
             Preview & Print
-          </button>
-        </footer>
-      </div>
-    </div>
+          </CrudButton>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
   )
 }
 

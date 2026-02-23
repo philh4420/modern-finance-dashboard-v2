@@ -32,6 +32,7 @@ import type {
   Summary,
 } from './financeTypes'
 import type { PrintReportConfig } from './PrintReportModal'
+import { PillBadge, PrintSurface, PrintTable } from '@/components/ui'
 import {
   computeIncomeDeductionsTotal,
   resolveIncomeGrossAmount,
@@ -1496,7 +1497,7 @@ export function PrintReport({
     .join(' | ')
 
   return (
-    <article className="print-report" aria-label="Print report">
+    <PrintSurface className="print-report" aria-label="Print report">
       <header className="print-cover">
         <div>
           <p className="print-kicker">Adaptive Finance OS</p>
@@ -1588,7 +1589,7 @@ export function PrintReport({
               </p>
             ) : (
               <div className="print-table-wrap">
-                <table className="print-table">
+                <PrintTable className="print-table">
                   <thead>
                     <tr>
                       <th scope="col">Month</th>
@@ -1611,7 +1612,7 @@ export function PrintReport({
                       </tr>
                     ))}
                   </tbody>
-                </table>
+                </PrintTable>
               </div>
             )}
           </section>
@@ -1674,7 +1675,7 @@ export function PrintReport({
               </div>
 
               <div className="print-table-wrap">
-                <table className="print-table">
+                <PrintTable className="print-table">
                   <thead>
                     <tr>
                       <th scope="col">Source</th>
@@ -1776,7 +1777,7 @@ export function PrintReport({
                       )
                     })}
                   </tbody>
-                </table>
+                </PrintTable>
               </div>
 
               <h3 className="print-subhead">Income change history</h3>
@@ -1813,7 +1814,7 @@ export function PrintReport({
                   </div>
 
                   <div className="print-table-wrap">
-                    <table className="print-table">
+                    <PrintTable className="print-table">
                       <thead>
                         <tr>
                           <th scope="col">Effective Date</th>
@@ -1841,7 +1842,7 @@ export function PrintReport({
                           </tr>
                         ))}
                       </tbody>
-                    </table>
+                    </PrintTable>
                   </div>
                 </>
               )}
@@ -1876,7 +1877,7 @@ export function PrintReport({
                       {billScopeLabelMap[section.scope]} · {section.rows.length} bills · {formatMoney(monthlyEstimate)} monthly
                       estimate · {deductibleCount} deductible
                     </p>
-                    <table className="print-table">
+                    <PrintTable className="print-table">
                       <thead>
                         <tr>
                           <th scope="col">Name</th>
@@ -1903,7 +1904,7 @@ export function PrintReport({
                           </tr>
                         ))}
                       </tbody>
-                    </table>
+                    </PrintTable>
                   </div>
                 )
               })}
@@ -1966,7 +1967,7 @@ export function PrintReport({
                 <ul className="print-card-risk-list">
                   {cardRiskAlerts.map((alert) => (
                     <li key={alert.id} className={`print-card-risk-item print-card-risk-item--${alert.severity}`}>
-                      <span className={`print-card-risk-pill print-card-risk-pill--${alert.severity}`}>{alert.severity}</span>
+                      <PillBadge className={`print-card-risk-pill print-card-risk-pill--${alert.severity}`}>{alert.severity}</PillBadge>
                       <strong>{alert.title}</strong>
                       <small>{alert.detail}</small>
                     </li>
@@ -2002,7 +2003,7 @@ export function PrintReport({
             )}
 
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">Card</th>
@@ -2077,12 +2078,12 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
 
             <h3 className="print-subhead">Amortization &amp; Interest Trend (12 months)</h3>
             {cardRows.map((card) => (
-              <article key={`projection-${card.id}`} className="print-card-projection">
+              <PrintSurface key={`projection-${card.id}`} className="print-card-projection">
                 <div className="print-card-projection-head">
                   <h4>{card.name}</h4>
                   <p>
@@ -2098,7 +2099,7 @@ export function PrintReport({
                     .join(' • ')}
                 </p>
                 <div className="print-table-wrap">
-                  <table className="print-table print-table--projection">
+                  <PrintTable className="print-table print-table--projection">
                     <thead>
                       <tr>
                         <th scope="col">Month</th>
@@ -2125,9 +2126,9 @@ export function PrintReport({
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </PrintTable>
                 </div>
-              </article>
+              </PrintSurface>
             ))}
 
               <p className="print-subnote">
@@ -2178,36 +2179,36 @@ export function PrintReport({
               </div>
 
               <div className="print-card-payoff-grid">
-                <article className="print-card-risk-item">
+                <PrintSurface className="print-card-risk-item">
                   <strong>Avalanche</strong>
                   <small>
                     {loanStrategy.avalancheTarget
                       ? `${loanStrategy.avalancheTarget.name} · ${loanStrategy.avalancheTarget.apr.toFixed(2)}% APR · ${formatMoney(loanStrategy.avalancheTarget.annualInterestSavings)} annual savings`
                       : 'No active loan balance'}
                   </small>
-                </article>
-                <article className="print-card-risk-item">
+                </PrintSurface>
+                <PrintSurface className="print-card-risk-item">
                   <strong>Snowball</strong>
                   <small>
                     {loanStrategy.snowballTarget
                       ? `${loanStrategy.snowballTarget.name} · ${formatMoney(loanStrategy.snowballTarget.balance)} balance · ${formatMoney(loanStrategy.snowballTarget.annualInterestSavings)} annual savings`
                       : 'No active loan balance'}
                   </small>
-                </article>
-                <article className="print-card-risk-item">
+                </PrintSurface>
+                <PrintSurface className="print-card-risk-item">
                   <strong>Recommended target</strong>
                   <small>
                     {loanStrategy.recommendedTarget
                       ? `${loanStrategy.recommendedTarget.name} · ${formatMoney(loanStrategy.recommendedTarget.nextMonthInterest)} next-month interest`
                       : 'n/a'}
                   </small>
-                </article>
+                </PrintSurface>
               </div>
 
               <p className="print-subnote">Interest trend: {loanInterestTrend || 'No loan interest trend yet.'}</p>
 
               <div className="print-table-wrap">
-                <table className="print-table">
+                <PrintTable className="print-table">
                   <thead>
                     <tr>
                       <th scope="col">Loan</th>
@@ -2268,12 +2269,12 @@ export function PrintReport({
                       )
                     })}
                   </tbody>
-                </table>
+                </PrintTable>
               </div>
 
               <h3 className="print-subhead">Loan Amortization Tables (12 months)</h3>
               {loanModels.map((model) => (
-                <article key={`loan-projection-${model.loanId}`} className="print-card-projection">
+                <PrintSurface key={`loan-projection-${model.loanId}`} className="print-card-projection">
                   <div className="print-card-projection-head">
                     <h4>{model.name}</h4>
                     <p>
@@ -2289,7 +2290,7 @@ export function PrintReport({
                       .join(' • ')}
                   </p>
                   <div className="print-table-wrap">
-                    <table className="print-table print-table--projection">
+                    <PrintTable className="print-table print-table--projection">
                       <thead>
                         <tr>
                           <th scope="col">Month</th>
@@ -2314,9 +2315,9 @@ export function PrintReport({
                           </tr>
                         ))}
                       </tbody>
-                    </table>
+                    </PrintTable>
                   </div>
-                </article>
+                </PrintSurface>
               ))}
 
               <h3 className="print-subhead">Loan Event History (Range)</h3>
@@ -2324,7 +2325,7 @@ export function PrintReport({
                 <p className="print-subnote">No loan events in selected range.</p>
               ) : (
                 <div className="print-table-wrap">
-                  <table className="print-table">
+                  <PrintTable className="print-table">
                     <thead>
                       <tr>
                         <th scope="col">Date</th>
@@ -2356,7 +2357,7 @@ export function PrintReport({
                         )
                       })}
                     </tbody>
-                  </table>
+                  </PrintTable>
                 </div>
               )}
             </>
@@ -2404,7 +2405,7 @@ export function PrintReport({
               </div>
 
               <div className="print-table-wrap">
-                <table className="print-table">
+                <PrintTable className="print-table">
                   <thead>
                     <tr>
                       <th scope="col">Account</th>
@@ -2442,7 +2443,7 @@ export function PrintReport({
                       </tr>
                     ))}
                   </tbody>
-                </table>
+                </PrintTable>
               </div>
 
               <h3 className="print-subhead">Transfer Summary (Range)</h3>
@@ -2450,7 +2451,7 @@ export function PrintReport({
                 <p className="print-subnote">No transfers in selected range.</p>
               ) : (
                 <div className="print-table-wrap">
-                  <table className="print-table">
+                  <PrintTable className="print-table">
                     <thead>
                       <tr>
                         <th scope="col">Date</th>
@@ -2471,7 +2472,7 @@ export function PrintReport({
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </PrintTable>
                 </div>
               )}
 
@@ -2480,7 +2481,7 @@ export function PrintReport({
                 <p className="print-subnote">No reconciliation checks in selected range.</p>
               ) : (
                 <div className="print-table-wrap">
-                  <table className="print-table">
+                  <PrintTable className="print-table">
                     <thead>
                       <tr>
                         <th scope="col">Account</th>
@@ -2505,7 +2506,7 @@ export function PrintReport({
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </PrintTable>
                 </div>
               )}
             </>
@@ -2545,7 +2546,7 @@ export function PrintReport({
 
               <h3 className="print-subhead">Goal Portfolio</h3>
               <div className="print-table-wrap">
-                <table className="print-table">
+                <PrintTable className="print-table">
                   <thead>
                     <tr>
                       <th scope="col">Goal</th>
@@ -2597,12 +2598,12 @@ export function PrintReport({
                       )
                     })}
                   </tbody>
-                </table>
+                </PrintTable>
               </div>
 
               <h3 className="print-subhead">Milestones + Completion Forecasts</h3>
               <div className="print-table-wrap">
-                <table className="print-table">
+                <PrintTable className="print-table">
                   <thead>
                     <tr>
                       <th scope="col">Goal</th>
@@ -2638,7 +2639,7 @@ export function PrintReport({
                       )
                     })}
                   </tbody>
-                </table>
+                </PrintTable>
               </div>
 
               <h3 className="print-subhead">Contribution History (Range)</h3>
@@ -2646,7 +2647,7 @@ export function PrintReport({
                 <p className="print-subnote">No goal contributions recorded in selected range.</p>
               ) : (
                 <div className="print-table-wrap">
-                  <table className="print-table">
+                  <PrintTable className="print-table">
                     <thead>
                       <tr>
                         <th scope="col">When</th>
@@ -2673,7 +2674,7 @@ export function PrintReport({
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </PrintTable>
                 </div>
               )}
 
@@ -2704,7 +2705,7 @@ export function PrintReport({
                 <p className="print-subnote">No annual goal review rows available.</p>
               ) : (
                 <div className="print-table-wrap">
-                  <table className="print-table">
+                  <PrintTable className="print-table">
                     <thead>
                       <tr>
                         <th scope="col">Goal</th>
@@ -2727,7 +2728,7 @@ export function PrintReport({
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </PrintTable>
                 </div>
               )}
 
@@ -2738,7 +2739,7 @@ export function PrintReport({
                     <p className="print-subnote">No goal events in selected range.</p>
                   ) : (
                     <div className="print-table-wrap">
-                      <table className="print-table">
+                      <PrintTable className="print-table">
                         <thead>
                           <tr>
                             <th scope="col">When</th>
@@ -2786,7 +2787,7 @@ export function PrintReport({
                             )
                           })}
                         </tbody>
-                      </table>
+                      </PrintTable>
                     </div>
                   )}
                 </>
@@ -2865,7 +2866,7 @@ export function PrintReport({
             <p className="print-subnote">No reconciliation close rows for selected range.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">Month</th>
@@ -2898,7 +2899,7 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
 
@@ -2907,7 +2908,7 @@ export function PrintReport({
             <p className="print-subnote">No reconciliation exceptions in selected range.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">When</th>
@@ -2928,7 +2929,7 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
         </section>
@@ -2964,7 +2965,7 @@ export function PrintReport({
             <p className="print-subnote">No saved planning assumptions in this range.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">Month</th>
@@ -2992,7 +2993,7 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
 
@@ -3001,7 +3002,7 @@ export function PrintReport({
             <p className="print-subnote">No forecast windows available.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">Window</th>
@@ -3022,7 +3023,7 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
 
@@ -3031,7 +3032,7 @@ export function PrintReport({
             <p className="print-subnote">No variance rows available in this range.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">Category</th>
@@ -3052,7 +3053,7 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
 
@@ -3061,7 +3062,7 @@ export function PrintReport({
             <p className="print-subnote">No planning execution tasks in this range.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">Month</th>
@@ -3082,7 +3083,7 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
 
@@ -3091,7 +3092,7 @@ export function PrintReport({
             <p className="print-subnote">No planning audit events in this range.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">When</th>
@@ -3114,7 +3115,7 @@ export function PrintReport({
                     )
                   })}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
         </section>
@@ -3137,7 +3138,7 @@ export function PrintReport({
                       <p className="print-month-total">{formatMoney(monthTotal)}</p>
                     </div>
                     <div className="print-table-wrap">
-                      <table className="print-table">
+                      <PrintTable className="print-table">
                         <thead>
                           <tr>
                             <th scope="col">Date</th>
@@ -3160,7 +3161,7 @@ export function PrintReport({
                             </tr>
                           ))}
                         </tbody>
-                      </table>
+                      </PrintTable>
                     </div>
                   </div>
                 )
@@ -3175,7 +3176,7 @@ export function PrintReport({
                 <p className="print-subnote">No purchase mutation history in selected range.</p>
               ) : (
                 <div className="print-table-wrap">
-                  <table className="print-table">
+                  <PrintTable className="print-table">
                     <thead>
                       <tr>
                         <th scope="col">When</th>
@@ -3196,7 +3197,7 @@ export function PrintReport({
                         </tr>
                       ))}
                     </tbody>
-                  </table>
+                  </PrintTable>
                 </div>
               )}
             </>
@@ -3213,7 +3214,7 @@ export function PrintReport({
             <p className="print-subnote">No cycle runs in range.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">Cycle Key</th>
@@ -3236,7 +3237,7 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
 
@@ -3245,7 +3246,7 @@ export function PrintReport({
             <p className="print-subnote">No purchase month close runs in range.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">Month</th>
@@ -3272,7 +3273,7 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
 
@@ -3281,7 +3282,7 @@ export function PrintReport({
             <p className="print-subnote">No cycle audit logs in range.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">Cycle Key</th>
@@ -3306,7 +3307,7 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
 
@@ -3315,7 +3316,7 @@ export function PrintReport({
             <p className="print-subnote">No finance audit events in range.</p>
           ) : (
             <div className="print-table-wrap">
-              <table className="print-table">
+              <PrintTable className="print-table">
                 <thead>
                   <tr>
                     <th scope="col">Entity</th>
@@ -3334,11 +3335,11 @@ export function PrintReport({
                     </tr>
                   ))}
                 </tbody>
-              </table>
+              </PrintTable>
             </div>
           )}
         </section>
       ) : null}
-    </article>
+    </PrintSurface>
   )
 }

@@ -113,7 +113,10 @@ function CrudLabel({
   const preserveCustomLayout =
     rawClassName.includes('checkbox-row') ||
     rawClassName.includes('cards-') ||
-    rawClassName.includes('mobile-edit-field')
+    rawClassName.includes('mobile-edit-field') ||
+    rawClassName.includes('form-field') ||
+    rawClassName.includes('modal-') ||
+    rawClassName.includes('reconcile-')
 
   return (
     <Label
